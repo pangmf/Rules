@@ -137,7 +137,7 @@ proxy-providers:
       
   Sakura: # 机场订阅链接
     type: http
-    url: "https://subscribe.connect-node.net/link/RgamA4rQOZ1Iaeua?clash=1"
+    url: "https://suo.yt/fHF54Xd"
     interval: 864000
     path: ./Proxy/Sakura.yaml # 不同机场不同命名
     health-check:

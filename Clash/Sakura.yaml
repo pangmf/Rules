@@ -1,0 +1,1164 @@
+proxies:
+  -
+    name: '乌克兰 基辅 | V1 | 广州出口 | 东欧'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13001
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: ukr-44.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: ukr-44.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: ukr-44.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '乌克兰 基辅 | V2 | IEPL | 东欧'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1618
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: ukr-44.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '俄罗斯 新西伯利亚 | V1 | 深圳出口 | BT下载'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10013
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: ru-23.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: ru-23.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: ru-23.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '俄罗斯 新西伯利亚 | V2 | IEPL | 东欧'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1616
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: ru-23.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '加拿大 多伦多 | V1 | 深圳出口 | 北美洲'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10005
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: ca-33.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: ca-33.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: ca-33.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '加拿大 多伦多 | V2 | IEPL | 北美洲'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1605
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: ca-33.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '印度 孟买 | V1 | 广州出口 | 南亚'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13005
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: in-08.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: in-08.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: in-08.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '印度 孟买 | V2 | IEPL | 南亚'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1622
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: in-30.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '印度尼西亚 | V1 | 广州出口 | 原生印尼媒'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13012
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: id-45.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: id-45.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: id-45.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '印度尼西亚 | V2 | IEPL | 原生印尼媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1629
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: id-45.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '台湾 | V1 | 广州出口 | 原生台媒'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13003
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: tw-09.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: tw-09.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: tw-09.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '台湾 | V1 | 深圳出口 | 原生台媒'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10008
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: tw-09.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: tw-09.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: tw-09.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '台湾 | V2 | IEPL | 原生台媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1615
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: tw-09.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '土耳其 布尔萨 | V1 | 广州出口 | 中东'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13006
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: tr-14.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: tr-14.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: tr-14.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '土耳其 布尔萨 | V2 | IEPL | 中东'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1623
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: tr-14.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '墨西哥 | V1 | 深圳出口 | 南美洲'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10016
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: mx-52.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: mx-52.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: mx-52.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '墨西哥 | V2 | IEPL | 南美洲'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1610
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: mx-52.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '德国 法兰克福 | V1 | 广州出口 | 西欧'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13010
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: de-15.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: de-15.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: de-15.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '德国 法兰克福 | V2 | IEPL | 西欧'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1627
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: de-15.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '新加坡 | V1 | 广州出口 | NF'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13000
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: sg-07.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: sg-07.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: sg-07.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '新加坡 | V1 | 广州出口 | 亚马逊骨干'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13016
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: sg-63.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: sg-63.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: sg-63.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '新加坡 | V1 | 深圳出口 | NF'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10002
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: sg-07.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: sg-07.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: sg-07.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '新加坡 | V1 | 深圳出口 | 甲骨文骨干'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10019
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: sg-62.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: sg-62.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: sg-62.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '新加坡 | V2 | IEPL | NF'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1602
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: sg-11.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '新加坡 | V2 | IEPL | 亚马逊骨干'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1626
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: sg-66.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '新加坡 | V2 | IEPL | 甲骨文骨干'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1619
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: sg-65.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '新加坡 | 公益 | Anycast'
+    type: vmess
+    server: pw-sg.connect-node.edu.kg
+    port: 8443
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: pw-sg.connect-node.edu.kg
+    network: ws
+    ws-opts:
+      path: /web
+      headers: { Host: pw-sg.connect-node.edu.kg }
+    ws-path: /web
+    ws-headers:
+      Host: pw-sg.connect-node.edu.kg
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '日本 东京 | V1 | 广州出口 | 原生日媒'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13002
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: jp-06.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: jp-06.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: jp-06.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '日本 东京 | V1 | 广州出口 | 日媒'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13014
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: jp-13.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: jp-13.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: jp-13.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '日本 东京 | V1 | 深圳出口 | 原生日媒'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10000
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: jp-06.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: jp-06.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: jp-06.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '日本 东京 | V1 | 深圳出口 | 微软骨干'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10015
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: jp-04.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: jp-04.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: jp-04.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '日本 东京 | V1 | 深圳出口 | 日媒'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10001
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: jp-13.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: jp-13.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: jp-13.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '日本 东京 | V2 | IEPL | 原生日媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1600
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: jp-31.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '日本 东京 | V2 | IEPL | 微软骨干'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1608
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: jp-34.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '日本 东京 | V2 | IEPL | 日媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1601
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: jp-16.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '法国 巴黎 | V1 | 广州出口 | 西欧'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13008
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: fr-21.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: fr-21.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: fr-21.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '法国 巴黎 | V2 | IEPL | 西欧'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1625
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: fr-21.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '泰国 暖武里府 | V1 | 广州出口 | NF'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13015
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: th-60.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: th-60.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: th-60.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '泰国 暖武里府 | V2 | IEPL | NF'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1630
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: th-60.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '澳大利亚 悉尼 | V1 | 广州出口 | 大洋洲'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13011
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: au-22.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: au-22.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: au-22.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '澳大利亚 悉尼 | V2 | IEPL | 大洋洲'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1628
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: au-22.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '瑞典 斯德哥尔摩 | V1 | 深圳出口 | 原生媒体'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10014
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: se-51.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: se-51.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: se-51.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '瑞典 斯德哥尔摩 | V2 | IEPL | 原生媒体'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1607
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: se-51.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '美国 圣路易斯 | V1 | 广州出口 | 原生美媒'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13009
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: usa-12.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: usa-12.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: usa-12.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '美国 圣路易斯 | V1 | 深圳出口 | 原生美媒'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10006
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: usa-12.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: usa-12.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: usa-12.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '美国 圣路易斯 | V2 | IEPL | 原生美媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1612
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: usa-12.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '美国 圣路易斯 | 公益 | Anycast'
+    type: vmess
+    server: pw-usa.connect-node.edu.kg
+    port: 8443
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: pw-usa.connect-node.edu.kg
+    network: ws
+    ws-opts:
+      path: /web
+      headers: { Host: pw-usa.connect-node.edu.kg }
+    ws-path: /web
+    ws-headers:
+      Host: pw-usa.connect-node.edu.kg
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '美国 洛杉矶 | V1 | 深圳出口 | 美媒'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10007
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: usa-27.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: usa-27.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: usa-27.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '美国 洛杉矶 | V2 | IEPL | 美媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1611
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: usa-27.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '美国 西雅图 | V1 | 深圳出口 | 美媒'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10010
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: usa-48.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: usa-48.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: usa-48.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '美国 西雅图 | V2 | IEPL | 美媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1606
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: usa-48.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '英国 伦敦 | V1 | 深圳出口 | 原生英媒'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10012
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: uk-17.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: uk-17.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: uk-17.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '英国 伦敦 | V2 | IEPL | 原生英媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1614
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: uk-17.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '荷兰 阿姆斯特丹 | V1 | 深圳出口 | 西欧'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10003
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: nl-03.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: nl-03.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: nl-03.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '荷兰 阿姆斯特丹 | V2 | IEPL | 西欧'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1603
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: nl-03.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '菲律宾 马尼拉 | V1 | 广州出口 | 原生菲媒'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13007
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: phi-20.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: phi-20.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: phi-20.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '菲律宾 马尼拉 | V2 | IEPL | 原生菲媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1624
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: phi-20.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '阿根廷 | V1 | 深圳出口 | 低价购物'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10017
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: ar-61.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: ar-61.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: ar-61.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '阿根廷 | V2 | IEPL | 低价购物'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1617
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: ar-61.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '韩国 首尔 | V1 | 深圳出口 | 韩媒'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10011
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: kr-10.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: kr-10.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: kr-10.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '韩国 首尔 | V2 | IEPL | 韩媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1609
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: kr-10.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '韩国 首尔 | 公益 | Anycast'
+    type: vmess
+    server: pw-kr.connect-node.edu.kg
+    port: 8443
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: pw-kr.connect-node.edu.kg
+    network: ws
+    ws-opts:
+      path: /web
+      headers: { Host: pw-kr.connect-node.edu.kg }
+    ws-path: /web
+    ws-headers:
+      Host: pw-kr.connect-node.edu.kg
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '香港 | V1 | 广州出口 | 亚马逊骨干'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13004
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: hk-24.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: hk-24.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: hk-24.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '香港 | V1 | 广州出口 | 原生港媒'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13013
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: hk-25.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: hk-25.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: hk-25.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '香港 | V1 | 深圳出口 | 亚马逊骨干'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10018
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: hk-19.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: hk-19.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: hk-19.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '香港 | V1 | 深圳出口 | 原生港媒'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10004
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: hk-25.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: hk-25.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: hk-25.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '香港 | V1 | 深圳出口 | 微软骨干'
+    type: vmess
+    server: apn-a.point.mysynology.net
+    port: 10009
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: hk-28.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: hk-28.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: hk-28.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '香港 | V2 | IEPL | 亚马逊骨干 | 1号'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1620
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: hk-43.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '香港 | V2 | IEPL | 亚马逊骨干 | 2号'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1621
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: hk-50.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '香港 | V2 | IEPL | 原生港媒'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1604
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: hk-25.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '香港 | V2 | IEPL | 微软骨干'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1613
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: hk-29.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '马来西亚 吉隆坡 | V1 | 广州出口 | 东南亚'
+    type: vmess
+    server: apn-b.point.mysynology.net
+    port: 13017
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: my-69.zhongshanshan.top
+    network: ws
+    ws-opts:
+      path: /video.mp4
+      headers: { Host: my-69.zhongshanshan.top }
+    ws-path: /video.mp4
+    ws-headers:
+      Host: my-69.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false
+  -
+    name: '马来西亚 吉隆坡 | V2 | IEPL | 东南亚'
+    type: vmess
+    server: apn-c.point.mysynology.net
+    port: 1631
+    uuid: 2fd45685-aad2-341b-b280-94090d069a56
+    alterId: 0
+    cipher: auto
+    udp: true
+    servername: my-69.zhongshanshan.top
+    tls: true
+    skip-cert-verify: false

@@ -1,4 +1,4 @@
-【央视频道】
+
 CCTV-1综合,http://cache.ott.fifalive.itv.cmvideo.cn:80/1000000001000021973/1.m3u8?Contentid=1000000001000021973&livemode=1&stbId=3&channel-id=ystenlive
 CCTV-1综合,http://111.20.33.93/PLTV/88888893/224/3221226010/index.m3u8
 CCTV-1综合,http://111.20.33.93/TVOD/88888893/224/3221226231/index.m3u8

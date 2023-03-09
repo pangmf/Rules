@@ -579,7 +579,7 @@ rules:
 - RULE-SET,ViuTV,GlobalTV
 
 - RULE-SET,Telegram,Proxy
-- RULE-SET,Steam,Others
+- RULE-SET,Steam,DIRECT
 - RULE-SET,Speedtest,Others
 - RULE-SET,PayPal,Others
 - RULE-SET,Microsoft,Others

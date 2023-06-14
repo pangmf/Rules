@@ -68,8 +68,8 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://sub.xeton.dev/sub?target=clash&url=请手动填入你的订阅[多机场订阅用|分割即可]&list=true&udp=false 
-    path: ./proxy_providers/tmp.yaml
+    url: https://sub.xeton.dev/sub?target=clash&url=https://subscribe.connect-node.net/link/RgamA4rQOZ1Iaeua?clash=1&list=true&udp=false 
+    path: ./proxy_providers/Sakura.yaml
 
 
 proxies: null

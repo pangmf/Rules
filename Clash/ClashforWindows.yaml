@@ -68,13 +68,8 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://sub.xeton.dev/sub?target=clash&url=https://subscribe.connect-node.net/link/RgamA4rQOZ1Iaeua?clash=1&list=true&udp=false 
-    path: ./proxy_providers/Sakura.yaml
-    
-    <<: *a1
     url: https://qhcy.cc/api/v1/client/subscribe?token=08dc2aeae09329b986e6a3a9d4474952&flag=clash
     path: ./proxy_providers/qhcy.yaml
-
 
 proxies: null
 proxy-groups:

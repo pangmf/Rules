@@ -68,7 +68,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://sub.q5wrff7jtkdg23.top/api/v1/client/subscribe?token=08dc2aeae09329b986e6a3a9d4474952
+    url: https://suo.yt/JDXgnn1
     path: ./proxy_providers/qhcy.yaml
 
 proxies: null

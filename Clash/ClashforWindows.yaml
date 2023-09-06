@@ -68,8 +68,8 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://suo.yt/JDXgnn1
-    path: ./proxy_providers/qhcy.yaml
+    url: https://www.mysubsoft.com/api/v1/client/subscribe?token=8457cb7abba437c45564e8957c9b9b1b
+    path: ./proxy_providers/kele.yaml
 
 proxies: null
 proxy-groups:

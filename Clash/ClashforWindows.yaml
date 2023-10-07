@@ -68,7 +68,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://www.mysubsoft.com/api/v1/client/subscribe?token=8457cb7abba437c45564e8957c9b9b1b
+    url: https://api.subforjc.xyz/api/v1/client/subscribe?token=08dc2aeae09329b986e6a3a9d4474952
     path: ./proxy_providers/kele.yaml
 
 proxies: null

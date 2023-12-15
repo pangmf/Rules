@@ -68,7 +68,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://sub.sanfen010.xyz/api/v1/client/subscribe?token=0b1522f40cd2dd41b74fd328dd1beed8&flag=clash
+    url: https://sub.sanfen017.xyz/api/v1/client/subscribe?token=0b1522f40cd2dd41b74fd328dd1beed8&flag=clash
     path: ./proxy_providers/sfjc.yaml
 
 proxies: null

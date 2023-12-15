@@ -68,7 +68,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: http://api.acaisbest.shop/api/v1/client/subscribe?token=1ef3d2be2c071f6b6c1499b6d86460aa
+    url: https://suo.yt/9Qexyhg
     path: ./proxy_providers/ACA.yaml
 
 proxies: null

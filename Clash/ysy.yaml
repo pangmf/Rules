@@ -68,8 +68,8 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://suo.yt/XxjsM5o
-    path: ./proxy_providers/qhcy.yaml
+    url: https://sub2.download-hiccup.xyz/api/v1/client/subscribe?token=915f688cd8672873dd70a2cb65252744
+    path: ./proxy_providers/ysy.yaml
 
 proxies: null
 proxy-groups:

@@ -68,7 +68,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://suo.yt/9Qexyhg
+    url: https://suo.yt/rF6KSm0
     path: ./proxy_providers/ACA.yaml
 
 proxies: null

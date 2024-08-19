@@ -68,7 +68,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://suo.yt/rF6KSm0
+    url: https://api.wcc.best/sub?target=clash&url=https%3A%2F%2Fapi.acaisbest.online%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3D1ef3d2be2c071f6b6c1499b6d86460aa&insert=false&emoji=true&list=true&tfo=false&scv=true&fdn=true&expand=true&sort=false&new_name=true
     path: ./proxy_providers/ACA.yaml
 
 proxies: null

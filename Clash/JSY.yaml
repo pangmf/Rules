@@ -68,8 +68,8 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://api.wcc.best/sub?target=clash&url=https%3A%2F%2Fdadada.acaisbest.com%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3Dd930f81ce86b728667e4bf2a1ddd3d35&insert=false&emoji=true&list=true&tfo=false&scv=true&fdn=false&expand=true&sort=false&new_name=true   
-    path: ./proxy_providers/ACA.yaml
+    url: https://api.wcc.best/sub?target=clash&url=https%3A%2F%2Fsub3.haiqilai.lol%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3Dc723c73198bb154fc5700ceed587efea&insert=false&emoji=true&list=false&tfo=false&scv=true&fdn=false&expand=true&sort=false&new_name=true   
+    path: ./proxy_providers/JSY.yaml
 
 proxies: null
 proxy-groups:

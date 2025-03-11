@@ -65,11 +65,11 @@ c:    &a6 {type: http,     behavior: classical, interval: 86400}
 d:    &a5 {type: http,     behavior: domain,    interval: 86400}
 i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 
-# https://sub-web.netlify.app/
+# https://sub.dler.io/
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://suo.yt/cqTVZHX
+    url: https://suo.yt/63seo7y
     path: ./proxy_providers/ysy.yaml
 
 proxies: null

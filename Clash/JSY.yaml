@@ -69,7 +69,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://suo.yt/xOTU0bo
+    url: https://suo.yt/e06FSCy
     path: ./proxy_providers/JSY.yaml
 
 proxies: null

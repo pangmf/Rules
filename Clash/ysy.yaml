@@ -69,7 +69,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://api.dler.io/sub?target=clash&url=https%3A%2F%2F45.137.180.216%2Fapi%2Fv1%2Fclient%2Fnyth%3Ftoken%3D915f688cd8672873dd70a2cb65252744&insert=false&include=test&filename=ysy.yaml&append_type=true&emoji=true&list=true&tfo=false&scv=true&fdn=true&expand=true&sort=false&new_name=true
+    url: https://api.dler.io/sub?target=clash&url=https%3A%2F%2F45.137.180.216%2Fapi%2Fv1%2Fclient%2Fnyth%3Ftoken%3D915f688cd8672873dd70a2cb65252744&insert=false&exclude=Text&emoji=true&list=true&tfo=false&scv=true&fdn=true&expand=true&sort=false&new_name=true&Exclude=Game
     path: ./proxy_providers/ysy.yaml
 
 proxies: null

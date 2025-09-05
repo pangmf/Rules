@@ -1,0 +1,52 @@
+proxies:
+    - { name: '剩余流量：260.62 GB', type: ss, server: zz-hk1.juse168.com, port: 18461, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: 套餐到期：长期有效, type: ss, server: zz-hk1.juse168.com, port: 18461, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇭🇰 Hong Kong 01', type: ss, server: zz-hk1.juse168.com, port: 18461, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇭🇰 Hong Kong 02', type: ss, server: zz-hk2.juse168.com, port: 58329, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇭🇰 Hong Kong 03', type: ss, server: zz-hk3.juse168.com, port: 24246, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇭🇰 Hong Kong 04', type: ss, server: zz-hk4.juse168.com, port: 56285, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇭🇰 Hong Kong 05', type: ss, server: zz-hk5.juse168.com, port: 26077, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇭🇰 Hong Kong 06', type: ss, server: zz-hk6.juse168.com, port: 14204, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇭🇰 Hong Kong 07', type: ss, server: zz-hk7.juse168.com, port: 50993, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇭🇰 Hong Kong 08', type: ss, server: zz-hk8.juse168.com, port: 46435, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇭🇰 Hong Kong 09', type: ss, server: zz-hk9.juse168.com, port: 32824, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇭🇰 Hong Kong 10', type: ss, server: zz-hk10.juse168.com, port: 38241, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇨🇳 Taiwan 01', type: ss, server: zz-tw1.juse168.com, port: 16159, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇨🇳 Taiwan 02', type: ss, server: zz-tw2.juse168.com, port: 54975, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇨🇳 Taiwan 03', type: ss, server: zz-tw3.juse168.com, port: 43258, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇨🇳 Taiwan 04', type: ss, server: zz-tw4.juse168.com, port: 61066, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇨🇳 Taiwan 05', type: ss, server: zz-tw5.juse168.com, port: 61068, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇸🇬 Singapore 01', type: ss, server: zz-sg1.juse168.com, port: 43351, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇸🇬 Singapore 02', type: ss, server: zz-sg2.juse168.com, port: 26391, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇸🇬 Singapore 03', type: ss, server: zz-sg3.juse168.com, port: 33791, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇸🇬 Singapore 04', type: ss, server: zz-sg4.juse168.com, port: 21196, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇸🇬 Singapore 05', type: ss, server: zz-sg5.juse168.com, port: 29427, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇸🇬 Singapore 06', type: ss, server: zz-sg6.juse168.com, port: 51751, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇸🇬 Singapore 07', type: ss, server: zz-sg7.juse168.com, port: 32201, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇸🇬 Singapore 08', type: ss, server: zz-sg8.juse168.com, port: 48236, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇸🇬 Singapore 09', type: ss, server: zz-sg9.juse168.com, port: 48326, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇸🇬 Singapore 10', type: ss, server: zz-sg10.juse168.com, port: 61576, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇯🇵  Japan 01', type: ss, server: zz-jp1.juse168.com, port: 31084, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇯🇵  Japan 02', type: ss, server: zz-jp2.juse168.com, port: 16607, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇯🇵  Japan 03', type: ss, server: zz-jp3.juse168.com, port: 57872, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇯🇵  Japan 04', type: ss, server: zz-jp4.juse168.com, port: 44527, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇯🇵  Japan  05', type: ss, server: zz-jp5.juse168.com, port: 50777, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇯🇵  Japan 07', type: ss, server: zz-jp.juse168.com, port: 46255, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇯🇵  Japan 08', type: ss, server: zz-jp.juse168.com, port: 36823, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇯🇵  Japan 06', type: ss, server: zz-jp6.juse168.com, port: 62456, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇯🇵  Japan 09', type: ss, server: zz-jp9.juse168.com, port: 56752, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇯🇵  Japan 10', type: ss, server: zz-jp10.juse168.com, port: 60742, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇺🇸 USA 01', type: ss, server: zz-us1.juse168.com, port: 53994, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇺🇸 USA 02', type: ss, server: zz-us2.juse168.com, port: 39465, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇺🇸 USA 03', type: ss, server: zz-us3.juse168.com, port: 49082, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇺🇸 USA 04', type: ss, server: zz-us4.juse168.com, port: 46200, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇺🇸 USA 05', type: ss, server: zz-us5.juse168.com, port: 21805, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇺🇸 USA 06', type: ss, server: zz-us6.juse168.com, port: 43180, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇺🇸 USA 07', type: ss, server: zz-us7.juse168.com, port: 61014, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇺🇸 USA 08', type: ss, server: zz-us8.juse168.com, port: 61015, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇺🇸 USA 09', type: ss, server: zz-us9.juse168.com, port: 61021, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇺🇸 USA 10', type: ss, server: zz-us10.juse168.com, port: 61035, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇬🇧  UK 01', type: ss, server: zz-uk.juse168.com, port: 45113, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇩🇪 FRG 01', type: ss, server: zz-frg.juse168.com, port: 25026, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇹🇷 Tur 01', type: ss, server: zz-tur.juse168.com, port: 30316, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '🇷🇺 Russ 01', type: ss, server: zz-ru.juse168.com, port: 25125, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }

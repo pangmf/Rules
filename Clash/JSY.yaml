@@ -69,7 +69,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://api.dler.io/sub?target=clash&url=https%3A%2F%2Fbd2i5k8y9r4vbnxt.jusesub.com%2Fjsysub%2Fc723c73198bb154fc5700ceed587efea&insert=false&filename=JSY.yaml&emoji=true&list=true&tfo=false&scv=true&fdn=true&expand=true&sort=false&new_name=true
+    url: https://api.dler.io/sub?target=clash&url=https%3A%2F%2Fa85vbbtd1dqv8lus.jusesub.com%2Fjsysub%2Fc723c73198bb154fc5700ceed587efea&insert=false&filename=JSY.yaml&emoji=true&list=true&tfo=false&scv=true&fdn=false&expand=true&sort=false&new_name=true
     path: ./proxy_providers/JSY.yaml
 
 proxies: null

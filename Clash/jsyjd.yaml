@@ -1,6 +1,4 @@
 proxies:
-  - {name: FRG 01, server: zz-frg.juse168.com, port: 25026, type: ss, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true}
-  - {name: Tur 01, server: zz-tur.juse168.com, port: 30316, type: ss, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true}
   - {name: 🇨🇳 Taiwan 01, server: zz-tw1.juse168.com, port: 16159, type: ss, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true}
   - {name: 🇨🇳 Taiwan 02, server: zz-tw2.juse168.com, port: 54975, type: ss, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true}
   - {name: 🇨🇳 Taiwan 03, server: zz-tw3.juse168.com, port: 43258, type: ss, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true}

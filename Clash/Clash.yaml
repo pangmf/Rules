@@ -61,7 +61,7 @@ dns:
 pr:   &a3 {type: select,   proxies: [♻️ 自动选择, 🚀 手动切换, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, 🇸🇬 狮城节点, DIRECT] }
 p:    &a1 {type: http,     interval: 86400,  health-check: {enable: true, url: http://www.gstatic.com/generate_204, interval: 1800} }
 auto: &a4 {type: url-test, lazy: true,  url: http://www.gstatic.com/generate_204, interval: 900, use: [Sub1,Sub2] }
-use:  &a2 {type: select,   use: [Sub1,Sub2] }
+use:  &a2 {type: select,   use: [Sub1,Sub2,Sub3] }
 c:    &a6 {type: http,     behavior: classical, interval: 86400}
 d:    &a5 {type: http,     behavior: domain,    interval: 86400}
 i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
@@ -76,6 +76,10 @@ proxy-providers:
     <<: *a1
     url: https://gh-proxy.com/https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/ysyjd.yaml
     path: ./proxy_providers/YSY.yaml
+  Sub3:
+    <<: *a1
+    url: https://gh-proxy.com/https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/Kittyjd.yaml
+    path: ./proxy_providers/KN.yaml
     # URL后面填写格式1: 直接填写你的机场Clash订阅[推荐此种方式，避免订阅泄露
     # URL后面填写格式2[集合订阅]：https://api.nexconvert.com/sub?target=clash&url=请手动填入你的订阅(多机场订阅用|分割即可)&emoji=true&list=true&new_name=true&udp=false
 

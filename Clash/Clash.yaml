@@ -70,15 +70,15 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Sub1:
     <<: *a1
-    url: https://gh-proxy.com/https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/jsyjd.yaml
+    url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/jsyjd.yaml
     path: ./proxy_providers/JSY.yaml
   Sub2:
     <<: *a1
-    url: https://gh-proxy.com/https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/ysyjd.yaml
+    url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/ysyjd.yaml
     path: ./proxy_providers/YSY.yaml
   Sub3:
     <<: *a1
-    url: https://gh-proxy.com/https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/Kittyjd.yaml
+    url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/Kittyjd.yaml
     path: ./proxy_providers/KN.yaml
     # URL后面填写格式1: 直接填写你的机场Clash订阅[推荐此种方式，避免订阅泄露
     # URL后面填写格式2[集合订阅]：https://api.nexconvert.com/sub?target=clash&url=请手动填入你的订阅(多机场订阅用|分割即可)&emoji=true&list=true&new_name=true&udp=false

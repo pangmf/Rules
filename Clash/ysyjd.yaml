@@ -1,34 +1,33 @@
 proxies:
-    - { name: '🇭🇰 香港 01', type: trojan, server: gohk1.qduoduo.xyz, port: 12722, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇭🇰 香港 02', type: trojan, server: gohk2.qduoduo.xyz, port: 12731, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇭🇰 香港 03', type: trojan, server: gohk3.qduoduo.xyz, port: 16258, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇭🇰 香港 04', type: trojan, server: gohk4.qduoduo.xyz, port: 31440, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇭🇰 香港 05', type: trojan, server: gohk5.qduoduo.xyz, port: 27896, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇭🇰 香港 06 [Home]', type: trojan, server: gohk6.qduoduo.xyz, port: 24572, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇯🇵 日本 01', type: trojan, server: gojp1.qduoduo.xyz, port: 13493, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇯🇵 日本 02', type: trojan, server: gojp2.qduoduo.xyz, port: 21494, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇯🇵 日本 03', type: trojan, server: gojp3.qduoduo.xyz, port: 32441, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇨🇳 台湾 01', type: trojan, server: gotw1.qduoduo.xyz, port: 32076, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇨🇳 台湾 02', type: trojan, server: gotw2.qduoduo.xyz, port: 16272, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇨🇳 台湾 03', type: trojan, server: gotw3.qduoduo.xyz, port: 18250, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇨🇳 台湾 04 [Home]', type: trojan, server: gotw3.qduoduo.xyz, port: 47203, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇸🇬 新加坡 01', type: trojan, server: gosg1.qduoduo.xyz, port: 28424, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇸🇬 新加坡 02', type: trojan, server: gosg2.qduoduo.xyz, port: 23580, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇸🇬 新加坡 03', type: trojan, server: gosg3.qduoduo.xyz, port: 25236, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇺🇸 美国 01', type: trojan, server: gous1.qduoduo.xyz, port: 34826, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇺🇸 美国 02', type: trojan, server: gous2.qduoduo.xyz, port: 31682, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇨🇦 加拿大', type: trojan, server: gokr.qduoduo.xyz, port: 46230, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇮🇳 印度', type: trojan, server: goeu.qduoduo.xyz, port: 46233, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇰🇷 韩国 01', type: trojan, server: gokr.qduoduo.xyz, port: 15345, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇰🇷 韩国 02', type: trojan, server: gokr.qduoduo.xyz, port: 15893, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇦🇷 阿根廷', type: trojan, server: gokr.qduoduo.xyz, port: 33578, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇬🇧 英国', type: trojan, server: goeu.qduoduo.xyz, port: 45576, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇩🇪 德国', type: trojan, server: goeu.qduoduo.xyz, port: 45577, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇹🇷 土耳其', type: trojan, server: goeu.qduoduo.xyz, port: 28212, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
-    - { name: '🇭🇰 香港 [Premium]', type: ss, server: cphk.qduoduo.xyz, port: 14802, cipher: chacha20-ietf-poly1305, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }
-    - { name: '🇨🇳 台湾 [Premium]', type: ss, server: cphk.qduoduo.xyz, port: 30238, cipher: chacha20-ietf-poly1305, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }
-    - { name: '🇸🇬 新加坡 [Premium]', type: ss, server: cphk.qduoduo.xyz, port: 22268, cipher: chacha20-ietf-poly1305, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }
-    - { name: '🇯🇵 日本 [Premium]', type: ss, server: cpjp.qduoduo.xyz, port: 19560, cipher: chacha20-ietf-poly1305, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }
-    - { name: '🇺🇸 美国 [Premium]', type: ss, server: cpjp.qduoduo.xyz, port: 33466, cipher: chacha20-ietf-poly1305, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }
+    - { name: '🇭🇰 香港 01', type: trojan, server: gohk1.fireduocc.com, port: 12722, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇭🇰 香港 02', type: trojan, server: gohk2.fireduocc.com, port: 12731, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇭🇰 香港 03', type: trojan, server: gohk3.fireduocc.com, port: 16258, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇭🇰 香港 04', type: trojan, server: gohk4.fireduocc.com, port: 31440, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇭🇰 香港 05', type: trojan, server: gohk5.fireduocc.com, port: 27896, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇭🇰 香港 06 [Home]', type: trojan, server: gohk6.fireduocc.com, port: 24572, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇯🇵 日本 01', type: trojan, server: gojp1.fireduocc.com, port: 13493, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇯🇵 日本 02', type: trojan, server: gojp2.fireduocc.com, port: 21494, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇯🇵 日本 03', type: trojan, server: gojp3.fireduocc.com, port: 32441, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇨🇳 台湾 01', type: trojan, server: gotw1.fireduocc.com, port: 32076, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇨🇳 台湾 02', type: trojan, server: gotw2.fireduocc.com, port: 16272, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇨🇳 台湾 03', type: trojan, server: gotw3.fireduocc.com, port: 18250, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇨🇳 台湾 04 [Home]', type: trojan, server: gotw3.fireduocc.com, port: 47203, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇸🇬 新加坡 01', type: trojan, server: gosg1.fireduocc.com, port: 28424, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇸🇬 新加坡 02', type: trojan, server: gosg2.fireduocc.com, port: 23580, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇸🇬 新加坡 03', type: trojan, server: gosg3.fireduocc.com, port: 25236, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇺🇸 美国 01', type: trojan, server: gous1.fireduocc.com, port: 34826, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇺🇸 美国 02', type: trojan, server: gous2.fireduocc.com, port: 31682, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇨🇦 加拿大', type: trojan, server: gokr.fireduocc.com, port: 46230, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇰🇷 韩国 01', type: trojan, server: gokr.fireduocc.com, port: 15345, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇰🇷 韩国 02', type: trojan, server: gokr.fireduocc.com, port: 15893, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇦🇷 阿根廷', type: trojan, server: gokr.fireduocc.com, port: 33578, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇬🇧 英国', type: trojan, server: goeu.fireduocc.com, port: 45576, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇩🇪 德国', type: trojan, server: goeu.fireduocc.com, port: 45577, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇹🇷 土耳其', type: trojan, server: goeu.fireduocc.com, port: 28212, password: 27041395-e812-4405-bf79-63dfae665076, udp: true, skip-cert-verify: true, sni: api.amemv.com, network: tcp }
+    - { name: '🇭🇰 香港 [Premium]', type: ss, server: cphk.fireduocc.com, port: 14802, cipher: chacha20-ietf-poly1305, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }
+    - { name: '🇨🇳 台湾 [Premium]', type: ss, server: cphk.fireduocc.com, port: 30238, cipher: chacha20-ietf-poly1305, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }
+    - { name: '🇸🇬 新加坡 [Premium]', type: ss, server: cphk.fireduocc.com, port: 22268, cipher: chacha20-ietf-poly1305, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }
+    - { name: '🇯🇵 日本 [Premium]', type: ss, server: cpjp.fireduocc.com, port: 19560, cipher: chacha20-ietf-poly1305, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }
+    - { name: '🇺🇸 美国 [Premium]', type: ss, server: cpjp.fireduocc.com, port: 33466, cipher: chacha20-ietf-poly1305, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }
     - { name: '🇭🇰 HK IPLC | Game | 8x', type: vmess, server: iplchk1.capoonetwork.com, port: 10222, uuid: 27041395-e812-4405-bf79-63dfae665076, alterId: 0, cipher: auto, udp: true, network: tcp }
     - { name: '🇭🇰 HK IPLC 2| Game | 8x', type: ss, server: iplchk2.capoonetwork.com, port: 17935, cipher: aes-256-gcm, password: 27041395-e812-4405-bf79-63dfae665076, udp: true }

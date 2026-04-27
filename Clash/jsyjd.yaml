@@ -1,50 +1,47 @@
 proxies:
-    - { name: '🇭🇰 Hong Kong 01', type: ss, server: jsy-11b6-hk.juse168.com, port: 18461, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇭🇰 Hong Kong 02', type: ss, server: jsy-11b6-hk.juse168.com, port: 58329, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇭🇰 Hong Kong 03', type: ss, server: jsy-11b6-hk.juse168.com, port: 24246, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇭🇰 Hong Kong 04', type: ss, server: jsy-11b6-hk.juse168.com, port: 56285, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇭🇰 Hong Kong 05', type: ss, server: jsy-11b6-hk.juse168.com, port: 26077, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇭🇰 Hong Kong 06', type: ss, server: jsy-11b6-hk.juse168.com, port: 14204, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇭🇰 Hong Kong 07', type: ss, server: jsy-11b6-hk.juse168.com, port: 50993, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇭🇰 Hong Kong 08', type: ss, server: jsy-11b6-hk.juse168.com, port: 46435, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇭🇰 Hong Kong 09', type: ss, server: jsy-11b6-hk.juse168.com, port: 32824, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇭🇰 Hong Kong 10', type: ss, server: jsy-11b6-hk.juse168.com, port: 38241, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇨🇳 Taiwan 01', type: ss, server: jsy-11b6-tw.juse168.com, port: 16159, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇨🇳 Taiwan 02', type: ss, server: jsy-11b6-tw.juse168.com, port: 54975, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇨🇳 Taiwan 03', type: ss, server: jsy-11b6-tw.juse168.com, port: 43258, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇨🇳 Taiwan 04', type: ss, server: jsy-11b6-tw.juse168.com, port: 61066, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇨🇳 Taiwan 05', type: ss, server: jsy-11b6-tw.juse168.com, port: 61068, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇸🇬 Singapore 01', type: ss, server: jsy-11b6-sg.juse168.com, port: 43351, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇸🇬 Singapore 02', type: ss, server: jsy-11b6-sg.juse168.com, port: 26391, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇸🇬 Singapore 03', type: ss, server: jsy-11b6-sg.juse168.com, port: 33791, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇸🇬 Singapore 04', type: ss, server: jsy-11b6-sg.juse168.com, port: 21196, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇸🇬 Singapore 05', type: ss, server: jsy-11b6-sg.juse168.com, port: 29427, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇸🇬 Singapore 06', type: ss, server: jsy-11b6-sg.juse168.com, port: 51751, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇸🇬 Singapore 07', type: ss, server: jsy-11b6-sg.juse168.com, port: 32201, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇸🇬 Singapore 08', type: ss, server: jsy-11b6-sg.juse168.com, port: 48236, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇸🇬 Singapore 09', type: ss, server: jsy-11b6-sg.juse168.com, port: 48326, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇸🇬 Singapore 10', type: ss, server: jsy-11b6-sg.juse168.com, port: 61576, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇯🇵  Japan 01', type: ss, server: jsy-11b6-jp.juse168.com, port: 31084, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇯🇵  Japan 02', type: ss, server: jsy-11b6-jp.juse168.com, port: 16607, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇯🇵  Japan 03', type: ss, server: jsy-11b6-jp.juse168.com, port: 57872, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇯🇵  Japan 04', type: ss, server: jsy-11b6-jp.juse168.com, port: 44527, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇯🇵  Japan  05', type: ss, server: jsy-11b6-jp.juse168.com, port: 50777, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇯🇵  Japan 07', type: ss, server: jsy-11b6-jp.juse168.com, port: 46255, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇯🇵  Japan 08', type: ss, server: jsy-11b6-jp.juse168.com, port: 36823, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇯🇵  Japan 06', type: ss, server: jsy-11b6-jp.juse168.com, port: 62456, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇯🇵  Japan 09', type: ss, server: jsy-11b6-jp.juse168.com, port: 56752, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇯🇵  Japan 10', type: ss, server: jsy-11b6-jp.juse168.com, port: 60742, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇺🇸 USA 01', type: ss, server: jsy-11b6-us.juse168.com, port: 53994, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇺🇸 USA 02', type: ss, server: jsy-11b6-us.juse168.com, port: 39465, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇺🇸 USA 03', type: ss, server: jsy-11b6-us.juse168.com, port: 49082, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇺🇸 USA 04', type: ss, server: jsy-11b6-us.juse168.com, port: 46200, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇺🇸 USA 05', type: ss, server: jsy-11b6-us.juse168.com, port: 21805, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇺🇸 USA 06', type: ss, server: jsy-11b6-us.juse168.com, port: 43180, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇺🇸 USA 07', type: ss, server: jsy-11b6-us.juse168.com, port: 61014, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇺🇸 USA 08', type: ss, server: jsy-11b6-us.juse168.com, port: 61015, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇺🇸 USA 09', type: ss, server: jsy-11b6-us.juse168.com, port: 61021, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇺🇸 USA 10', type: ss, server: jsy-11b6-us.juse168.com, port: 61035, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇬🇧  UK 01', type: ss, server: jsy-11b6-ll.juse168.com, port: 45113, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇩🇪 FRG 01', type: ss, server: jsy-11b6-ll.juse168.com, port: 25026, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇹🇷 Tur 01', type: ss, server: jsy-11b6-ll.juse168.com, port: 30316, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
-    - { name: '🇷🇺 Russ 01', type: ss, server: jsy-11b6-ll.juse168.com, port: 25109, cipher: chacha20-ietf-poly1305, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true }
+    - { name: '剩余流量：156.08 GB', type: anytls, server: jsy.juse168.com, port: 51501, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: 套餐到期：长期有效, type: anytls, server: jsy.juse168.com, port: 51501, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇭🇰 Hong Kong 01', type: anytls, server: jsy.juse168.com, port: 51501, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇭🇰 Hong Kong 02', type: anytls, server: jsy.juse168.com, port: 51502, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇭🇰 Hong Kong 03', type: anytls, server: jsy.juse168.com, port: 51503, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇭🇰 Hong Kong 04', type: anytls, server: jsy.juse168.com, port: 51504, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇭🇰 Hong Kong 05', type: anytls, server: jsy.juse168.com, port: 51505, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇭🇰 Hong Kong 06', type: anytls, server: jsy.juse168.com, port: 51506, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇭🇰 Hong Kong 07', type: anytls, server: jsy.juse168.com, port: 51507, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇭🇰 Hong Kong 08', type: anytls, server: jsy.juse168.com, port: 51508, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇭🇰 Hong Kong 09', type: anytls, server: jsy.juse168.com, port: 51509, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇭🇰 Hong Kong 10', type: anytls, server: jsy.juse168.com, port: 51510, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇯🇵  Japan 01', type: anytls, server: jsy.juse168.com, port: 51521, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇯🇵  Japan 02', type: anytls, server: jsy.juse168.com, port: 51522, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇯🇵  Japan 03', type: anytls, server: jsy.juse168.com, port: 51523, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇯🇵  Japan 04', type: anytls, server: jsy.juse168.com, port: 51524, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇯🇵  Japan 05', type: anytls, server: jsy.juse168.com, port: 51525, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇯🇵  Japan 06', type: anytls, server: jsy.juse168.com, port: 51526, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇯🇵  Japan 07', type: anytls, server: jsy.juse168.com, port: 51527, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇯🇵  Japan 08', type: anytls, server: jsy.juse168.com, port: 51528, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇯🇵  Japan 09', type: anytls, server: jsy.juse168.com, port: 51529, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇯🇵  Japan 10', type: anytls, server: jsy.juse168.com, port: 51530, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇺🇸 USA 01', type: anytls, server: jsy.juse168.com, port: 51541, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇺🇸 USA 02', type: anytls, server: jsy.juse168.com, port: 51542, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇺🇸 USA 03', type: anytls, server: jsy.juse168.com, port: 51543, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇺🇸 USA 04', type: anytls, server: jsy.juse168.com, port: 51544, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇺🇸 USA 05', type: anytls, server: jsy.juse168.com, port: 51545, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇺🇸 USA 06', type: anytls, server: jsy.juse168.com, port: 51546, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇺🇸 USA 07', type: anytls, server: jsy.juse168.com, port: 51547, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇺🇸 USA 08', type: anytls, server: jsy.juse168.com, port: 51548, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇺🇸 USA 09', type: anytls, server: jsy.juse168.com, port: 51549, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇺🇸 USA 10', type: anytls, server: jsy.juse168.com, port: 51550, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇸🇬 Singapore 01', type: anytls, server: jsy.juse168.com, port: 51571, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇸🇬 Singapore 02', type: anytls, server: jsy.juse168.com, port: 51572, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇸🇬 Singapore 03', type: anytls, server: jsy.juse168.com, port: 51573, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇸🇬 Singapore 04', type: anytls, server: jsy.juse168.com, port: 51574, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇸🇬 Singapore 05', type: anytls, server: jsy.juse168.com, port: 51575, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇸🇬 Singapore 06', type: anytls, server: jsy.juse168.com, port: 51576, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇸🇬 Singapore 07', type: anytls, server: jsy.juse168.com, port: 51577, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇸🇬 Singapore 08', type: anytls, server: jsy.juse168.com, port: 51578, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇸🇬 Singapore 09', type: anytls, server: jsy.juse168.com, port: 51579, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇸🇬 Singapore 10', type: anytls, server: jsy.juse168.com, port: 51580, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇩🇪 FRG 01', type: anytls, server: jsy.juse168.com, port: 51581, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇹🇷 Tur 01', type: anytls, server: jsy.juse168.com, port: 51582, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇷🇺 Russ 01', type: anytls, server: jsy.juse168.com, port: 51583, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }
+    - { name: '🇬🇧 UK 01', type: anytls, server: jsy.juse168.com, port: 51584, password: c280576a-dd39-4275-b32e-c755e79f8d31, udp: true, sni: apple.com, skip-cert-verify: true }

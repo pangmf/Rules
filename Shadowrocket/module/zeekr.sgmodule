@@ -4,7 +4,7 @@
 [Script]
 zeekr = type=http-response, pattern=^https:\/\/api-gw-toc\.zeekrlife\.com\/zeekrlife-app-user\/v\d\/user\/info\/query$, script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js, requires-body=true, max-size=-1, timeout=60
 
-极氪自动签到 = type=cron,engine=jsc,script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js,cronexpr="30 6 * * *",timeout=1000,script-update-interval=0,enable=true
+极氪自动签到 = type=cron,engine=jsc,script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js,cronexpr="30 6 * * *",timeout=60,script-update-interval=0,enable=true
 
 [MITM]
 hostname = %APPEND% api-gw-toc.zeekrlife.com

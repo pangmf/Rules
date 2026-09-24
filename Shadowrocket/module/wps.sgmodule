@@ -5,4 +5,4 @@ hostname = personal-act.wps.cn
 
 [Script]
 WPS Cookie = type=http-request,pattern=^https:\/\/personal-act\.wps\.cn\/activity-rubik\/activity\/page_info,requires-body=false,max-size=0,script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.cookie.js
-WPS每日签到 = type=cron,cronexp=0 10 * * *,timeout=120,script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.js, timeout=120, wake-system=1
+WPS每日签到 = type=cron,engine=jsc,script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.js,cronexp=0 10 * * *,timeout=120,timeout=1000,script-update-interval=0,enable=true

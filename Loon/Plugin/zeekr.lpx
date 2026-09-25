@@ -1,0 +1,9 @@
+#!name=极氪汽车签到
+#!desc= 打开极氪app自动获取Token，收到通知即成功。
+#!author=pangmf
+#!homepage=https://github.com/pangmf/rules
+#!icon=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/paperclip.png
+#!tag=签到, Cookie
+
+[Argument]
+zeekr = switch,false,tag=极氪汽车,desc=打开极氪app自动触发

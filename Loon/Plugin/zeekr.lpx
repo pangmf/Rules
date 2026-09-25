@@ -7,3 +7,11 @@
 
 [Argument]
 zeekr = switch,false,tag=极氪汽车,desc=打开极氪app自动触发
+
+[Script]
+http-response ^https:\/\/api-gw-toc\.zeekrlife\.com\/zeekrlife-app-user\/v\d\/user\/info\/query$ tag=极氪汽车,script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js, requires-body=true, timeout=60, tag=zeekr
+
+cron "30 6 * * *" script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js, timeout=120, tag=极氪汽车签到
+
+[MITM]
+hostname = api-gw-toc.zeekrlife.com

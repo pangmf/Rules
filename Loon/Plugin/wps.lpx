@@ -1,13 +1,12 @@
-#!name=极氪汽车签到
-#!desc= 打开极氪app自动获取Token，收到通知即成功。
+#!name=WPS每日签到
+#!desc=WPS每日签到 + 福利中心(打卡/抽奖/会员试用申请/限量爆款领取)+ 小程序每日打卡,送积分与会员时长
 #!author=pangmf
 #!homepage=https://github.com/pangmf/rules
 #!icon=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/wps.png
 #!tag=签到, Cookie
 
 [Argument]
-wps = switch,false,tag=WPS Cookie,desc=打开极氪app自动触发
-
+wps = switch,false,tag=WPS Cookie,desc=抓取:打开「WPS」APP → 进任意活动页(任务中心/福利中心)→ 自动触发 page_info,抓 wps_sid
 
 [Script]
 http-request ^https:\/\/personal-act\.wps\.cn\/activity-rubik\/activity\/page_info tag=WPS Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.cookie.js, requires-body=false, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/wps.png, enable={wps}

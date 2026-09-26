@@ -1,0 +1,17 @@
+#!name=Google搜索重定向
+#!desc=将Google搜索cn/hk/jp等网址重定向至全球主站
+#!homepage=https://github.com/pangmf/Rules
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Google.png
+
+
+[MITM]
+hostname = *.googlevideo.com,*.g.cn,*.google.cn,*.google.com.hk,*.google.co.jp
+
+# ======= Google搜索重写  ======= #
+request if ${url} ~= /^https?:\/\/(www.)?g.cn/i then redirect(302, "https://www.google.com")
+request if ${url} ~= /^https?:\/\/(www.)?(g|google)\.cn/i then redirect(302, "https://www.google.com")
+request if ${url} ~= /^https?:\/\/(www\.)?google\.com\.hk/i then redirect(302, "https://www.google.com")
+request if ${url} ~= /^https?:\/\/(www\.)?google\.co\.jp/i then redirect(302, "https://www.google.com")
+# ======= 油管视频广告请求 ======= #
+request if ${url} ~= /(^https?:\/\/[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+?)&ctier=L(&.+?),ctier,(.+)/i as urlMatch then redirect(302, "${urlMatch.1}${urlMatch.2}${urlMatch.3}")
+request if ${url} ~= /^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+&oad/i then reject(404)

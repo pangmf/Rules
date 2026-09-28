@@ -5,18 +5,18 @@
 #!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png
 #!tag=签到, Cookie
 
-*[Argument]
-*pingme = switch,false,tag=PingMe抓包,desc=打开PingMe停留1秒后自动抓包账号，收到通知即成功。
+[Argument]
+pingme = switch,false,tag=PingMe抓包,desc=打开PingMe停留1秒后自动抓包账号，收到通知即成功。
 
-*[Script]
-*# PingMe：抓包保存账号
-*http-request ^https:\/\/api\.pingmeapp\.net\/app\/queryBalanceAndBonus(?:\?.*)?$ tag=PingMe抓包, script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe_Loon.js, enable={pingme}
+[Script]
+# PingMe：抓包保存账号
+http-request ^https:\/\/api\.pingmeapp\.net\/app\/queryBalanceAndBonus(?:\?.*)?$ tag=PingMe抓包, script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe_Loon.js, enable={pingme}
 
-*# PingMe：每天 08:30、14:30、20:30 自动签到+视频奖励
-*# cron "30 8,14,20 * * *" script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe_Loon.js,tag=PingMe签到,enable=false
+# PingMe：每天 08:30、14:30、20:30 自动签到+视频奖励
+# cron "30 8,14,20 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe-Loon.js") with enable=false,tag="PingMe签到", img_url="https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png"
 
-*[MITM]
-*hostname = api.pingmeapp.net
+[MITM]
+hostname = api.pingmeapp.net
 
 const scriptName = 'PingMe';
 const storeKey = 'pingme_accounts_v1';

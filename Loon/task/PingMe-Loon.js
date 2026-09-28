@@ -1,17 +1,22 @@
-//2026/06/29
-/*
-@Name：PingMe 自动化签到+视频奖励
-@Author：怎么肥事
+#!name=PingMe
+#!desc=打开PingMe停留1秒后自动获取Token，收到通知即成功。
+#!author=pangmf
+#!homepage=https://github.com/pangmf/rules
+#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png
+#!tag=签到, Cookie
 
-[rewrite_local]
-^https:\/\/api\.pingmeapp\.net\/app\/queryBalanceAndBonus url script-request-header https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/PingMe.js
+*[Argument]
+*pingme = switch,false,tag=PingMe抓包,desc=打开PingMe停留1秒后自动抓包账号，收到通知即成功。
 
-[task_local]
-30 8,20 * * * https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/PingMe.js, tag=PingMe签到, enabled=true
+*[Script]
+*# PingMe：抓包保存账号
+*http-request ^https:\/\/api\.pingmeapp\.net\/app\/queryBalanceAndBonus(?:\?.*)?$ tag=PingMe抓包, script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe_Loon.js, enable={pingme}
 
-[MITM]
-hostname = api.pingmeapp.net
-*/
+*# PingMe：每天 08:30、14:30、20:30 自动签到+视频奖励
+*# cron "30 8,14,20 * * *" script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe_Loon.js,tag=PingMe签到,enable=false
+
+*[MITM]
+*hostname = api.pingmeapp.net
 
 const scriptName = 'PingMe';
 const storeKey = 'pingme_accounts_v1';

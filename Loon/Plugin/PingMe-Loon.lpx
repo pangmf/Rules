@@ -1,0 +1,9 @@
+[Script]
+# PingMe：抓包保存账号
+http-request ^https:\/\/api\.pingmeapp\.net\/app\/queryBalanceAndBonus(?:\?.*)?$ script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/PingMe-Loon.js,tag=PingMe抓包,enable=true
+
+# PingMe：每天 08:30、20:30 自动签到+视频奖励
+cron "30 8,20 * * *" script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/PingMe-Loon.js,tag=PingMe签到,enable=true
+
+[MITM]
+hostname = api.pingmeapp.net

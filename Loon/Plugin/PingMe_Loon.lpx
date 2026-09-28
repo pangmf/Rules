@@ -2,7 +2,7 @@
 #!desc=打开PingMe停留1秒后自动获取Token，收到通知即成功。
 #!author=pangmf
 #!homepage=https://github.com/pangmf/rules
-#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Pingme.png
+#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png
 #!tag=签到, Cookie
 
 [Argument]

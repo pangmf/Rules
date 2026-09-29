@@ -9,7 +9,7 @@
 **************************************
 
 #!name=扫描全能王
-#!desc=解锁黄金会员CamScanner
+#!desc=解锁黄金会员
 
 [Script]
 http-response ^https:\/\/.*\.(intsig\.net|camscanner\.com) script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CamScanner.js, requires-body=true, timeout=60, tag=CamScanner

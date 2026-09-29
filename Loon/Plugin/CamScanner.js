@@ -12,7 +12,7 @@
 #!desc=解锁黄金会员CamScanner
 
 [Script]
-http-response ^https:\/\/.*\.(intsig\.net|camscanner\.com) script-path=https://raw.githubusercontent.com/chxm1023/Rewrite/main/CamScanner.js, requires-body=true, timeout=60, tag=CamScanner
+http-response ^https:\/\/.*\.(intsig\.net|camscanner\.com) script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CamScanner.js, requires-body=true, timeout=60, tag=CamScanner
 
 [MITM]
 hostname = *.camscanner.com, *.intsig.net

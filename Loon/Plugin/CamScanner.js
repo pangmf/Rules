@@ -19,7 +19,15 @@ hostname = *.camscanner.com, *.intsig.net
 
 
 *************************************/
+[rewrite_local]
 
+^https:\/\/.*\.(intsig\.net|camscanner\.com) url script-response-body https://raw.githubusercontent.com/chxm1023/Rewrite/main/CamScanner.js
+
+[mitm]
+
+hostname = *.camscanner.com, *.intsig.net
+
+*************************************/
 
 var chxm1023 = JSON.parse($response.body);
 const vipa = '/purchase/cs/query_property';

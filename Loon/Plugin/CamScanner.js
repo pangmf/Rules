@@ -6,7 +6,8 @@
 使用说明：解锁部分功能，使用前先开脚本。
 使用声明：⚠️仅供参考，🈲转载与售卖！
 
-**************************************
+*************************  Quantumult X 
+ 
 [rewrite_local]
 
 ^https:\/\/.*\.(intsig\.net|camscanner\.com) url script-response-body https://raw.githubusercontent.com/chxm1023/Rewrite/main/CamScanner.js
@@ -15,7 +16,7 @@
 
 hostname = *.camscanner.com, *.intsig.net
 
-*************************************
+*************************  Loon
 
 #!name=扫描全能王
 #!desc=解锁黄金会员

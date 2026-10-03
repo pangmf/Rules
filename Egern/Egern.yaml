@@ -96,266 +96,10 @@ dns:
     - h3://cloudflare-dns.com/dns-query
   public_ip_lookup_url: https://ifconfig.me/ip  # 查询公共IP地址的URL，用于获取本机的公网IP地址。
 
-
-
-
 # 代理列表。
 proxies:
 
 # 策略组配置列表，支持 select、auto_test、fallback、load_balance。检查间隔interval默认 1 天；策略切换容忍度tolerance默认 100 ms
-policy_groups:
-  # 外部资源策略组
-  - external:
-      # 策略组名称
-      name: MyExternal
-      # 策略组类型。支持 select、auto_test、fallback、load_balance
-      type: select
-      # 策略组 URL。可以是本地路径或远程代理链接
-      urls:
-        - "可以是本地路径或远程代理链接"
-      # 过滤器
-      filter: ".*"
-      # 检查间隔。默认 1 天
-      interval: 86400
-      # 策略切换容忍度。默认 100 ms
-      tolerance: 100
-      # 策略组测试超时时间。默认 5 s
-      timeout: 5
-      # 检查间隔。默认 1 天
-      update_interval: 86400
-# 代理规则列表
-rules:
-  # 域名规则
-  - domain:
-      # 匹配的域名
-      match: example.com
-      # 使用的策略
-      policy: REJECT
-  # 域名关键词规则
-  - domain_keyword:
-      # 匹配的域名关键词
-      match: example
-      # 使用的策略
-      policy: DIRECT
-  # 域名后缀规则
-  - domain_suffix:
-      # 匹配的域名后缀
-      match: example.com
-      # 使用的策略
-      policy: DIRECT
-  # 域名正则表达式规则
-  - domain_regex:
-      # 匹配的 URL 正则表达式
-      match: ".*\\.com$"
-      # 使用的策略
-      policy: Proxy
-  # 地理位置规则
-  - geoip:
-      # 匹配的地理位置
-      match: US
-      # 使用的策略
-      policy: Proxy
-  # IPv4 CIDR规则
-  - ip_cidr:
-      # 匹配的 IPv4 CIDR
-      match: 192.168.0.1/24
-      # 使用的策略
-      policy: DIRECT
-  # IPv6 CIDR规则
-  - ip_cidr6:
-      # 匹配的 IPv6 CIDR
-      match: "2001:db8::/32"
-      # 使用的策略
-      policy: REJECT
-  # URL正则表达式规则
-  - url_regex:
-      # 匹配的 URL 正则表达式
-      match: "http://.*\\.com$"
-      # 使用的策略
-      policy: DIRECT
-  # 规则集
-  - rule_set:
-      # 匹配的规则集 URL。可以是本地路径或远程代理链接
-      match: "https://example.com/example.yaml"
-      # 使用的策略
-      policy: Proxy
-      # 更新间隔。默认间隔 1 天
-      update_interval: 86400
-  # ASN规则
-  - asn:
-      # 匹配的 ASN 代码或者组织
-      match: "1234"
-      # 使用的策略
-      policy: DIRECT
-  # 默认策略
-  - default:
-      # 使用的策略
-      policy: Proxy
-# URL 重写列表
-url_rewrites:
-  # 匹配的 URL
-  - match: example.com
-    # 重定向的位置
-    location: new.example.com
-    # 重定向的状态码
-    status_code: 301
-
-# HTTP 请求/响应头部重写列表
-header_rewrites:
-  # 添加头部
-  - add:
-      # 匹配的 URL 正则表达式
-      match: example.com
-      # 头部名称
-      name: Content-Type
-      # 头部值
-      value: application/json
-      # 重写类型（请求或响应）
-      type: response
-  # 替换头部
-  - replace:
-      # 匹配的 URL 正则表达式
-      match: example.com
-      # 头部名称
-      name: Content-Type
-      # 头部值
-      value: application/json
-      # 重写类型（请求或响应）
-      type: response
-  # 删除头部
-  - delete:
-      # 匹配的 URL 正则表达式
-      match: example.com
-      # 头部名称
-      name: Content-Type
-      # 重写类型（请求或响应）
-      type: request
-# HTTP 响应体重写列表
-body_rewrites:
-  # 匹配的 URL 正则表达式
-  - match: example.com
-    # 查找的内容
-    find: old content
-    # 替换的内容
-    replace: new content
-    # 重写类型（请求或响应）
-    type: response
-# 脚本配置列表
-scriptings:
-  # HTTP 请求脚本
-  - http_request:
-      # 脚本名称
-      name: HTTP Script 1
-      # 匹配的 URL 正则表达式
-      match: example.com
-      # 脚本 URL。可以是本地路径或远程代理链接
-      script_url: "http://script.example.com/script.js"
-      # 更新间隔。默认间隔 1 天
-      update_interval: 86400
-      # 消息体最大尺寸。单位是字节
-      max_size: 131072
-      # 是否启用调试
-      debug: true
-      # 超时时间。单位是秒
-      timeout: 30
-      # 是否需要请求体
-      body_required: false
-  # HTTP 响应脚本
-  - http_response:
-      # 脚本名称
-      name: HTTP Script 1
-      # 匹配的 URL 正则表达式
-      match: example.com
-      # 脚本 URL。可以是本地路径或远程代理链接
-      script_url: "http://script.example.com/script.js"
-      # 更新间隔。默认间隔 1 天
-      update_interval: 86400
-      # 消息体最大尺寸。单位是字节
-      max_size: 131072
-      # 是否启用调试
-      debug: true
-      # 超时时间。单位是秒
-      timeout: 30
-      # 是否需要响应体
-      body_required: false
-  # 定时任务脚本
-  - schedule:
-      # 脚本名称
-      name: Scheduled Script 1
-      # 定时任务表达式
-      cron: 0 0 * * *
-      # 脚本 URL。可以是本地路径或远程代理链接
-      script_url: "http://script.example.com/script.js"
-      # 更新间隔。默认间隔 1 天
-      update_interval: 86400
-      # 超时时间
-      timeout: 30
-# MITM 配置
-mitm:
-  # 是否启用
-  enabled: true
-  # CA 证书文件路径
-  ca_p12: ""
-  # CA 证书密码
-  ca_passphrase: "123456"
-  # mitm 的主机名列表
-  hostnames:
-  - example.com
-# HTTP 抓包配置列表
-http_captures:
-# 匹配的主机名
-- example.com
-# 模块配置列表
-modules:
-  # 模块 URL。可以是本地路径或远程代理链接
-  - url: "https://example.com/module.yaml"
-    # 更新间隔。默认间隔 1 天
-    update_interval: 86400
-    # 是否启用
-    enabled: true
-
-
-……………………………………………………/
-http_port: 7222
-socks_port: 7221
-allow_external_connections: false
-vif_only: false
-geoip_db_url: https://geodata.kelee.one/Country-Masaiki.mmdb
-asn_db_url: https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
-proxy_latency_test_url: http://www.gstatic.com/generate_204
-direct_latency_test_url: http://www.aliyun.com
-compat_route: false
-vif_excluded_routes:
-- 10.0.0.0/8
-- 100.64.0.0/10
-- 127.0.0.0/8
-- 169.254.0.0/16
-- 172.16.0.0/12
-- 192.0.0.0/24
-- 192.0.2.0/24
-- 192.88.99.0/24
-- 192.168.0.0/16
-- 198.51.100.0/24
-- 203.0.113.0/24
-- 224.0.0.0/4
-- 255.255.255.255/32
-dns:
-  upstreams:
-    default:
-    - 223.5.5.5
-    - 119.29.29.29
-    - 114.114.114.114
-    secure:
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
-    - h3://cloudflare-dns.com/dns-query
-bypass_tunnel_proxy:
-- 192.168.0.0/16
-- 10.0.0.0/8
-- 172.16.0.0/12
-- localhost
-- '*.local'
-- e.crashlynatics.com
 policy_groups:
 - select:
     name: ADs
@@ -601,6 +345,7 @@ policy_groups:
     urls:
     - https://162.19.79.201/s/e7e47a5f81fdd9be8648cc986703f40a
     block_quic: true
+    update_interval: 2592000
     hidden: true
 - external:
     name: Kitty
@@ -608,6 +353,7 @@ policy_groups:
     urls:
     - https://m1.tohno-0.top/oosaka/b5e1573fa71c38b1808cd8c19c1a9960
     block_quic: true
+    update_interval: 2592000
     hidden: true
 - external:
     name: 橘色云
@@ -615,6 +361,7 @@ policy_groups:
     urls:
     - https://makabaka.jusesub.com/makabaka/c723c73198bb154fc5700ceed587efea
     block_quic: true
+    update_interval: 2592000
     hidden: true
 - external:
     name: 夜煞云
@@ -622,6 +369,7 @@ policy_groups:
     urls:
     - https://45.137.180.216/L?ZG93bmxvYWRDb25maWcuanMvOTE1ZjY4OGNkODY3Mjg3M2RkNzBhMmNiNjUyNTI3NDQ/dGltZXN0YW1wPTEyMjY5
     block_quic: true
+    update_interval: 2592000
     hidden: true
 - select:
     name: ALL
@@ -713,72 +461,234 @@ policy_groups:
     flatten: true
     filter: (?i)^(?!.*(🇭🇰|HK|HKG|香港|🇹🇼|TW|TPE|台湾|台灣|🇯🇵|JP|TYO|OSA|NRT|HND|日本|🇸🇬|SG|SIN|新加坡|🇺🇸|USA|LAX|SFO|NYC|JFK|United States|美国|美國|🇰🇷|KR|ICN|SEL|韩国|韓國|🇪🇺|UK|GB|DE|FR|NL|CH|ES|IT|GE|欧洲|欧盟|英国|德国|法国|官网|Music|Game|地址|机场|重置|到期|套餐|发布|流量|导航|专用)).+
     hidden: true
+
+# 代理规则列表
 rules:
-- protocol:
-    match: stun
-    policy: REJECT
-- geoip:
-    match: CN
-    policy: DIRECT
-- default:
-    policy: Final
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Advertising/Advertising.list
-    policy: ADs
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple.list
-    policy: Apple
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple_Domain.list
-    policy: Apple
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/WeChat/WeChat.list
-    policy: DIRECT
-- rule_set:
-    match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Surge/rules/AI.list
-    policy: AI
-- rule_set:
-    match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Surge/rules/Apple_AI.list
-    policy: AppleAI
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/TikTok/TikTok.list
-    policy: Tiktok
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Netflix/Netflix.list
-    policy: Netflix
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GoogleVoice/GoogleVoice.list
-    policy: GoogleVoice
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Spotify/Spotify.list
-    policy: Spotify
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GlobalMedia/GlobalMedia.list
-    policy: GlobalMedia
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/AsianMedia/AsianMedia.list
-    policy: AsianMedia
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/PayPal/PayPal.list
-    policy: PayPal
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Global/Global.list
-    policy: Global
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GitHub/GitHub.list
-    policy: Global
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax.list
-    policy: DIRECT
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax_Domain.list
-    policy: DIRECT
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaASN/ChinaASN.list
-    policy: DIRECT
-- rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Lan/Lan.list
-    policy: DIRECT
+  # 规则集
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Advertising/Advertising.list
+      policy: ADs
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple.list
+      policy: Apple
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple_Domain.list
+      policy: Apple
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/WeChat/WeChat.list
+      policy: DIRECT
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Surge/rules/AI.list
+      policy: AI
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Surge/rules/Apple_AI.list
+      policy: AppleAI
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/TikTok/TikTok.list
+      policy: Tiktok
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Netflix/Netflix.list
+      policy: Netflix
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GoogleVoice/GoogleVoice.list
+      policy: GoogleVoice
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Spotify/Spotify.list
+      policy: Spotify
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GlobalMedia/GlobalMedia.list
+      policy: GlobalMedia
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/AsianMedia/AsianMedia.list
+      policy: AsianMedia
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/PayPal/PayPal.list
+      policy: PayPal
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Global/Global.list
+      policy: Global
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GitHub/GitHub.list
+      policy: Global
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax.list
+      policy: DIRECT
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax_Domain.list
+      policy: DIRECT
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaASN/ChinaASN.list
+      policy: DIRECT
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Lan/Lan.list
+      policy: DIRECT
+      update_interval: 2592000
+  # 地理位置规则
+  - geoip:
+      # 匹配的地理位置
+      match: CN
+      # 使用的策略
+      policy: DIRECT
+  # 默认策略
+  - default:
+      # 使用的策略
+      policy: Final
+      
+# URL 重写列表
+url_rewrites:
+  # 匹配的 URL
+  - match: ^https?:\/\/(www.)?g.cn/i
+    # 重定向的位置
+    location: https://www.google.com
+    # 重定向的状态码
+    status_code: 302
+request if ${url} ~= /^https?:\/\/(www.)?g.cn/i then redirect(302, "https://www.google.com")
+request if ${url} ~= /^https?:\/\/(www.)?(g|google)\.cn/i then redirect(302, "https://www.google.com")
+request if ${url} ~= /^https?:\/\/(www\.)?google\.com\.hk/i then redirect(302, "https://www.google.com")
+request if ${url} ~= /^https?:\/\/(www\.)?google\.co\.jp/i then redirect(302, "https://www.google.com")
+# ======= 油管视频广告请求 ======= #
+request if ${url} ~= /(^https?:\/\/[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+?)&ctier=L(&.+?),ctier,(.+)/i as urlMatch then redirect(302, "${urlMatch.1}${urlMatch.2}${urlMatch.3}")
+request if ${url} ~= /^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+&oad/i then reject(404)
+
+# HTTP 请求/响应头部重写列表
+header_rewrites:
+  # 添加头部
+  - add:
+      # 匹配的 URL 正则表达式
+      match: example.com
+      # 头部名称
+      name: Content-Type
+      # 头部值
+      value: application/json
+      # 重写类型（请求或响应）
+      type: response
+  # 替换头部
+  - replace:
+      # 匹配的 URL 正则表达式
+      match: example.com
+      # 头部名称
+      name: Content-Type
+      # 头部值
+      value: application/json
+      # 重写类型（请求或响应）
+      type: response
+  # 删除头部
+  - delete:
+      # 匹配的 URL 正则表达式
+      match: example.com
+      # 头部名称
+      name: Content-Type
+      # 重写类型（请求或响应）
+      type: request
+# HTTP 响应体重写列表
+body_rewrites:
+  # 匹配的 URL 正则表达式
+  - match: example.com
+    # 查找的内容
+    find: old content
+    # 替换的内容
+    replace: new content
+    # 重写类型（请求或响应）
+    type: response
+# 脚本配置列表
+scriptings:
+  # HTTP 请求脚本
+  - http_request:
+      # 脚本名称
+      name: HTTP Script 1
+      # 匹配的 URL 正则表达式
+      match: example.com
+      # 脚本 URL。可以是本地路径或远程代理链接
+      script_url: "http://script.example.com/script.js"
+      # 更新间隔。默认间隔 1 天
+      update_interval: 86400
+      # 消息体最大尺寸。单位是字节
+      max_size: 131072
+      # 是否启用调试
+      debug: true
+      # 超时时间。单位是秒
+      timeout: 30
+      # 是否需要请求体
+      body_required: false
+  # HTTP 响应脚本
+  - http_response:
+      # 脚本名称
+      name: HTTP Script 1
+      # 匹配的 URL 正则表达式
+      match: example.com
+      # 脚本 URL。可以是本地路径或远程代理链接
+      script_url: "http://script.example.com/script.js"
+      # 更新间隔。默认间隔 1 天
+      update_interval: 86400
+      # 消息体最大尺寸。单位是字节
+      max_size: 131072
+      # 是否启用调试
+      debug: true
+      # 超时时间。单位是秒
+      timeout: 30
+      # 是否需要响应体
+      body_required: false
+  # 定时任务脚本
+  - schedule:
+      # 脚本名称
+      name: Scheduled Script 1
+      # 定时任务表达式
+      cron: 0 0 * * *
+      # 脚本 URL。可以是本地路径或远程代理链接
+      script_url: "http://script.example.com/script.js"
+      # 更新间隔。默认间隔 1 天
+      update_interval: 86400
+      # 超时时间
+      timeout: 30
+# MITM 配置
+mitm:
+  # 是否启用
+  enabled: true
+  # CA 证书文件路径
+  ca_p12: ""
+  # CA 证书密码
+  ca_passphrase: "123456"
+  # mitm 的主机名列表
+  hostnames:
+  - example.com
+# HTTP 抓包配置列表
+http_captures:
+# 匹配的主机名
+- example.com
+# 模块配置列表
+modules:
+  # 模块 URL。可以是本地路径或远程代理链接
+  - url: "https://example.com/module.yaml"
+    # 更新间隔。默认间隔 1 天
+    update_interval: 86400
+    # 是否启用
+    enabled: true
+
+
+……………………………………………………/
+
+policy_groups:
+
+rules:
+
 mitm:
   hostnames:
     includes:

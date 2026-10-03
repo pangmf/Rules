@@ -621,9 +621,6 @@ mitm:
     - '*amemv.com'
     - '*snssdk.com'
     - www.google.com
-# HTTP 抓包配置列表
-http_captures:
-# 匹配的主机名
 
 # 模块配置列表
 modules:

@@ -884,61 +884,61 @@ rules:
 - default:
     policy: Final
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Advertising/Advertising.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Advertising/Advertising.list
     policy: ADs
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Apple/Apple.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple.list
     policy: Apple
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Apple/Apple_Domain.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple_Domain.list
     policy: Apple
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/WeChat/WeChat.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/WeChat/WeChat.list
     policy: DIRECT
 - rule_set:
-    match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/AI.list
+    match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Surge/rules/AI.list
     policy: AI
 - rule_set:
-    match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/Apple_AI.list
+    match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Surge/rules/Apple_AI.list
     policy: AppleAI
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/TikTok/TikTok.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/TikTok/TikTok.list
     policy: Tiktok
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Netflix/Netflix.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Netflix/Netflix.list
     policy: Netflix
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GoogleVoice/GoogleVoice.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GoogleVoice/GoogleVoice.list
     policy: GoogleVoice
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Spotify/Spotify.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Spotify/Spotify.list
     policy: Spotify
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GlobalMedia/GlobalMedia.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GlobalMedia/GlobalMedia.list
     policy: GlobalMedia
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/AsianMedia/AsianMedia.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/AsianMedia/AsianMedia.list
     policy: AsianMedia
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/PayPal/PayPal.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/PayPal/PayPal.list
     policy: PayPal
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Global/Global.list
     policy: Global
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GitHub/GitHub.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GitHub/GitHub.list
     policy: Global
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaMax/ChinaMax.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax.list
     policy: DIRECT
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaMax/ChinaMax_Domain.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax_Domain.list
     policy: DIRECT
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaASN/ChinaASN.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaASN/ChinaASN.list
     policy: DIRECT
 - rule_set:
-    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Lan/Lan.list
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Lan/Lan.list
     policy: DIRECT
 mitm:
   hostnames:
@@ -1011,8 +1011,7 @@ modules:
   enabled: true
 - url: https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/release/loon/plugin/bilibili.lpx
   enabled: true
-- name: 下厨房去广告
-  url: https://kelee.one/Tool/Loon/Lpx/XiaChuFang_remove_ads.lpx
+- url: https://kelee.one/Tool/Loon/Lpx/XiaChuFang_remove_ads.lpx
   enabled: true
 - url: https://kelee.one/Tool/Loon/Lpx/XiaomiSpeaker_remove_ads.lpx
   enabled: true

@@ -1,8 +1,8 @@
 ---
 # 自动更新配置的内容。默认值是空
-#auto_update:
-#  url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Egern/Egern.yaml
-#  interval: 2592000
+auto_update:
+  url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Egern/Egern.yaml
+  interval: 2592000
 
 # 是否启用 IPv6。默认值是 false
 ipv6: false

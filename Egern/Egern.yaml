@@ -575,6 +575,13 @@ scriptings:
       name: 彩票开奖小组件
       script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Lottery-Widget.JS
       update_interval: 2592000
+  - generic:
+      name: 网络诊断雷达
+      script_url: https://raw.githubusercontent.com/lylywayr/NetWork-Module/refs/heads/main/Egern/%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E9%9B%B7%E8%BE%BE/%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E9%9B%B7%E8%BE%BE.js
+      env:
+        XY: ' '
+        AI: AI
+      update_interval: 2592000
   # 定时任务脚本
   - schedule:
       # 脚本名称
@@ -674,6 +681,8 @@ widgets:
   script_name: 油价查询小组件
 - name: 彩票开奖
   script_name: 彩票开奖小组件
+- name: 网络诊断
+  script_name: 网络诊断雷达
   
 # 模块配置列表
 modules:
@@ -803,10 +812,6 @@ modules:
   - url: https://github.com/Moli-X/Resources/raw/main/Loon/Collection.plugin
     update_interval: 2592000
     enabled: true
-  - url: https://github.com/Moli-X/Tool/raw/X/Loon/Plugin/Kelee/Node_detection_tool.plugin
-    update_interval: 2592000
-    enabled: true
-    icon: https://iili.io/K0KrBdQ.png
   - url: https://ddgksf2013.top/module/ScriptHub.Egern.sgmodule
     update_interval: 2592000
     enabled: true

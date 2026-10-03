@@ -31,16 +31,16 @@ hijack_dns:
 - '*'
 
 # 指定自定义的 GeoIP 数据库 URL。Egern 将每周自动更新该数据库。默认值是空
-geoip_db_url: null
+geoip_db_url: https://geodata.kelee.one/Country-Masaiki.mmdb
 
 # 指定自定义的 ASN 数据库 URL。Egern 将每周自动更新该数据库。默认值是空
-asn_db_url: null
+asn_db_url: https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
 
 # 自定义的代理延迟测试 URL。默认值是空
-proxy_latency_test_url: null
+proxy_latency_test_url: http://www.gstatic.com/generate_204
 
 # 自定义的直连延迟测试 URL。默认值是空
-direct_latency_test_url: null
+direct_latency_test_url: http://www.aliyun.com
 
 # 虚拟网络接口不使用默认的路由，由多个较小的路由切分用于解决某些问题。比如 HomeKit 的摄像头无法使用的问题。默认值是 false
 compat_route: false
@@ -58,213 +58,52 @@ include_cellular_services: false
 include_local_networks: false
 
 # 虚拟接口包含的路由。默认值是空数组
-vif_included_routes:
-- 192.168.0.1/32
+vif_excluded_routes:
+- 10.0.0.0/8
+- 100.64.0.0/10
+- 127.0.0.0/8
+- 169.254.0.0/16
+- 172.16.0.0/12
+- 192.0.0.0/24
+- 192.0.2.0/24
+- 192.88.99.0/24
+- 192.168.0.0/16
+- 198.51.100.0/24
+- 203.0.113.0/24
+- 224.0.0.0/4
+- 255.255.255.255/32
 
 # 虚拟接口排除的路由。默认值是空数组
 vif_excluded_routes:
 - 192.168.0.1/32
 
+# 绕过路由列表
+bypass_tunnel_proxy:
+- 192.168.0.0/16
+- 10.0.0.0/8
+- 172.16.0.0/12
+- localhost
+- '*.local'
+
 dns:
   bootstrap:
-    - system  # 使用系统默认的DNS配置作为引导。
+    - 223.5.5.5
+    - 119.29.29.29
+    - 114.114.114.114
   upstreams:  # 定义上游DNS服务器的列表。
-    google:  # 使用Google的公共DNS服务器作为上游服务器之一。
-    - https://8.8.8.8  # Google的第一个DNS服务器。
-    - https://8.8.4.4  # Google的备用DNS服务器。
-  forward:  # 转发DNS请求的规则。
-  - wildcard:
-      match: '*.cn'  # 将所有以.cn结尾的域名请求转发给系统默认的DNS服务器。
-      value: system
-  - proxy_rule_set:  # 匹配 ACL4SSR 的中国域名列表中的域名。
-      match: https://github.com/ACL4SSR/ACL4SSR/raw/master/Clash/ChinaDomain.list
-      value: system  # 这些匹配的域名使用系统默认的DNS服务器。
-  - regex:
-      match: ^ad\..*|^ads\..*  # 正则表达式匹配以"ad."或"ads."开头的域名（通常是广告相关的域名）。
-      value: quic://dns.adguard-dns.com  # 这些广告相关的域名使用AdGuard的QUIC DNS服务器。
-  - wildcard:
-      match: '*'  # 匹配所有其他未被前述规则匹配的域名。
-      value: google  # 将这些域名请求转发到Google的DNS服务器。
-  hosts:  # 本地DNS解析的主机名映射。
-    example.com: www.example.com  # 将example.com解析为www.example.com。
-    localhost: 127.0.0.1  # 将localhost解析为本地地址127.0.0.1。
-  block_ips:  # 阻止的IP地址或子网列表。
-  - 1.2.3.4  # 阻止IP地址1.2.3.4。
-  - 4.3.2.1/32  # 阻止IP地址4.3.2.1/32（单个IP地址）。
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+    - h3://cloudflare-dns.com/dns-query
   public_ip_lookup_url: https://ifconfig.me/ip  # 查询公共IP地址的URL，用于获取本机的公网IP地址。
+
+
+
 
 # 代理列表。
 proxies:
-  # Shadowsocks 协议
-  - shadowsocks:
-      # 代理名称
-      name: MyShadowsocks
-      # 加密方式。支持 chacha20-ietf-poly1305、aes-256-gcm、aes-128-gcm。
-      method: chacha20-ietf-poly1305
-      # 密码
-      password: Password
-      # 服务器地址
-      server: 127.0.0.1
-      # 服务器端口
-      port: 443
-      # 是否启用 TCP 快速打开
-      tfo: false
-      # 是否启用 UDP 中继
-      udp_relay: false
-      # 数据混淆。支持 http 和 tls
-      obfs: http
-      # HTTP 混淆的 HOST 或 TLS 混淆的 SNI
-      obfs_host: www.bing.com
-      # HTTP 混淆的 URI
-      obfs_uri: "http://www.bing.com/"
-  # Trojan 协议
-  - trojan:
-      # 代理名称
-      name: MyTrojan
-      # 服务器地址
-      server: 127.0.0.1
-      # 服务器端口
-      port: 443
-      # TLS 的 SNI
-      sni: www.bing.com
-      # 密码
-      password: Password
-      # 是否启用 TCP 快速打开
-      tfo: false
-      # 是否启用 UDP 中继
-      udp_relay: true
-  # Vless 协议
-  - vless:
-      # 代理名称
-      name: MyVless
-      # 服务器地址
-      server: 127.0.0.1
-      # 服务器端口
-      port: 443
-      # 用户 ID
-      user_id: 27848739-7e62-4138-9fd3-098a63964b6b
-      # 是否启用 TCP 快速打开
-      tfo: false
-      # 是否启用 UDP 中继
-      udp_relay: true
-      # 传输协议。支持 tls、ws、wss。tls 的参数是 sni，ws 和 wss 的参数是 uri。
-      transport:
-        wss:
-          uri: "wss://www.bing.com/"
-  # Vmess 协议
-  - vmess:
-      # 代理名称
-      name: MyVmess
-      # 服务器地址
-      server: 127.0.0.1
-      # 服务器端口
-      port: 443
-      # 用户 ID
-      user_id: 27848739-7e62-4138-9fd3-098a63964b6b
-      # 加密方式。支持 auto、none、aes-128-gcm、chacha20-poly1305
-      security: auto
-      # 是否使用废弃的协议
-      legacy: false
-      # 是否启用 TCP 快速打开
-      tfo: false
-      # 是否启用 UDP 中继
-      udp_relay: true
-      # 传输协议。支持 tls、ws、wss。tls 的参数是 sni，ws 和 wss 的参数是 uri。
-      transport:
-        wss:
-          uri: "wss://www.bing.com/"
-  # Hysteria2 协议
-  - hysteria2:
-      # 代理名称
-      name: MyVless
-      # 服务器地址
-      server: 127.0.0.1
-      # 服务器端口
-      port: 443
-      # 验证
-      auth: your_password
-      # TLS 的 SNI
-      sni: www.bing.com
-      # 混淆类型
-      obfs: salamander
-      # 混淆密码
-      obfs_password: cry_me_a_r1ver
-      # 跳过 TLS 验证，默认为 false
-      skip_tls_verify: false
 
-  # Socks 5 协议
-  - socks5:
-      # 代理名称
-      name: MySocks
-      # 服务器地址
-      server: 127.0.0.1
-      # 服务器端口
-      port: 443
-      # 用户名
-      username: Username
-      # 密码
-      password: Password
-      # 是否启用 TCP 快速打开
-      tfo: false
-      udp_relay: true
-  # HTTP 协议
-  - http:
-      # 代理名称
-      name: MySocks
-      # 服务器地址
-      server: 127.0.0.1
-      # 服务器端口
-      port: 443
-      # 用户名
-      username: Username
-      # 密码
-      password: Password
-      # 是否启用 TCP 快速打开
-      tfo: false
-# 策略组配置列表
+# 策略组配置列表，支持 select、auto_test、fallback、load_balance。检查间隔interval默认 1 天；策略切换容忍度tolerance默认 100 ms
 policy_groups:
-  # 手动选择的策略组
-  - select:
-      # 策略组名称
-      name: Select
-      # 包含的策略列表
-      policies:
-        - MyShadowsocks
-        - MyTrojan
-  # 自动测试的策略组
-  - auto_test:
-      # 策略组名称
-      name: AutoTest
-      # 包含的策略列表
-      policies:
-        - MyShadowsocks
-        - MyTrojan
-      # 检查间隔。默认 1 天
-      interval: 86400
-      # 策略切换容忍度。默认 100 ms
-      tolerance: 100
-      # 策略组测试超时时间。默认 5 s
-      timeout: 5
-  # 后备策略组
-  - fallback:
-      # 策略组名称
-      name: Fallback
-      # 包含的策略列表
-      policies:
-        - MyShadowsocks
-        - MyTrojan
-      # 检查间隔。默认 1 天
-      interval: 86400
-      # 策略组测试超时时间。默认 5 s
-      timeout: 5
-  # 负载均衡策略组
-  - load_balance:
-      # 策略组名称
-      name: Select
-      # 包含的策略列表
-      policies:
-        - MyShadowsocks
-        - MyTrojan
   # 外部资源策略组
   - external:
       # 策略组名称

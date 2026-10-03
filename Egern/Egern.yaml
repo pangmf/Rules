@@ -567,32 +567,32 @@ url_rewrites:
 # 脚本配置列表
 scriptings:
   - generic:
-    name: 油价查询小组件
-    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Oil_Widget.JS
-    env:
-      region: zhejiang/taizhou
-    update_interval: 2592000
-- generic:
-    name: 聚合热搜小组件
-    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/HSW_Widget.JS
-- generic:
-    name: 财联社小组件
-    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/CLS_Widget.JS
-- generic:
-    name: 万年历小组件
-    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/CN_Cal.JS
-- generic:
-    name: 节日倒计时小组件
-    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Holiday_Countdown.js
-- generic:
-    name: 油价查询小组件
-    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Oil_Widget.JS
-- generic:
-    name: 虚拟货币小组件
-    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Crypto_Widget.JS
-- generic:
-    name: 彩票开奖小组件
-    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Lottery-Widget.JS
+      name: 油价查询小组件
+      script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Oil_Widget.JS
+      env:
+        region: zhejiang/taizhou
+      update_interval: 2592000
+  - generic:
+      name: 聚合热搜小组件
+      script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/HSW_Widget.JS
+  - generic:
+      name: 财联社小组件
+      script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/CLS_Widget.JS
+  - generic:
+      name: 万年历小组件
+      script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/CN_Cal.JS
+  - generic:
+      name: 节日倒计时小组件
+      script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Holiday_Countdown.js
+  - generic:
+      name: 油价查询小组件
+      script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Oil_Widget.JS
+  - generic:
+      name: 虚拟货币小组件
+      script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Crypto_Widget.JS
+  - generic:
+      name: 彩票开奖小组件
+      script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Lottery-Widget.JS
   # 定时任务脚本
   - schedule:
       # 脚本名称

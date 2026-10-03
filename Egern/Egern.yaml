@@ -356,7 +356,6 @@ policy_groups:
     urls:
     - https://m1.tohno-0.top/oosaka/b5e1573fa71c38b1808cd8c19c1a9960
     update_interval: 2592000
-    block_quic: true
     hidden: true
 - external:
     name: 橘色云
@@ -364,7 +363,6 @@ policy_groups:
     urls:
     - https://makabaka.jusesub.com/makabaka/c723c73198bb154fc5700ceed587efea
     update_interval: 2592000
-    block_quic: true
     hidden: true
 - external:
     name: 夜煞云
@@ -372,7 +370,6 @@ policy_groups:
     urls:
     - https://45.137.180.216/L?ZG93bmxvYWRDb25maWcuanMvOTE1ZjY4OGNkODY3Mjg3M2RkNzBhMmNiNjUyNTI3NDQ/dGltZXN0YW1wPTEyMjY5
     update_interval: 2592000
-    block_quic: true
     hidden: true
 
 # 代理规则列表

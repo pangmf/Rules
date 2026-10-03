@@ -474,3 +474,717 @@ modules:
     update_interval: 86400
     # 是否启用
     enabled: true
+
+
+……………………………………………………/
+http_port: 7222
+socks_port: 7221
+allow_external_connections: false
+vif_only: false
+geoip_db_url: https://geodata.kelee.one/Country-Masaiki.mmdb
+asn_db_url: https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
+proxy_latency_test_url: http://www.gstatic.com/generate_204
+direct_latency_test_url: http://www.aliyun.com
+compat_route: false
+vif_excluded_routes:
+- 10.0.0.0/8
+- 100.64.0.0/10
+- 127.0.0.0/8
+- 169.254.0.0/16
+- 172.16.0.0/12
+- 192.0.0.0/24
+- 192.0.2.0/24
+- 192.88.99.0/24
+- 192.168.0.0/16
+- 198.51.100.0/24
+- 203.0.113.0/24
+- 224.0.0.0/4
+- 255.255.255.255/32
+dns:
+  upstreams:
+    default:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 114.114.114.114
+    secure:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+    - h3://cloudflare-dns.com/dns-query
+bypass_tunnel_proxy:
+- 192.168.0.0/16
+- 10.0.0.0/8
+- 172.16.0.0/12
+- localhost
+- '*.local'
+- e.crashlynatics.com
+policy_groups:
+- select:
+    name: ADs
+    policies:
+    - REJECT
+    - DIRECT
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Advertising.png
+- select:
+    name: Global
+    policies:
+    - 自动选择
+    - 手动选择
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Global.png
+- select:
+    name: Apple
+    policies:
+    - DIRECT
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
+- select:
+    name: AI
+    policies:
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/ChatGPT4.png
+- select:
+    name: AppleAI
+    policies:
+    - DIRECT
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Apple_GameCenter.png
+- select:
+    name: GoogleVoice
+    policies:
+    - 美国节点
+    - 手动选择
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Google_Search.png
+- select:
+    name: PayPal
+    policies:
+    - DIRECT
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Paypal.png
+- select:
+    name: Spotify
+    policies:
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png
+- select:
+    name: TikTok
+    policies:
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok_1.png
+- select:
+    name: Netflix
+    policies:
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
+- select:
+    name: GlobalMedia
+    policies:
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Streaming.png
+- select:
+    name: AsianMedia
+    policies:
+    - DIRECT
+    - 香港节点
+    - 台湾节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png
+- select:
+    name: Final
+    policies:
+    - DIRECT
+    - Global
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
+- select:
+    name: 手动选择
+    policies:
+    - ALL
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+- auto_test:
+    name: 自动选择
+    policies:
+    - ALL
+    flatten: true
+    interval: 3600
+    latency_test_url: http://www.gstatic.com/generate_204
+    tolerance: 10
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/SSID_1.png
+- auto_test:
+    name: 香港节点
+    policies:
+    - HK
+    flatten: true
+    interval: 3600
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
+- auto_test:
+    name: 台湾节点
+    policies:
+    - TW
+    flatten: true
+    interval: 3600
+    latency_test_url: http://www.gstatic.com/generate_204
+    tolerance: 10
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
+- auto_test:
+    name: 美国节点
+    policies:
+    - US
+    flatten: true
+    interval: 3600
+    latency_test_url: http://www.gstatic.com/generate_204
+    tolerance: 10
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
+- auto_test:
+    name: 日本节点
+    policies:
+    - JP
+    flatten: true
+    interval: 3600
+    latency_test_url: http://www.gstatic.com/generate_204
+    tolerance: 10
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
+- auto_test:
+    name: 新加坡节点
+    policies:
+    - SG
+    flatten: true
+    interval: 3600
+    latency_test_url: http://www.gstatic.com/generate_204
+    tolerance: 10
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
+- auto_test:
+    name: 韩国节点
+    policies:
+    - KR
+    flatten: true
+    interval: 3600
+    latency_test_url: http://www.gstatic.com/generate_204
+    tolerance: 10
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Korea.png
+- select:
+    name: 欧洲节点
+    policies:
+    - EU
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/EU.png
+- select:
+    name: 其他节点
+    policies:
+    - Other
+    flatten: true
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/European_Union.png
+- external:
+    name: CrossWall
+    type: select
+    urls:
+    - https://162.19.79.201/s/e7e47a5f81fdd9be8648cc986703f40a
+    block_quic: true
+    hidden: true
+- external:
+    name: Kitty
+    type: select
+    urls:
+    - https://m1.tohno-0.top/oosaka/b5e1573fa71c38b1808cd8c19c1a9960
+    block_quic: true
+    hidden: true
+- external:
+    name: 橘色云
+    type: select
+    urls:
+    - https://makabaka.jusesub.com/makabaka/c723c73198bb154fc5700ceed587efea
+    block_quic: true
+    hidden: true
+- external:
+    name: 夜煞云
+    type: select
+    urls:
+    - https://45.137.180.216/L?ZG93bmxvYWRDb25maWcuanMvOTE1ZjY4OGNkODY3Mjg3M2RkNzBhMmNiNjUyNTI3NDQ/dGltZXN0YW1wPTEyMjY5
+    block_quic: true
+    hidden: true
+- select:
+    name: ALL
+    policies:
+    - CrossWall
+    - Kitty
+    - 橘色云
+    - 夜煞云
+    flatten: true
+    filter: "^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|发布|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Game|Channel|Author|Traffic)(\\d+)?\b|(\\d{4}-\\d{2}-\\d{2}|\\dG)))).*$"
+    hidden: true
+- select:
+    name: HK
+    policies:
+    - CrossWall
+    - Kitty
+    - 橘色云
+    - 夜煞云
+    flatten: true
+    filter: (?i)(🇭🇰|HK|HKG|Hong\s*Kong|香港)
+    hidden: true
+- select:
+    name: TW
+    policies:
+    - CrossWall
+    - Kitty
+    - 橘色云
+    - 夜煞云
+    flatten: true
+    filter: (?i)(🇹🇼|TW|TPE|Taiwan|台湾|台灣)
+    hidden: true
+- select:
+    name: JP
+    policies:
+    - CrossWall
+    - Kitty
+    - 橘色云
+    - 夜煞云
+    flatten: true
+    filter: (?i)(🇯🇵|JP|TYO|OSA|NRT|HND|KIX|Japan|日本|东京|大阪)
+    hidden: true
+- select:
+    name: SG
+    policies:
+    - CrossWall
+    - Kitty
+    - 橘色云
+    - 夜煞云
+    flatten: true
+    filter: (?i)(🇸🇬|SG|SIN|Singapore|新加坡|狮城)
+    hidden: true
+- select:
+    name: US
+    policies:
+    - CrossWall
+    - Kitty
+    - 橘色云
+    - 夜煞云
+    flatten: true
+    filter: (?i)(🇺🇸|USA|LAX|SJC|SEA|NYC|JFK|EWR|DAL|ORD|ATL|SFO|United States|美国|美國)
+    hidden: true
+- select:
+    name: KR
+    policies:
+    - CrossWall
+    - Kitty
+    - 橘色云
+    - 夜煞云
+    flatten: true
+    filter: (?i)(🇰🇷|KR|ICN|SEL|Korea|Seoul|韩国|韓國)
+    hidden: true
+- select:
+    name: EU
+    policies:
+    - CrossWall
+    - Kitty
+    - 橘色云
+    - 夜煞云
+    flatten: true
+    filter: (?i)(🇪🇺|UK|DE|FR|NL|CH|GE|PT|SE|NO|DK|LON|FRA|AMS|PAR|欧洲|欧盟|英国|德国|法国)
+    hidden: true
+- select:
+    name: Other
+    policies:
+    - CrossWall
+    - Kitty
+    - 橘色云
+    - 夜煞云
+    flatten: true
+    filter: (?i)^(?!.*(🇭🇰|HK|HKG|香港|🇹🇼|TW|TPE|台湾|台灣|🇯🇵|JP|TYO|OSA|NRT|HND|日本|🇸🇬|SG|SIN|新加坡|🇺🇸|USA|LAX|SFO|NYC|JFK|United States|美国|美國|🇰🇷|KR|ICN|SEL|韩国|韓國|🇪🇺|UK|GB|DE|FR|NL|CH|ES|IT|GE|欧洲|欧盟|英国|德国|法国|官网|Music|Game|地址|机场|重置|到期|套餐|发布|流量|导航|专用)).+
+    hidden: true
+rules:
+- protocol:
+    match: stun
+    policy: REJECT
+- geoip:
+    match: CN
+    policy: DIRECT
+- default:
+    policy: Final
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Advertising/Advertising.list
+    policy: ADs
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Apple/Apple.list
+    policy: Apple
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Apple/Apple_Domain.list
+    policy: Apple
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/WeChat/WeChat.list
+    policy: DIRECT
+- rule_set:
+    match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/AI.list
+    policy: AI
+- rule_set:
+    match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/Apple_AI.list
+    policy: AppleAI
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/TikTok/TikTok.list
+    policy: Tiktok
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Netflix/Netflix.list
+    policy: Netflix
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GoogleVoice/GoogleVoice.list
+    policy: GoogleVoice
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Spotify/Spotify.list
+    policy: Spotify
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GlobalMedia/GlobalMedia.list
+    policy: GlobalMedia
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/AsianMedia/AsianMedia.list
+    policy: AsianMedia
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/PayPal/PayPal.list
+    policy: PayPal
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list
+    policy: Global
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GitHub/GitHub.list
+    policy: Global
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaMax/ChinaMax.list
+    policy: DIRECT
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaMax/ChinaMax_Domain.list
+    policy: DIRECT
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaASN/ChinaASN.list
+    policy: DIRECT
+- rule_set:
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Lan/Lan.list
+    policy: DIRECT
+mitm:
+  hostnames:
+    includes:
+    - '*.googlevideo.com'
+    - '*.g.cn'
+    - '*.google.cn'
+    - '*.google.com.hk'
+    - '*.google.co.jp'
+    excludes:
+    - consumer.fcbox.com
+    - '*huami.com'
+    - '*amemv.com'
+    - '*snssdk.com'
+    - www.google.com
+modules:
+- url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/PingMe-Loon.lpx
+  enabled: true
+- url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-cookie/paperclip-cookie.lpx
+  enabled: true
+- url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/zeekr.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx
+  enabled: true
+- url: https://reven.jsforbaby.workers.dev/reven/iTunes.lpx
+  enabled: true
+- url: http://script.hub/file/_start_/https://ddgksf2013.top/rewrite/StartUpAds.conf/_end_/StartUpAds.sgmodule?type=qx-rewrite&n=%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F2.0%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%B7%B2%E6%8A%93%E5%8C%85400%E4%BD%99%E5%BA%94%E7%94%A8%E5%8E%BB%E5%BC%80%E5%B1%8F&headers=User-Agent:surge&del=true&jqEnabled=true&target=loon-plugin&category=ddgksf2013
+  enabled: true
+- url: http://script.hub/file/_start_/https://raw.githubusercontent.com/Yuheng0101/X/refs/heads/main/Scripts/ChinaMobile/NoAds.js/_end_/NoAds.sgmodule?type=qx-rewrite&n=%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8%E5%8E%BB%E5%B9%BF%E5%91%8A%40Yuheng+%E5%BA%94%E7%94%A8%E5%87%80%E5%8C%96&headers=User-Agent:surge&del=true&jqEnabled=true&target=loon-plugin&category=Yuheng
+  enabled: true
+- url: http://script.hub/file/_start_/https://raw.githubusercontent.com/ddgksf2013/Scripts/master/coolapk.js/_end_/coolapk.sgmodule?type=qx-rewrite&n=%E9%85%B7%E5%AE%89%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%BA%94%E7%94%A8%E5%87%80%E5%8C%96&headers=User-Agent:surge&del=true&jqEnabled=true&target=loon-plugin&category=ddgksf2013
+  enabled: true
+- url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CamScanner.js
+  enabled: true
+- url: http://script.hub/file/_start_/https://raw.githubusercontent.com/app2smile/rules/master/module/spotify.conf/_end_/spotify.sgmodule?type=qx-rewrite&n=Spotify%E4%BC%9A%E5%91%98%E8%A7%A3%E9%94%81%40app2smile+%E8%A7%A3%E9%94%81Premium%E4%BC%9A%E5%91%98&headers=User-Agent:surge&del=true&jqEnabled=true&target=loon-plugin&category=app2smile
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/Zhihu_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/RedPaper_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/Weixin_Official_Accounts_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/WexinMiniPrograms_Remove_ads.lpx
+  enabled: true
+- url: https://raw.githubusercontent.com/chxm1023/Advertising/Loon/AppAD.plugin
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/Weibo_intl_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/MeetYou_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/HUPU_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/DragonRead_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/ColorfulClouds_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/BaiduSearchWebpage_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/Tieba_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/BaiduNetDisk_remove_ads.lpx
+  enabled: true
+- url: https://raw.githubusercontent.com/chengkongyiban/Loon/main/Loon-Gallery/BaiduCloud.plugin
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/NeteaseCloudMusic_remove_ads.lpx
+  enabled: true
+- url: https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/release/loon/plugin/bilibili.lpx
+  enabled: true
+- name: 下厨房去广告
+  url: https://kelee.one/Tool/Loon/Lpx/XiaChuFang_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/XiaomiSpeaker_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/PinDuoDuo_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/JD_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/Taobao_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/FleaMarket_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/Amap_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/YouTube_remove_ads.lpx
+  enabled: true
+- url: https://kelee.one/Tool/Loon/Lpx/YouTubeSubtitlesTranslation.lpx
+  enabled: true
+- url: https://github.com/Moli-X/Resources/raw/main/Loon/Collection.plugin
+  enabled: true
+- url: https://github.com/Moli-X/Tool/raw/X/Loon/Plugin/Kelee/Node_detection_tool.plugin
+  enabled: true
+  icon: https://iili.io/K0KrBdQ.png
+- url: https://ddgksf2013.top/module/ScriptHub.Egern.sgmodule
+  enabled: true
+  icon: https://iili.io/fKClisn.png
+- url: https://github.com/Moli-X/Tool/raw/X/Loon/Plugin/Kelee/Script-Hub.plugin
+  compat_arguments:
+    PROXY: Global
+  enabled: true
+
+
+
+
+
+
+
+#===============/
+
+
+allow_external_connections: true
+vif_only: true
+close_connections_on_policy_change: false
+hide_vpn_icon: false
+geoip_db_url: https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb
+asn_db_url: https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb
+proxy_latency_test_url: https://connectivitycheck.gstatic.com/generate_204
+direct_latency_test_url: https://www.qq.com
+udp_latency_test_url: google.com@8.8.8.8
+compat_route: true
+dns:
+  upstreams:
+    iBL3ND-DNS:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+    - https://1.1.1.1/dns-query
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+  forward:
+  - domain_wildcard:
+      match: '*'
+      value: iBL3ND-DNS
+      disabled: false
+  proxy_nameservers:
+  - https://1.1.1.1/dns-query
+  - https://doh.pub/dns-query
+  - https://dns.google/dns-query
+  - https://dns.alidns.com/dns-query
+policy_groups:
+- external:
+    name: 订阅
+    type: select
+    urls:
+    - 这里添加你的机场订阅链接
+    hidden: true
+- select:
+    name: PROXY
+    policies:
+    - 订阅
+    flatten: true
+    icon: https://iili.io/fKClisn.png
+    hidden: false
+rules:
+- rule_set:
+    name: DIRECT
+    match: https://raw.githubusercontent.com/GMOogway/shadowrocket-rules/master/sr_direct_list.module
+    policy: DIRECT
+    disabled: false
+- rule_set:
+    match: https://raw.githubusercontent.com/Rabbit-Spec/Surge/refs/heads/Master/Rules/China.list
+    policy: DIRECT
+    disabled: false
+- rule_set:
+    match: https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/direct.txt
+    policy: DIRECT
+    disabled: false
+- rule_set:
+    name: ChinaIPs
+    match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/ChinaIPs/ChinaIPs.list
+    policy: DIRECT
+    disabled: false
+- rule_set:
+    match: https://raw.githubusercontent.com/Rabbit-Spec/Surge/refs/heads/Master/Rules/ChinaCIDR.list
+    policy: DIRECT
+    disabled: false
+- rule_set:
+    name: ChinaIPv6
+    match: https://ruleset.skk.moe/List/ip/china_ip_ipv6.conf
+    policy: DIRECT
+    disabled: false
+- rule_set:
+    name: 域间路由
+    match: https://raw.githubusercontent.com/IBL3ND/rule/refs/heads/main/LAN.list
+    policy: DIRECT
+    disabled: false
+- default:
+    policy: PROXY
+scriptings:
+- generic:
+    name: 聚合热搜小组件
+    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/HSW_Widget.JS
+- generic:
+    name: 财联社小组件
+    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/CLS_Widget.JS
+- generic:
+    name: 万年历小组件
+    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/CN_Cal.JS
+- generic:
+    name: 节日倒计时小组件
+    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Holiday_Countdown.js
+- generic:
+    name: 油价查询小组件
+    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Oil_Widget.JS
+- generic:
+    name: 虚拟货币小组件
+    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Crypto_Widget.JS
+- generic:
+    name: 彩票开奖小组件
+    script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Lottery-Widget.JS
+mitm:
+  ca_p12: egern.p12
+  ca_passphrase: egern
+widgets:
+- name: 油价查询
+  script_name: 油价查询小组件
+- name: 虚拟货币
+  script_name: 虚拟货币小组件
+- name: 彩票开奖
+  script_name: 彩票开奖小组件
+- name: 节日倒计时
+  script_name: 节日倒计时小组件
+- name: 万年历
+  script_name: 万年历小组件
+- name: 聚合热搜
+  script_name: 聚合热搜小组件
+- name: 财联社
+  script_name: 财联社小组件
+modules:
+- url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Telegram.yaml
+  env:
+    CLIENT: Telegram
+  enabled: true
+- url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/surge-loon-to-egern.yaml
+  enabled: true
+- url: https://raw.githubusercontent.com/Maasea/sgmodule/master/YouTube.Enhance.sgmodule
+  enabled: true
+- url: https://github.com/DualSubs/YouTube/releases/latest/download/DualSubs.YouTube.yaml
+  enabled: true
+- url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E2%AD%90%EF%B8%8F%20BoxJs.official.sgmodule
+  enabled: true
+- url: https://raw.githubusercontent.com/sub-store-org/Sub-Store/refs/heads/master/config/Egern.yaml
+  enabled: true
+- url: https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/refs/heads/main/modules/script-hub.beta.surge.sgmodule
+  enabled: true
+
+

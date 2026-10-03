@@ -1,0 +1,476 @@
+---
+# 自动更新配置的内容。默认值是空
+auto_update:
+  url: http://example.com/
+  interval: 86400
+
+# 是否启用 IPv6。默认值是 false
+ipv6: false
+
+# HTTP 代理端口号。默认值是 3080
+http_port: 3080
+
+# SOCKS 代理端口号。默认值是 3090
+socks_port: 3090
+
+# 允许外部连接通过 Wi-Fi 访问设备上的代理。默认值是 false
+allow_external_connections: false
+
+# 仅虚拟网接口模式。默认值是 false
+vif_only: false
+
+# 指定特定的主机，其网络流量应绕过 Tunnel 的 HTTP 代理，而选择直接通过虚拟网络接口进行路由。。默认值是空数组
+bypass_tunnel_proxy:
+- *.example.com
+
+# 隐藏 VPN 图标。默认值是 false
+hide_vpn_icon: false
+
+# 允许用户指定一个或多个DNS服务器的地址。当有请求查询这些特定DNS服务器地址中的记录时，系统将拦截这些请求，并返回一个假的IP地址。这样做的目的是确保后续的TCP和UDP流量可以通过这个虚假的IP地址来定位域名，以此来控制或修改网络流量的走向。默认值是空数组
+hijack_dns:
+- '*'
+
+# 指定自定义的 GeoIP 数据库 URL。Egern 将每周自动更新该数据库。默认值是空
+geoip_db_url: null
+
+# 指定自定义的 ASN 数据库 URL。Egern 将每周自动更新该数据库。默认值是空
+asn_db_url: null
+
+# 自定义的代理延迟测试 URL。默认值是空
+proxy_latency_test_url: null
+
+# 自定义的直连延迟测试 URL。默认值是空
+direct_latency_test_url: null
+
+# 虚拟网络接口不使用默认的路由，由多个较小的路由切分用于解决某些问题。比如 HomeKit 的摄像头无法使用的问题。默认值是 false
+compat_route: false
+
+# 启用后系统会通过隧道路由网络流量，但为维持预期设备功能所必需的指定系统服务的流量除外。默认值是 false
+include_all_networks: false
+
+# 启用后系统将包含 Apple Push Notification 服务 (APN) 流量，但前提是包含所有网络也已启用。默认值是 false
+include_apns: false
+
+# 启用后系统会包含蜂窝网络服务，如 Wi-Fi 通话、彩信、短信和可视语音邮件，但前提是包含所有网络也已启用。该属性不会影响仅使用蜂窝网络的服务（如 VoLTE），系统会自动排除这些服务。默认值是 false
+include_cellular_services: false
+
+# 启用后系统将包含与本地网络上主机（如 AirPlay、AirDrop 和 CarPlay）的网络连接，但前提是包含所有网络也已启用。默认值是 false
+include_local_networks: false
+
+# 虚拟接口包含的路由。默认值是空数组
+vif_included_routes:
+- 192.168.0.1/32
+
+# 虚拟接口排除的路由。默认值是空数组
+vif_excluded_routes:
+- 192.168.0.1/32
+
+dns:
+  bootstrap:
+    - system  # 使用系统默认的DNS配置作为引导。
+  upstreams:  # 定义上游DNS服务器的列表。
+    google:  # 使用Google的公共DNS服务器作为上游服务器之一。
+    - https://8.8.8.8  # Google的第一个DNS服务器。
+    - https://8.8.4.4  # Google的备用DNS服务器。
+  forward:  # 转发DNS请求的规则。
+  - wildcard:
+      match: '*.cn'  # 将所有以.cn结尾的域名请求转发给系统默认的DNS服务器。
+      value: system
+  - proxy_rule_set:  # 匹配 ACL4SSR 的中国域名列表中的域名。
+      match: https://github.com/ACL4SSR/ACL4SSR/raw/master/Clash/ChinaDomain.list
+      value: system  # 这些匹配的域名使用系统默认的DNS服务器。
+  - regex:
+      match: ^ad\..*|^ads\..*  # 正则表达式匹配以"ad."或"ads."开头的域名（通常是广告相关的域名）。
+      value: quic://dns.adguard-dns.com  # 这些广告相关的域名使用AdGuard的QUIC DNS服务器。
+  - wildcard:
+      match: '*'  # 匹配所有其他未被前述规则匹配的域名。
+      value: google  # 将这些域名请求转发到Google的DNS服务器。
+  hosts:  # 本地DNS解析的主机名映射。
+    example.com: www.example.com  # 将example.com解析为www.example.com。
+    localhost: 127.0.0.1  # 将localhost解析为本地地址127.0.0.1。
+  block_ips:  # 阻止的IP地址或子网列表。
+  - 1.2.3.4  # 阻止IP地址1.2.3.4。
+  - 4.3.2.1/32  # 阻止IP地址4.3.2.1/32（单个IP地址）。
+  public_ip_lookup_url: https://ifconfig.me/ip  # 查询公共IP地址的URL，用于获取本机的公网IP地址。
+
+# 代理列表。
+proxies:
+  # Shadowsocks 协议
+  - shadowsocks:
+      # 代理名称
+      name: MyShadowsocks
+      # 加密方式。支持 chacha20-ietf-poly1305、aes-256-gcm、aes-128-gcm。
+      method: chacha20-ietf-poly1305
+      # 密码
+      password: Password
+      # 服务器地址
+      server: 127.0.0.1
+      # 服务器端口
+      port: 443
+      # 是否启用 TCP 快速打开
+      tfo: false
+      # 是否启用 UDP 中继
+      udp_relay: false
+      # 数据混淆。支持 http 和 tls
+      obfs: http
+      # HTTP 混淆的 HOST 或 TLS 混淆的 SNI
+      obfs_host: www.bing.com
+      # HTTP 混淆的 URI
+      obfs_uri: "http://www.bing.com/"
+  # Trojan 协议
+  - trojan:
+      # 代理名称
+      name: MyTrojan
+      # 服务器地址
+      server: 127.0.0.1
+      # 服务器端口
+      port: 443
+      # TLS 的 SNI
+      sni: www.bing.com
+      # 密码
+      password: Password
+      # 是否启用 TCP 快速打开
+      tfo: false
+      # 是否启用 UDP 中继
+      udp_relay: true
+  # Vless 协议
+  - vless:
+      # 代理名称
+      name: MyVless
+      # 服务器地址
+      server: 127.0.0.1
+      # 服务器端口
+      port: 443
+      # 用户 ID
+      user_id: 27848739-7e62-4138-9fd3-098a63964b6b
+      # 是否启用 TCP 快速打开
+      tfo: false
+      # 是否启用 UDP 中继
+      udp_relay: true
+      # 传输协议。支持 tls、ws、wss。tls 的参数是 sni，ws 和 wss 的参数是 uri。
+      transport:
+        wss:
+          uri: "wss://www.bing.com/"
+  # Vmess 协议
+  - vmess:
+      # 代理名称
+      name: MyVmess
+      # 服务器地址
+      server: 127.0.0.1
+      # 服务器端口
+      port: 443
+      # 用户 ID
+      user_id: 27848739-7e62-4138-9fd3-098a63964b6b
+      # 加密方式。支持 auto、none、aes-128-gcm、chacha20-poly1305
+      security: auto
+      # 是否使用废弃的协议
+      legacy: false
+      # 是否启用 TCP 快速打开
+      tfo: false
+      # 是否启用 UDP 中继
+      udp_relay: true
+      # 传输协议。支持 tls、ws、wss。tls 的参数是 sni，ws 和 wss 的参数是 uri。
+      transport:
+        wss:
+          uri: "wss://www.bing.com/"
+  # Hysteria2 协议
+  - hysteria2:
+      # 代理名称
+      name: MyVless
+      # 服务器地址
+      server: 127.0.0.1
+      # 服务器端口
+      port: 443
+      # 验证
+      auth: your_password
+      # TLS 的 SNI
+      sni: www.bing.com
+      # 混淆类型
+      obfs: salamander
+      # 混淆密码
+      obfs_password: cry_me_a_r1ver
+      # 跳过 TLS 验证，默认为 false
+      skip_tls_verify: false
+
+  # Socks 5 协议
+  - socks5:
+      # 代理名称
+      name: MySocks
+      # 服务器地址
+      server: 127.0.0.1
+      # 服务器端口
+      port: 443
+      # 用户名
+      username: Username
+      # 密码
+      password: Password
+      # 是否启用 TCP 快速打开
+      tfo: false
+      udp_relay: true
+  # HTTP 协议
+  - http:
+      # 代理名称
+      name: MySocks
+      # 服务器地址
+      server: 127.0.0.1
+      # 服务器端口
+      port: 443
+      # 用户名
+      username: Username
+      # 密码
+      password: Password
+      # 是否启用 TCP 快速打开
+      tfo: false
+# 策略组配置列表
+policy_groups:
+  # 手动选择的策略组
+  - select:
+      # 策略组名称
+      name: Select
+      # 包含的策略列表
+      policies:
+        - MyShadowsocks
+        - MyTrojan
+  # 自动测试的策略组
+  - auto_test:
+      # 策略组名称
+      name: AutoTest
+      # 包含的策略列表
+      policies:
+        - MyShadowsocks
+        - MyTrojan
+      # 检查间隔。默认 1 天
+      interval: 86400
+      # 策略切换容忍度。默认 100 ms
+      tolerance: 100
+      # 策略组测试超时时间。默认 5 s
+      timeout: 5
+  # 后备策略组
+  - fallback:
+      # 策略组名称
+      name: Fallback
+      # 包含的策略列表
+      policies:
+        - MyShadowsocks
+        - MyTrojan
+      # 检查间隔。默认 1 天
+      interval: 86400
+      # 策略组测试超时时间。默认 5 s
+      timeout: 5
+  # 负载均衡策略组
+  - load_balance:
+      # 策略组名称
+      name: Select
+      # 包含的策略列表
+      policies:
+        - MyShadowsocks
+        - MyTrojan
+  # 外部资源策略组
+  - external:
+      # 策略组名称
+      name: MyExternal
+      # 策略组类型。支持 select、auto_test、fallback、load_balance
+      type: select
+      # 策略组 URL。可以是本地路径或远程代理链接
+      urls:
+        - "可以是本地路径或远程代理链接"
+      # 过滤器
+      filter: ".*"
+      # 检查间隔。默认 1 天
+      interval: 86400
+      # 策略切换容忍度。默认 100 ms
+      tolerance: 100
+      # 策略组测试超时时间。默认 5 s
+      timeout: 5
+      # 检查间隔。默认 1 天
+      update_interval: 86400
+# 代理规则列表
+rules:
+  # 域名规则
+  - domain:
+      # 匹配的域名
+      match: example.com
+      # 使用的策略
+      policy: REJECT
+  # 域名关键词规则
+  - domain_keyword:
+      # 匹配的域名关键词
+      match: example
+      # 使用的策略
+      policy: DIRECT
+  # 域名后缀规则
+  - domain_suffix:
+      # 匹配的域名后缀
+      match: example.com
+      # 使用的策略
+      policy: DIRECT
+  # 域名正则表达式规则
+  - domain_regex:
+      # 匹配的 URL 正则表达式
+      match: ".*\\.com$"
+      # 使用的策略
+      policy: Proxy
+  # 地理位置规则
+  - geoip:
+      # 匹配的地理位置
+      match: US
+      # 使用的策略
+      policy: Proxy
+  # IPv4 CIDR规则
+  - ip_cidr:
+      # 匹配的 IPv4 CIDR
+      match: 192.168.0.1/24
+      # 使用的策略
+      policy: DIRECT
+  # IPv6 CIDR规则
+  - ip_cidr6:
+      # 匹配的 IPv6 CIDR
+      match: "2001:db8::/32"
+      # 使用的策略
+      policy: REJECT
+  # URL正则表达式规则
+  - url_regex:
+      # 匹配的 URL 正则表达式
+      match: "http://.*\\.com$"
+      # 使用的策略
+      policy: DIRECT
+  # 规则集
+  - rule_set:
+      # 匹配的规则集 URL。可以是本地路径或远程代理链接
+      match: "https://example.com/example.yaml"
+      # 使用的策略
+      policy: Proxy
+      # 更新间隔。默认间隔 1 天
+      update_interval: 86400
+  # ASN规则
+  - asn:
+      # 匹配的 ASN 代码或者组织
+      match: "1234"
+      # 使用的策略
+      policy: DIRECT
+  # 默认策略
+  - default:
+      # 使用的策略
+      policy: Proxy
+# URL 重写列表
+url_rewrites:
+  # 匹配的 URL
+  - match: example.com
+    # 重定向的位置
+    location: new.example.com
+    # 重定向的状态码
+    status_code: 301
+
+# HTTP 请求/响应头部重写列表
+header_rewrites:
+  # 添加头部
+  - add:
+      # 匹配的 URL 正则表达式
+      match: example.com
+      # 头部名称
+      name: Content-Type
+      # 头部值
+      value: application/json
+      # 重写类型（请求或响应）
+      type: response
+  # 替换头部
+  - replace:
+      # 匹配的 URL 正则表达式
+      match: example.com
+      # 头部名称
+      name: Content-Type
+      # 头部值
+      value: application/json
+      # 重写类型（请求或响应）
+      type: response
+  # 删除头部
+  - delete:
+      # 匹配的 URL 正则表达式
+      match: example.com
+      # 头部名称
+      name: Content-Type
+      # 重写类型（请求或响应）
+      type: request
+# HTTP 响应体重写列表
+body_rewrites:
+  # 匹配的 URL 正则表达式
+  - match: example.com
+    # 查找的内容
+    find: old content
+    # 替换的内容
+    replace: new content
+    # 重写类型（请求或响应）
+    type: response
+# 脚本配置列表
+scriptings:
+  # HTTP 请求脚本
+  - http_request:
+      # 脚本名称
+      name: HTTP Script 1
+      # 匹配的 URL 正则表达式
+      match: example.com
+      # 脚本 URL。可以是本地路径或远程代理链接
+      script_url: "http://script.example.com/script.js"
+      # 更新间隔。默认间隔 1 天
+      update_interval: 86400
+      # 消息体最大尺寸。单位是字节
+      max_size: 131072
+      # 是否启用调试
+      debug: true
+      # 超时时间。单位是秒
+      timeout: 30
+      # 是否需要请求体
+      body_required: false
+  # HTTP 响应脚本
+  - http_response:
+      # 脚本名称
+      name: HTTP Script 1
+      # 匹配的 URL 正则表达式
+      match: example.com
+      # 脚本 URL。可以是本地路径或远程代理链接
+      script_url: "http://script.example.com/script.js"
+      # 更新间隔。默认间隔 1 天
+      update_interval: 86400
+      # 消息体最大尺寸。单位是字节
+      max_size: 131072
+      # 是否启用调试
+      debug: true
+      # 超时时间。单位是秒
+      timeout: 30
+      # 是否需要响应体
+      body_required: false
+  # 定时任务脚本
+  - schedule:
+      # 脚本名称
+      name: Scheduled Script 1
+      # 定时任务表达式
+      cron: 0 0 * * *
+      # 脚本 URL。可以是本地路径或远程代理链接
+      script_url: "http://script.example.com/script.js"
+      # 更新间隔。默认间隔 1 天
+      update_interval: 86400
+      # 超时时间
+      timeout: 30
+# MITM 配置
+mitm:
+  # 是否启用
+  enabled: true
+  # CA 证书文件路径
+  ca_p12: ""
+  # CA 证书密码
+  ca_passphrase: "123456"
+  # mitm 的主机名列表
+  hostnames:
+  - example.com
+# HTTP 抓包配置列表
+http_captures:
+# 匹配的主机名
+- example.com
+# 模块配置列表
+modules:
+  # 模块 URL。可以是本地路径或远程代理链接
+  - url: "https://example.com/module.yaml"
+    # 更新间隔。默认间隔 1 天
+    update_interval: 86400
+    # 是否启用
+    enabled: true

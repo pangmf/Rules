@@ -757,6 +757,7 @@ modules:
   - url: https://raw.githubusercontent.com/chengkongyiban/Loon/main/Loon-Gallery/BaiduCloud.plugin
     update_interval: 2592000
     enabled: true
+    icon: https://iili.io/K0KvJv1.png
   - url: https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx
     update_interval: 2592000
     enabled: true
@@ -799,6 +800,7 @@ modules:
   - url: https://github.com/Moli-X/Tool/raw/X/Loon/Plugin/Kelee/Node_detection_tool.plugin
     update_interval: 2592000
     enabled: true
+    icon: https://iili.io/K0KrBdQ.png
   - url: https://ddgksf2013.top/module/ScriptHub.Egern.sgmodule
     update_interval: 2592000
     enabled: true

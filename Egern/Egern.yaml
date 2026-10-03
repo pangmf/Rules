@@ -64,6 +64,10 @@ vif_excluded_routes:
 - 224.0.0.0/4
 - 255.255.255.255/32
 
+# 虚拟接口回流地址
+vif_hairpin_addresses:
+- 10.7.0.1
+
 dns:
   bootstrap:
     - 223.5.5.5

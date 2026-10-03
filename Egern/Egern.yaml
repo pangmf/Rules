@@ -30,10 +30,6 @@ bypass_tunnel_proxy:
 # 隐藏 VPN 图标。默认值是 false
 hide_vpn_icon: false
 
-# 允许用户指定一个或多个DNS服务器的地址。当有请求查询这些特定DNS服务器地址中的记录时，系统将拦截这些请求，并返回一个假的IP地址。这样做的目的是确保后续的TCP和UDP流量可以通过这个虚假的IP地址来定位域名，以此来控制或修改网络流量的走向。默认值是空数组
-hijack_dns:
-- '*'
-
 # 指定自定义的 GeoIP 数据库 URL。Egern 将每周自动更新该数据库。默认值是空
 geoip_db_url: https://geodata.kelee.one/Country-Masaiki.mmdb
 
@@ -87,6 +83,7 @@ dns:
     - 119.29.29.29
     - 114.114.114.114
   upstreams:  # 定义上游DNS服务器的列表。
+    defalt:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
     - h3://cloudflare-dns.com/dns-query
@@ -552,18 +549,18 @@ rules:
 url_rewrites:
 # ======= Google搜索重写  ======= #
   # 匹配的 URL
-  - match: "/^https?:\/\/(www.)?g.cn/i"
+  - match: ^https?:\/\/(www.)?g.cn
     # 重定向的位置
     location: https://www.google.com
     # 重定向的状态码
     status_code: 302
-  - match: "/^https?:\/\/(www.)?(g|google)\.cn/i"
+  - match: ^https?:\/\/(www.)?google.cn
     location: https://www.google.com
     status_code: 302
-  - match: "/^https?:\/\/(www\.)?google\.com\.hk/i"
+  - match: ^https?:\/\/(www.)?google.com.hk
     location: https://www.google.com
     status_code: 302
-  - match: "/^https?:\/\/(www\.)?google\.co\.jp/i"
+  - match: ^https?:\/\/(www.)?google.co.jp
     location: https://www.google.com
     status_code: 302
 
@@ -572,6 +569,9 @@ scriptings:
   - generic:
     name: 油价查询小组件
     script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Oil_Widget.JS
+    env:
+      region: zhejiang/taizhou
+    update_interval: 2592000
   # 定时任务脚本
   - schedule:
       # 脚本名称
@@ -579,34 +579,78 @@ scriptings:
       # 定时任务表达式
       cron: 30 6 * * *
       # 脚本 URL。可以是本地路径或远程代理链接
-      script_url: "https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js"
+      script_url: https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js
       # 更新间隔。默认间隔 1 天
       update_interval: 2592000
       # 超时时间
       timeout: 30
+      # 脚本禁用
+      disabled: true
   - schedule:
       name: WPS每日签到
       cron: 0 10 * * *
-      script_url: "https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.js"
+      script_url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.js
       update_interval: 2592000
-      timeout: 30
+      timeout: 120
+      disabled: true
+  - schedule:
+      name: 小米商城签到
+      cron: 15 8 * * *
+      script_url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/mishop/mishop.js
+      update_interval: 2592000
+      timeout: 120
+      disabled: true
+  - schedule:
+      name: 小米抽奖签到
+      cron: 30 8 * * *
+      script_url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/milottery/milottery.js
+      update_interval: 2592000
+      timeout: 120
+      disabled: true
+  - schedule:
+      name: QQ音乐每日任务
+      cron: 0 30 7 * * *
+      script_url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/qqmusic/qqmusic.js
+      update_interval: 2592000
+      timeout: 120
+      disabled: true
+  - schedule:
+      name: QQ音乐定时金币
+      cron: 0 * 9-10 * * *
+      script_url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/qqmusic/qqmusic.js
+      update_interval: 2592000
+      timeout: 120
+      disabled: true
+  - schedule:
+      name: QQ音乐红包雨
+      cron: 0 5 0,8,12,16,20,22 * * *
+      script_url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/qqmusic/qqmusic.js
+      update_interval: 2592000
+      timeout: 120
+      disabled: true
+  - schedule:
+      name: 扫描全能王每日转盘
+      cron: 15 10 * * *
+      script_url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/camscanner/camscanner.js
+      update_interval: 2592000
+      timeout: 120
+      disabled: true
+  - schedule:
+      name: PingMe签到
+      cron: 30 8,20 * * *
+      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe-Loon.js
+      update_interval: 2592000
+      timeout: 120
+      disabled: true
 
-#cron "15 8 * * *" then script("https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/mishop/mishop.js") with enable=false,tag="小米商城签到", img_url="https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/mishop.png"
-#cron "30 8 * * *" then script("https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/milottery/milottery.js") with enable=false, tag="小米抽奖签到", img_url="https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/mishop.png"
-#cron "0 30 7 * * *" then script("https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/qqmusic/qqmusic.js") with enable=false,tag="QQ音乐每日任务", img_url="https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/qqmusic.png"
-#cron "0 * 9-10 * * *" then script("https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/qqmusic/qqmusic.js") with enable=false,tag="QQ音乐定时金币", img_url="https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/qqmusic.png"
-#cron "0 5 0,8,12,16,20,22 * * *" then script("https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/qqmusic/qqmusic.js") with enable=false,tag="QQ音乐红包雨", img_url="https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/qqmusic.png"
-#cron "15 10 * * *" then script("https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/camscanner/camscanner.js") with enable=false,tag="扫描全能王签到", img_url="https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/camscanner.png"
-#cron "30 8,20 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe-Loon.js") with enable=false,tag="PingMe签到", img_url="https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png"
-      
 # MITM 配置
 mitm:
   # 是否启用
   enabled: true
   # CA 证书文件路径
-  ca_p12: ""
+  ca_p12: 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
   # CA 证书密码
-  ca_passphrase: ""
+  ca_passphrase: ''
   # mitm 的主机名列表
   hostnames:
     includes:
@@ -622,6 +666,10 @@ mitm:
     - '*snssdk.com'
     - www.google.com
 
+widgets:
+- name: 今日油价
+  script_name: 油价查询小组件
+  
 # 模块配置列表
 modules:
   # 模块 URL。可以是本地路径或远程代理链接
@@ -645,21 +693,28 @@ modules:
   - url: https://reven.jsforbaby.workers.dev/reven/iTunes.lpx
     update_interval: 2592000
     enabled: true
-  - url: http://script.hub/file/_start_/https://ddgksf2013.top/rewrite/StartUpAds.conf/_end_/StartUpAds.sgmodule?type=qx-rewrite&n=%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F2.0%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%B7%B2%E6%8A%93%E5%8C%85400%E4%BD%99%E5%BA%94%E7%94%A8%E5%8E%BB%E5%BC%80%E5%B1%8F&headers=User-Agent:surge&del=true&jqEnabled=true&target=loon-plugin&category=ddgksf2013
+  - url: http://script.hub/file/_start_/https://ddgksf2013.top/scripts/slidebox.vip.js/_end_/slidebox.vip.sgmodule?type=qx-rewrite&n=Slidebox%E4%BC%9A%E5%91%98%E8%A7%A3%E9%94%81%40ddgksf2013+%E8%A7%A3%E9%94%81%E4%BC%9A%E5%91%98&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
     update_interval: 2592000
     enabled: true
-  - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/Yuheng0101/X/refs/heads/main/Scripts/ChinaMobile/NoAds.js/_end_/NoAds.sgmodule?type=qx-rewrite&n=%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8%E5%8E%BB%E5%B9%BF%E5%91%8A%40Yuheng+%E5%BA%94%E7%94%A8%E5%87%80%E5%8C%96&headers=User-Agent:surge&del=true&jqEnabled=true&target=loon-plugin&category=Yuheng
+    icon: https://iili.io/KQ6UzHN.png
+  - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/app2smile/rules/master/module/spotify.conf/_end_/spotify.sgmodule?type=qx-rewrite&n=Spotify%E4%BC%9A%E5%91%98%E8%A7%A3%E9%94%81%40app2smile+%E8%A7%A3%E9%94%81Premium%E4%BC%9A%E5%91%98&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=app2smile
     update_interval: 2592000
     enabled: true
-  - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/ddgksf2013/Scripts/master/coolapk.js/_end_/coolapk.sgmodule?type=qx-rewrite&n=%E9%85%B7%E5%AE%89%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%BA%94%E7%94%A8%E5%87%80%E5%8C%96&headers=User-Agent:surge&del=true&jqEnabled=true&target=loon-plugin&category=ddgksf2013
-    update_interval: 2592000
-    enabled: true
+    icon: https://iili.io/KQXqSt9.png
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CamScanner.js
     update_interval: 2592000
     enabled: true
-  - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/app2smile/rules/master/module/spotify.conf/_end_/spotify.sgmodule?type=qx-rewrite&n=Spotify%E4%BC%9A%E5%91%98%E8%A7%A3%E9%94%81%40app2smile+%E8%A7%A3%E9%94%81Premium%E4%BC%9A%E5%91%98&headers=User-Agent:surge&del=true&jqEnabled=true&target=loon-plugin&category=app2smile
-    update_interval: 2592000
+    icon: https://iili.io/KQ4BOBe.png
+  - url: http://script.hub/file/_start_/https://ddgksf2013.top/rewrite/StartUpAds.conf/_end_/StartUpAds.sgmodule?type=qx-rewrite&n=%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F2.0%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%B7%B2%E6%8A%93%E5%8C%85400%E4%BD%99%E5%BA%94%E7%94%A8%E5%8E%BB%E5%BC%80%E5%B1%8F&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
+    update_interval: 604800
     enabled: true
+    icon: https://iili.io/KpkV3f2.png
+  - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/ddgksf2013/Scripts/master/coolapk.js/_end_/coolapk.sgmodule?type=qx-rewrite&n=%E9%85%B7%E5%AE%89%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%BA%94%E7%94%A8%E5%87%80%E5%8C%96&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
+    enabled: true
+    icon: https://iili.io/KtHNRvj.png
+  - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/Yuheng0101/X/refs/heads/main/Scripts/ChinaMobile/NoAds.js/_end_/NoAds.sgmodule?type=qx-rewrite&n=%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8%E5%8E%BB%E5%B9%BF%E5%91%8A%40Yuheng+%E5%BA%94%E7%94%A8%E5%87%80%E5%8C%96&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=Yuheng
+    enabled: true
+    icon: https://www.imgccc.com/2026/02/24/f5778059f6901.png
   - url: https://kelee.one/Tool/Loon/Lpx/Zhihu_remove_ads.lpx
     update_interval: 2592000
     enabled: true
@@ -747,6 +802,7 @@ modules:
   - url: https://ddgksf2013.top/module/ScriptHub.Egern.sgmodule
     update_interval: 2592000
     enabled: true
+    icon: https://iili.io/B40FK21.png
   - url: https://github.com/Moli-X/Tool/raw/X/Loon/Plugin/Kelee/Script-Hub.plugin
     compat_arguments:
       PROXY: Global

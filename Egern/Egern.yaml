@@ -478,11 +478,11 @@ rules:
       policy: DIRECT
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Surge/rules/AI.list
+      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/AI.list
       policy: AI
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Surge/rules/Apple_AI.list
+      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/Apple_AI.list
       policy: AppleAI
       update_interval: 2592000
   - rule_set:

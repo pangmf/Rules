@@ -679,7 +679,7 @@ widgets:
 modules:
   # 模块 URL。可以是本地路径或远程代理链接
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/PingMe-Loon.lpx
-    # 更新间隔。默认间隔 1 天
+    # 更新间隔s。默认间隔1天
     update_interval: 2592000
     # 是否启用
     enabled: true
@@ -714,12 +714,13 @@ modules:
     update_interval: 604800
     enabled: true
     icon: https://iili.io/KpkV3f2.png
-  - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/ddgksf2013/Scripts/master/coolapk.js/_end_/coolapk.sgmodule?type=qx-rewrite&n=%E9%85%B7%E5%AE%89%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%BA%94%E7%94%A8%E5%87%80%E5%8C%96&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
-    enabled: true
-    icon: https://iili.io/KtHNRvj.png
   - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/Yuheng0101/X/refs/heads/main/Scripts/ChinaMobile/NoAds.js/_end_/NoAds.sgmodule?type=qx-rewrite&n=%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8%E5%8E%BB%E5%B9%BF%E5%91%8A%40Yuheng+%E5%BA%94%E7%94%A8%E5%87%80%E5%8C%96&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=Yuheng
+    update_interval: 2592000
     enabled: true
     icon: https://www.imgccc.com/2026/02/24/f5778059f6901.png
+  - url: https://kelee.one/Tool/Loon/Lpx/CoolApk_remove_ads.lpx
+    update_interval: 2592000
+    enabled: true
   - url: https://kelee.one/Tool/Loon/Lpx/Zhihu_remove_ads.lpx
     update_interval: 2592000
     enabled: true
@@ -810,9 +811,13 @@ modules:
     update_interval: 2592000
     enabled: true
     icon: https://iili.io/B40FK21.png
-  - url: https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/modules/script-hub.surge.sgmodule
+  - url: https://raw.githubusercontent.com/Moli-X/Tool/X/Loon/Plugin/Kelee/Script-Hub.plugin
     compat_arguments:
       Notify: 跟随链接
+      启用插件随机图标: 禁用
+      替换原始插件图标: 禁用
+      插件随机图标合集: Pokemon(112P)
+      ScriptHub通知: 跟随链接
     update_interval: 2592000
     enabled: true
 

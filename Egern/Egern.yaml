@@ -254,89 +254,100 @@ policy_groups:
 - select:
     name: 手动选择
     policies:
-    - ALL
+    - 夜煞云
+    - 橘色云
+    - Kitty
+    - CrossWall
     flatten: true
+    filter: "^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|发布|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Game|Channel|Author|Traffic)(\\d+)?\b|(\\d{4}-\\d{2}-\\d{2}|\\dG)))).*$"
+    update_interval: 2592000
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+    hidden: false
 - auto_test:
     name: 自动选择
     policies:
-    - ALL
+    - 手动选择
     flatten: true
     interval: 3600
     latency_test_url: http://www.gstatic.com/generate_204
     tolerance: 10
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/SSID_1.png
-- auto_test:
+    hidden: false
+- smart:
     name: 香港节点
     policies:
-    - HK
+    - 手动选择
     flatten: true
-    interval: 3600
+    filter: (?i)(🇭🇰|HK|HKG|Hong\s*Kong|香港)
     latency_test_url: http://www.gstatic.com/generate_204
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
-- auto_test:
+    hidden: false
+- smart:
     name: 台湾节点
     policies:
-    - TW
+    - 手动选择
     flatten: true
-    interval: 3600
+    filter: (?i)(🇹🇼|TW|TPE|Taiwan|台湾|台灣)
     latency_test_url: http://www.gstatic.com/generate_204
-    tolerance: 10
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
-- auto_test:
+    hidden: false
+- smart:
     name: 美国节点
     policies:
-    - US
+    - 手动选择
     flatten: true
-    interval: 3600
+    filter: (?i)(🇺🇸|USA|LAX|SJC|SEA|NYC|JFK|EWR|DAL|ORD|ATL|SFO|United States|美国|美國)
     latency_test_url: http://www.gstatic.com/generate_204
-    tolerance: 10
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
-- auto_test:
+    hidden: false
+- smart:
     name: 日本节点
     policies:
-    - JP
+    - 手动选择
     flatten: true
-    interval: 3600
+    filter: (?i)(🇯🇵|JP|TYO|OSA|NRT|HND|KIX|Japan|日本|东京|大阪)
     latency_test_url: http://www.gstatic.com/generate_204
-    tolerance: 10
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
-- auto_test:
+    hidden: false
+- smart:
     name: 新加坡节点
     policies:
-    - SG
+    - 手动选择
     flatten: true
-    interval: 3600
+    filter: (?i)(🇸🇬|SG|SIN|Singapore|新加坡|狮城)
     latency_test_url: http://www.gstatic.com/generate_204
-    tolerance: 10
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
-- auto_test:
+    hidden: false
+- smart:
     name: 韩国节点
     policies:
-    - KR
+    - 手动选择
     flatten: true
-    interval: 3600
+    filter: (?i)(🇰🇷|KR|ICN|SEL|Korea|Seoul|韩国|韓國)
     latency_test_url: http://www.gstatic.com/generate_204
-    tolerance: 10
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Korea.png
+    hidden: false
 - select:
     name: 欧洲节点
     policies:
-    - EU
+    - 手动选择
     flatten: true
+    filter: (?i)(🇪🇺|UK|DE|FR|NL|CH|GE|PT|SE|NO|DK|LON|FRA|AMS|PAR|欧洲|欧盟|英国|德国|法国)
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/EU.png
+    hidden: false
 - select:
     name: 其他节点
     policies:
-    - Other
+    - 手动选择
     flatten: true
+    filter: (?i)^(?!.*(🇭🇰|HK|HKG|香港|🇹🇼|TW|TPE|台湾|台灣|🇯🇵|JP|TYO|OSA|NRT|HND|日本|🇸🇬|SG|SIN|新加坡|🇺🇸|USA|LAX|SFO|NYC|JFK|United States|美国|美國|🇰🇷|KR|ICN|SEL|韩国|韓國|🇪🇺|UK|GB|DE|FR|NL|CH|ES|IT|GE|欧洲|欧盟|英国|德国|法国|官网|Music|Game|地址|机场|重置|到期|套餐|发布|流量|导航|专用)).+
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/European_Union.png
+    hidden: false
 - external:
     name: CrossWall
     type: select
     urls:
     - https://162.19.79.201/s/e7e47a5f81fdd9be8648cc986703f40a
-    block_quic: true
     update_interval: 2592000
     hidden: true
 - external:
@@ -344,114 +355,24 @@ policy_groups:
     type: select
     urls:
     - https://m1.tohno-0.top/oosaka/b5e1573fa71c38b1808cd8c19c1a9960
-    block_quic: true
     update_interval: 2592000
+    block_quic: true
     hidden: true
 - external:
     name: 橘色云
     type: select
     urls:
     - https://makabaka.jusesub.com/makabaka/c723c73198bb154fc5700ceed587efea
-    block_quic: true
     update_interval: 2592000
+    block_quic: true
     hidden: true
 - external:
     name: 夜煞云
     type: select
     urls:
     - https://45.137.180.216/L?ZG93bmxvYWRDb25maWcuanMvOTE1ZjY4OGNkODY3Mjg3M2RkNzBhMmNiNjUyNTI3NDQ/dGltZXN0YW1wPTEyMjY5
-    block_quic: true
     update_interval: 2592000
-    hidden: true
-- select:
-    name: ALL
-    policies:
-    - CrossWall
-    - Kitty
-    - 橘色云
-    - 夜煞云
-    flatten: true
-    filter: "^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|发布|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Game|Channel|Author|Traffic)(\\d+)?\b|(\\d{4}-\\d{2}-\\d{2}|\\dG)))).*$"
-    hidden: true
-- select:
-    name: HK
-    policies:
-    - CrossWall
-    - Kitty
-    - 橘色云
-    - 夜煞云
-    flatten: true
-    filter: (?i)(🇭🇰|HK|HKG|Hong\s*Kong|香港)
-    hidden: true
-- select:
-    name: TW
-    policies:
-    - CrossWall
-    - Kitty
-    - 橘色云
-    - 夜煞云
-    flatten: true
-    filter: (?i)(🇹🇼|TW|TPE|Taiwan|台湾|台灣)
-    hidden: true
-- select:
-    name: JP
-    policies:
-    - CrossWall
-    - Kitty
-    - 橘色云
-    - 夜煞云
-    flatten: true
-    filter: (?i)(🇯🇵|JP|TYO|OSA|NRT|HND|KIX|Japan|日本|东京|大阪)
-    hidden: true
-- select:
-    name: SG
-    policies:
-    - CrossWall
-    - Kitty
-    - 橘色云
-    - 夜煞云
-    flatten: true
-    filter: (?i)(🇸🇬|SG|SIN|Singapore|新加坡|狮城)
-    hidden: true
-- select:
-    name: US
-    policies:
-    - CrossWall
-    - Kitty
-    - 橘色云
-    - 夜煞云
-    flatten: true
-    filter: (?i)(🇺🇸|USA|LAX|SJC|SEA|NYC|JFK|EWR|DAL|ORD|ATL|SFO|United States|美国|美國)
-    hidden: true
-- select:
-    name: KR
-    policies:
-    - CrossWall
-    - Kitty
-    - 橘色云
-    - 夜煞云
-    flatten: true
-    filter: (?i)(🇰🇷|KR|ICN|SEL|Korea|Seoul|韩国|韓國)
-    hidden: true
-- select:
-    name: EU
-    policies:
-    - CrossWall
-    - Kitty
-    - 橘色云
-    - 夜煞云
-    flatten: true
-    filter: (?i)(🇪🇺|UK|DE|FR|NL|CH|GE|PT|SE|NO|DK|LON|FRA|AMS|PAR|欧洲|欧盟|英国|德国|法国)
-    hidden: true
-- select:
-    name: Other
-    policies:
-    - CrossWall
-    - Kitty
-    - 橘色云
-    - 夜煞云
-    flatten: true
-    filter: (?i)^(?!.*(🇭🇰|HK|HKG|香港|🇹🇼|TW|TPE|台湾|台灣|🇯🇵|JP|TYO|OSA|NRT|HND|日本|🇸🇬|SG|SIN|新加坡|🇺🇸|USA|LAX|SFO|NYC|JFK|United States|美国|美國|🇰🇷|KR|ICN|SEL|韩国|韓國|🇪🇺|UK|GB|DE|FR|NL|CH|ES|IT|GE|欧洲|欧盟|英国|德国|法国|官网|Music|Game|地址|机场|重置|到期|套餐|发布|流量|导航|专用)).+
+    block_quic: true
     hidden: true
 
 # 代理规则列表

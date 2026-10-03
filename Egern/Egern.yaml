@@ -585,9 +585,6 @@ scriptings:
       name: 节日倒计时小组件
       script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Holiday_Countdown.js
   - generic:
-      name: 油价查询小组件
-      script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Oil_Widget.JS
-  - generic:
       name: 虚拟货币小组件
       script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Crypto_Widget.JS
   - generic:

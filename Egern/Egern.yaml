@@ -19,14 +19,6 @@ allow_external_connections: false
 # 仅虚拟网接口模式。默认值是 false
 vif_only: false
 
-# 指定特定的主机，其网络流量应绕过 Tunnel 的 HTTP 代理，而选择直接通过虚拟网络接口进行路由。。默认值是空数组
-bypass_tunnel_proxy:
-- 192.168.0.0/16
-- 10.0.0.0/8
-- 172.16.0.0/12
-- localhost
-- '*.local'
-
 # 隐藏 VPN 图标。默认值是 false
 hide_vpn_icon: false
 
@@ -57,10 +49,6 @@ include_cellular_services: false
 # 启用后系统将包含与本地网络上主机（如 AirPlay、AirDrop 和 CarPlay）的网络连接，但前提是包含所有网络也已启用。默认值是 false
 include_local_networks: false
 
-# 虚拟接口包含的路由。默认值是空数组
-vif_included_routes:
-- 192.168.0.1/32
-
 # 虚拟接口排除的路由。默认值是空数组
 vif_excluded_routes:
 - 10.0.0.0/8
@@ -78,16 +66,24 @@ vif_excluded_routes:
 - 255.255.255.255/32
 
 dns:
-  bootstrap:
+  upstreams:
+    default:
     - 223.5.5.5
     - 119.29.29.29
     - 114.114.114.114
-  upstreams:  # 定义上游DNS服务器的列表。
-    defalt:
+    secure:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
     - h3://cloudflare-dns.com/dns-query
-  public_ip_lookup_url: https://ifconfig.me/ip  # 查询公共IP地址的URL，用于获取本机的公网IP地址。
+    
+# 指定特定的主机，其网络流量应绕过 Tunnel 的 HTTP 代理，而选择直接通过虚拟网络接口进行路由。。默认值是空数组
+bypass_tunnel_proxy:
+- 192.168.0.0/16
+- 10.0.0.0/8
+- 172.16.0.0/12
+- localhost
+- '*.local'
+- e.crashlynatics.com
 
 # 代理列表。
 proxies:

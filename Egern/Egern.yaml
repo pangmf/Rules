@@ -811,11 +811,10 @@ modules:
     update_interval: 2592000
     enabled: true
     icon: https://iili.io/B40FK21.png
-  - url: https://github.com/Moli-X/Tool/raw/X/Loon/Plugin/Kelee/Script-Hub.plugin
+  - url: https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/modules/script-hub.surge.sgmodule
     compat_arguments:
-      PROXY: Global
+      Notify: 跟随链接
     update_interval: 2592000
     enabled: true
-
 
 

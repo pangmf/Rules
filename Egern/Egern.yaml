@@ -392,7 +392,7 @@ rules:
       policy: DIRECT
       update_interval: 2592000
   - rule_set:
-      match: http://script.hub/file/_start_/https://ddgksf2013.top/filter/Ai.yaml/_end_/Ai.list.txt?type=rule-set&target=loon-rule-set&del=true&jqEnabled=true
+      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/AI.list
       policy: AI
       update_interval: 2592000
   - rule_set:

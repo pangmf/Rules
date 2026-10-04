@@ -629,7 +629,7 @@ modules:
     update_interval: 2592000
     enabled: true
     icon: https://iili.io/KQ6UzHN.png
-  - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/app2smile/rules/master/module/spotify.conf/_end_/spotify.sgmodule?type=qx-rewrite&n=Spotify%E4%BC%9A%E5%91%98%E8%A7%A3%E9%94%81%40app2smile+%E8%A7%A3%E9%94%81Premium%E4%BC%9A%E5%91%98&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=app2smile
+  - url: https://raw.githubusercontent.com/app2smile/rules/master/module/spotify.module
     update_interval: 2592000
     enabled: true
     icon: https://iili.io/KQXqSt9.png

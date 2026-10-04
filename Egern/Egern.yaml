@@ -392,11 +392,11 @@ rules:
       policy: DIRECT
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/AI.list
+      match: http://script.hub/file/_start_/https://ddgksf2013.top/filter/Ai.yaml/_end_/Ai.list.txt?type=rule-set&target=loon-rule-set&del=true&jqEnabled=true
       policy: AI
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/Apple_AI.list
+      match: https://raw.githubusercontent.com/ddgksf2013/Filter/refs/heads/master/AppleIntelligence.list
       policy: AppleAI
       update_interval: 2592000
   - rule_set:

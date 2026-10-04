@@ -641,7 +641,7 @@ modules:
     update_interval: 604800
     enabled: true
     icon: https://iili.io/KpkV3f2.png
-  - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/Yuheng0101/X/refs/heads/main/Scripts/ChinaMobile/NoAds.js/_end_/NoAds.sgmodule?type=qx-rewrite&n=%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8%E5%8E%BB%E5%B9%BF%E5%91%8A%40Yuheng+%E5%BA%94%E7%94%A8%E5%87%80%E5%8C%96&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=Yuheng
+  - url: https://yfamilys.com/plugin/adultraplus.plugin
     update_interval: 2592000
     enabled: true
     icon: https://www.imgccc.com/2026/02/24/f5778059f6901.png

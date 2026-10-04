@@ -625,10 +625,6 @@ modules:
   - url: https://reven.jsforbaby.workers.dev/reven/iTunes.lpx
     update_interval: 2592000
     enabled: true
-  - url: http://script.hub/file/_start_/https://ddgksf2013.top/scripts/slidebox.vip.js/_end_/slidebox.vip.sgmodule?type=qx-rewrite&n=Slidebox%E4%BC%9A%E5%91%98%E8%A7%A3%E9%94%81%40ddgksf2013+%E8%A7%A3%E9%94%81%E4%BC%9A%E5%91%98&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
-    update_interval: 2592000
-    enabled: true
-    icon: https://iili.io/KQ6UzHN.png
   - url: https://raw.githubusercontent.com/app2smile/rules/master/module/spotify.module
     update_interval: 2592000
     enabled: true

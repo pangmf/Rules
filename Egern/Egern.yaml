@@ -693,7 +693,7 @@ modules:
   - url: https://raw.githubusercontent.com/chengkongyiban/Loon/main/Loon-Gallery/BaiduCloud.plugin
     update_interval: 2592000
     enabled: true
-    icon: https://iili.io/K0KvJv1.png
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/BaiduNetDisk.png
   - url: https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx
     update_interval: 2592000
     enabled: true

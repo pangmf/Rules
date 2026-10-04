@@ -674,9 +674,10 @@ modules:
   - url: https://kelee.one/Tool/Loon/Lpx/DragonRead_remove_ads.lpx
     update_interval: 2592000
     enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/ColorfulClouds_remove_ads.lpx
+  - url: http://script.hub/file/_start_/https://raw.githubusercontent.com/ddgksf2013/Rewrite/master/AdBlock/CaiYunAds.conf/_end_/CaiYunAds.sgmodule?type=qx-rewrite&n=%E5%BD%A9%E4%BA%91%E5%A4%A9%E6%B0%94%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%BA%94%E7%94%A8%E5%87%80%E5%8C%96&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
     update_interval: 2592000
     enabled: true
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/ColorfulCloudsWeatherPro.png
   - url: https://kelee.one/Tool/Loon/Lpx/BaiduSearchWebpage_remove_ads.lpx
     update_interval: 2592000
     enabled: true

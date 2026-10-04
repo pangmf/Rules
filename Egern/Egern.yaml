@@ -694,7 +694,7 @@ modules:
   - url: https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx
     update_interval: 2592000
     enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/NeteaseCloudMusic_remove_ads.lpx
+  - url: https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/Surge/Official/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E5%8E%BB%E5%B9%BF%E5%91%8A.official.sgmodule
     update_interval: 2592000
     enabled: true
   - url: https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/release/loon/plugin/bilibili.lpx

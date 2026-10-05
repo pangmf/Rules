@@ -88,6 +88,11 @@ dns:
       value: PROXY-DNS
       update_interval: 2592000
       disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Twitter/Twitter.list
+      value: PROXY-DNS
+      update_interval: 2592000
+      disabled: false
   proxy_nameservers:
   - DIRECT-DNS
   

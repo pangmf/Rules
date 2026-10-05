@@ -5,7 +5,7 @@
 
 有关 Stick Rules 的更多信息请转至项目主目录的 [README.md](https://github.com/GeQ1an/Rules/blob/master/README.md)<br>
 <br>
-本文件为 Loon 专用配置文件使用手册，Loon 规则直接使用 [blackmatrix7分流规则](https://github.com/blackmatrix7/ios_rule_script) ，配置文件内默认配置了一些规则列表及策略，更多规则列表请自己添加。
+本文件为 Shadowrocket 专用配置文件使用手册，Shadowrocket 规则直接使用 [blackmatrix7分流规则](https://github.com/blackmatrix7/ios_rule_script) ，配置文件内默认配置了一些规则列表及策略，更多规则列表请自己添加。
 
 ---
 

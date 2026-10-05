@@ -605,10 +605,9 @@ widgets:
 # 模块配置列表
 modules:
   # 模块 URL。可以是本地路径或远程代理链接
-  - url: https://raw.githubusercontent.com/xepes0/wloc/refs/heads/main/modules/wloc.sgmodule
+  - url: https://raw.githubusercontent.com/xepes0/wloc/refs/heads/main/modules/wloc.lpx
     update_interval: 2592000
     enabled: false
-    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/TencentMap.png
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/PingMe-Loon.lpx
     update_interval: 2592000
     enabled: true
@@ -630,11 +629,10 @@ modules:
   - url: https://raw.githubusercontent.com/app2smile/rules/master/plugin/spotify.plugin
     update_interval: 2592000
     enabled: true
-    icon: https://iili.io/KQXqSt9.png
-  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CamScanner.js
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Spotify.png
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CamScanner.lpx
     update_interval: 2592000
     enabled: true
-    icon: https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/camscanner.png
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/mgtv.lpx
     update_interval: 604800
     enabled: true

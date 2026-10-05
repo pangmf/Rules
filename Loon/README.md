@@ -5,7 +5,7 @@
 
 有关 Stick Rules 的更多信息请转至项目主目录的 [README.md](https://github.com/GeQ1an/Rules/blob/master/README.md)<br>
 <br>
-本文件为 Loon 专用配置文件使用手册，Loon 规则直接使用 [lhie1 大佬](https://github.com/lhie1) 的 [Surge 3 规则列表](https://github.com/dler-io/Rules/tree/main/Surge/Surge%203/Provider)，配置文件内默认配置了一些规则列表及策略，更多规则列表请自己添加。
+本文件为 Loon 专用配置文件使用手册，Loon 规则直接使用 [blackmatrix7分流规则](https://github.com/blackmatrix7/ios_rule_script) ，配置文件内默认配置了一些规则列表及策略，更多规则列表请自己添加。
 
 ---
 
@@ -17,7 +17,7 @@
 
 ### 使用
 #### 参考配置文件
-可参考配置文件内的注释说明，配置好使用。
+点击 [一键导入](https://t.me/usestick)， 可参考配置文件内的注释说明，配置好使用。
 
 #### 替换 GeoIP 数据源 `推荐!`
 点击右下角【更多】，找到【GEOIP】并点击，进入后选择【使用自定义数据库】，粘贴下方两个链接之一，点击自动更新策略，选择【每隔7天更新】。<br>

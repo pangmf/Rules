@@ -1,0 +1,21 @@
+#!name=WeTalk
+#!desc=打开WeTalk停留1秒后自动获取Token，收到通知即成功。
+#!author=pangmf
+#!homepage=https://github.com/pangmf/rules
+#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/WeTalk.png
+#!tag=签到, Cookie
+
+[Argument]
+wetalk = switch,false,tag=WeTalk抓包,desc=打开WeTalk停留1秒后自动抓包账号，收到通知即成功。
+
+[Script]
+# 抓取 WeTalk 账号参数
+http-request ^https:\/\/api\.wetalkapp\.com\/app\/(?:queryBalanceAndBonus|checkIn|videoBonus) script-path=WeTalk-Loon.js,tag=WeTalk抓取,timeout=30,enable={wetalk}
+
+# 每天 08:20、20:20 执行
+cron "20 8,20 * * *" script-path=WeTalk-Loon.js,tag=WeTalk签到,timeout=300,enable=true
+
+
+[MITM]
+
+hostname = %APPEND% api.wetalkapp.com

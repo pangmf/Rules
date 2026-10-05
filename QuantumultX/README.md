@@ -5,7 +5,7 @@
 
 有关 Stick Rules 的更多信息请转至项目主目录的 [README.md](https://github.com/GeQ1an/Rules/blob/master/README.md)<br>
 <br>
-本文件为 Quantumult X 专用规则使用手册，目前 Quantumult X 规则有 “广告&阻止”、“苹果服务”、“中国媒体”、“网易云音乐”、“国际媒体”、“Netflix”、“Spotify”、“YouTube”、“外部网络”、“Telegram”、“PayPal”、“大陆网络”、“微软服务”、“Speedtest” 和 “其他” 规则列表可供选择。
+本文件为 Quantumult X 专用规则使用手册，规则直接使用 [blackmatrix7分流规则](https://github.com/blackmatrix7/ios_rule_script) 。目前 Quantumult X 规则有 “广告&阻止”、“苹果服务”、“中国媒体”、“网易云音乐”、“国际媒体”、“Netflix”、“Spotify”、“YouTube”、“外部网络”、“Telegram”、“PayPal”、“大陆网络”、“微软服务”、“Speedtest” 和 “其他” 规则列表可供选择。
 
 ---
 

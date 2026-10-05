@@ -1,14 +1,13 @@
-#!name=Google重定向
-#!desc=将Google.cn/.hk/.jp等重定向至Google.com。
+#!name=Google区域搜索重定向
+#!desc=将Google各地区域名自动重定向至Google主站，并保留完整搜索参数
 #!author=pangmf
 #!homepage=https://github.com/pangmf/rules
-#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/xiaomiCar.png
-
+#!icon=https://www.google.com/favicon.ico
 
 [Script]
-http-response ^https:\/\/api-gw-toc\.zeekrlife\.com\/zeekrlife-app-user\/v\d\/user\/info\/query$ tag=极氪获取Token,script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js, requires-body=true, timeout=60, enable={zeekr}
 
-#cron "30 6 * * *" script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js, timeout=120, tag=极氪汽车签到
+request if ${url} ~= /^https?:\/\/(?:www\.)?google\.(?!com(?:[\/:]|$))/i then script("Google-Region-Redirect.js") with tag="Google区域重定向", timeout=10
 
 [MITM]
-hostname = api-gw-toc.zeekrlife.com
+
+hostname = %APPEND% google.*

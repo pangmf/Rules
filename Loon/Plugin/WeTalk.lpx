@@ -2,7 +2,7 @@
 #!desc=打开WeTalk停留1秒后自动获取Token，收到通知即成功。
 #!author=pangmf
 #!homepage=https://github.com/pangmf/rules
-#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/WeTalk.png
+#!icon=https://raw.githubusercontent.com/axhani/icon/refs/heads/main/pingme%26wetalk.png
 #!tag=签到, Cookie
 
 [Argument]

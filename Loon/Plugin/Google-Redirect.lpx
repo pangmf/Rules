@@ -5,16 +5,12 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Google.png
 [Script]
 
-request if ${url} ~= /^https?:\/\/(?:www\.)?google\.(?!com(?:[\/:]|$))/i then script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/Google-Region-Redirect.js, tag="Google区域重定向", timeout=10
-request if ${url} ~= /^https?:\/\/(?:www\.)?google\.(?:cn|[a-z]{2,3}(?:\.[a-z]{2})?)/i then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/Google-Region-Redirect.js") with enable=true, tag="Google区域重定向", img_url="https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Google.png", timeout=10
+# 请求阶段：阻止访问 Google 区域站
+http-request ^https?:\/\/(?:www\.)?google\.[a-z]{2,}(?:\.[a-z]{2})?(?:\/|$) script-path=Google-Region-Redirect.js,tag=Google区域请求重定向,timeout=10,enable=true
 
-#[Rewrite]
-
-# Google 区域站 → Google 主站
-# request if ${url} ~= /^https?://(?:www.)?google.(?:ac|ad|ae|al|am|as|at|au|az|ba|bd|be|bf|bg|bh|bi|bj|bn|bo|br|bs|bt|bw|by|bz|ca|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|es|et|fi|fj|fm|fr|ga|ge|gg|gh|gi|gl|gm|gp|gr|gt|gy|hk|hn|hr|ht|hu|id|ie|il|im|in|iq|is|it|je|jm|jo|jp|ke|kg|kh|ki|kn|kr|kw|kz|la|lb|lc|li|lk|ls|lt|lu|lv|ly|ma|md|me|mg|mk|ml|mn|ms|mt|mu|mv|mw|mx|my|mz|na|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pn|pr|ps|pt|pw|py|qa|ro|rs|ru|rw|sa|sb|sc|se|sg|sh|si|sk|sl|sn|so|sr|st|sv|td|tg|th|tj|tk|tl|tm|tn|to|tr|tt|tv|tw|tz|ua|ug|uk|uy|uz|vc|ve|vg|vi|vn|vu|ws|za|zm|zw)/search(?:?.*)?$/ then redirect(302, "https://www.google.com/search$1")
-
-# Google 国家/地区首页 → Google 主站
-# request if ${url} ~= /^https?:\//(?:www.)?google.(?:ac|ad|ae|al|am|as|at|au|az|ba|bd|be|bf|bg|bh|bi|bj|bn|bo|br|bs|bt|bw|by|bz|ca|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|es|et|fi|fj|fm|fr|ga|ge|gg|gh|gi|gl|gm|gp|gr|gt|gy|hk|hn|hr|ht|hu|id|ie|il|im|in|iq|is|it|je|jm|jo|jp|ke|kg|kh|ki|kn|kr|kw|kz|la|lb|lc|li|lk|ls|lt|lu|lv|ly|ma|md|me|mg|mk|ml|mn|ms|mt|mu|mv|mw|mx|my|mz|na|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pn|pr|ps|pt|pw|py|qa|ro|rs|ru|rw|sa|sb|sc|se|sg|sh|si|sk|sl|sn|so|sr|st|sv|td|tg|th|tj|tk|tl|tm|tn|to|tr|tt|tv|tw|tz|ua|ug|uk|uy|uz|vc|ve|vg|vi|vn|vu|ws|za|zm|zw)\/?$/ then redirect(302, "https://www.google.com/")
+# 响应阶段：拦截 Google 返回的 30x 区域跳转
+http-response ^https?:\/\/(?:www\.)?google\.[a-z]{2,}(?:\.[a-z]{2})?(?:\/|$) script-path=Google-Region-Redirect.js,tag=Google区域响应重定向,timeout=10,enable=true
 
 [MITM]
-hostname = %APPEND% google.*
+
+hostname = %APPEND% google.cn,*.google.cn,google.co.jp,*.google.co.jp,google.co.uk,*.google.co.uk,google.ca,*.google.ca,google.com.au,*.google.com.au,google.de,*.google.de,google.fr,*.google.fr

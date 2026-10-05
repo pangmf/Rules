@@ -1,0 +1,15 @@
+# ======= Google搜索重写  ======= #
+
+url_rewrites:
+  - match: ^https?:\/\/(www.)?g.cn
+    location: https://www.google.com
+    status_code: 302
+  - match: ^https?:\/\/(www.)?google.cn
+    location: https://www.google.com
+    status_code: 302
+  - match: ^https?:\/\/(www.)?google.com.hk
+    location: https://www.google.com
+    status_code: 302
+  - match: ^https?:\/\/(www.)?google.co.jp
+    location: https://www.google.com
+    status_code: 302

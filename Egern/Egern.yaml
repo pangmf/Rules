@@ -462,24 +462,6 @@ rules:
       # 使用的策略
       policy: Final
       
-# URL 重写列表
-url_rewrites:
-# ======= Google搜索重写  ======= #
-  # 匹配的 URL
-  - match: ^https?:\/\/(www.)?g.cn
-    # 重定向的位置
-    location: https://www.google.com
-    # 重定向的状态码
-    status_code: 302
-  - match: ^https?:\/\/(www.)?google.cn
-    location: https://www.google.com
-    status_code: 302
-  - match: ^https?:\/\/(www.)?google.com.hk
-    location: https://www.google.com
-    status_code: 302
-  - match: ^https?:\/\/(www.)?google.co.jp
-    location: https://www.google.com
-    status_code: 302
 
 # 脚本配置列表
 scriptings:
@@ -581,12 +563,6 @@ mitm:
   ca_passphrase: ''
   # mitm 的主机名列表
   hostnames:
-    includes:
-    - '*.googlevideo.com'
-    - '*.g.cn'
-    - '*.google.cn'
-    - '*.google.com.hk'
-    - '*.google.co.jp'
     excludes:
     - consumer.fcbox.com
     - '*huami.com'
@@ -621,6 +597,9 @@ modules:
     update_interval: 2592000
     enabled: true
   - url: https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx
+    update_interval: 2592000
+    enabled: true
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Google-Redirect.lpx
     update_interval: 2592000
     enabled: true
   - url: https://reven.jsforbaby.workers.dev/reven/iTunes.lpx

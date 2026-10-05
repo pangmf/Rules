@@ -6,7 +6,7 @@
 [Script]
 
 request if ${url} ~= /^https?:\/\/(?:www\.)?google\.(?!com(?:[\/:]|$))/i then script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/Google-Region-Redirect.js, tag="Google区域重定向", timeout=10
-request if ${url} ~= /^https?:\/\/(?:www\.)?google\.(?:cn|[a-z]{2,3}(?:\.[a-z]{2})?)/i then script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/Google-Region-Redirect.js, tag="Google区域重定向", timeout=10
+request if ${url} ~= /^https?:\/\/(?:www\.)?google\.(?:cn|[a-z]{2,3}(?:\.[a-z]{2})?)/i then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/Google-Region-Redirect.js") with enable=true, tag="Google区域重定向", img_url="https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Google.png", timeout=10
 
 #[Rewrite]
 

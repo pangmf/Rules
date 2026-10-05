@@ -627,7 +627,7 @@ modules:
   - url: https://reven.jsforbaby.workers.dev/reven/iTunes.lpx
     update_interval: 2592000
     enabled: true
-  - url: https://raw.githubusercontent.com/app2smile/rules/master/module/spotify.module
+  - url: https://raw.githubusercontent.com/app2smile/rules/master/plugin/spotify.plugin
     update_interval: 2592000
     enabled: true
     icon: https://iili.io/KQXqSt9.png

@@ -1,0 +1,14 @@
+#!name=Google重定向
+#!desc=将Google.cn/.hk/.jp等重定向至Google.com。
+#!author=pangmf
+#!homepage=https://github.com/pangmf/rules
+#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/xiaomiCar.png
+
+
+[Script]
+http-response ^https:\/\/api-gw-toc\.zeekrlife\.com\/zeekrlife-app-user\/v\d\/user\/info\/query$ tag=极氪获取Token,script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js, requires-body=true, timeout=60, enable={zeekr}
+
+#cron "30 6 * * *" script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js, timeout=120, tag=极氪汽车签到
+
+[MITM]
+hostname = api-gw-toc.zeekrlife.com

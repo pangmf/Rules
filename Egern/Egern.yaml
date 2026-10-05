@@ -70,15 +70,27 @@ vif_hairpin_addresses:
 
 dns:
   bootstrap:
-    - 223.5.5.5
-    - 119.29.29.29
-    - 114.114.114.114
+  - 223.5.5.5
+  - 119.29.29.29
+  - 114.114.114.114
   upstreams:
-    secure:
-    - https://dns.alidns.com/dns-query
+    DIRECT-DNS:
     - https://doh.pub/dns-query
-    - h3://cloudflare-dns.com/dns-query
-    
+    - https://dns.alidns.com/dns-query
+    - https://cloudflare-dns.com/dns-query
+    PROXY-DNS:
+    - https://1.1.1.1/dns-query
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+  forward:
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list
+      value: PROXY-DNS
+      update_interval: 2592000
+      disabled: false
+  proxy_nameservers:
+  - DIRECT-DNS
+  
 # 指定特定的主机，其网络流量应绕过 Tunnel 的 HTTP 代理，而选择直接通过虚拟网络接口进行路由。。默认值是空数组
 bypass_tunnel_proxy:
 - 192.168.0.0/16

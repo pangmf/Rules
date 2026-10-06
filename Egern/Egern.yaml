@@ -33,6 +33,9 @@ proxy_latency_test_url: http://www.gstatic.com/generate_204
 # 自定义的直连延迟测试 URL。默认值是空
 direct_latency_test_url: http://www.aliyun.com
 
+# 自定义的udp延迟测试 URL。默认值是空
+udp_latency_test_url: google.com@8.8.8.8
+
 # 虚拟网络接口不使用默认的路由，由多个较小的路由切分用于解决某些问题。比如 HomeKit 的摄像头无法使用的问题。默认值是 false
 compat_route: false
 

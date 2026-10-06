@@ -22,10 +22,10 @@ vif_only: false
 hide_vpn_icon: false
 
 # 指定自定义的 GeoIP 数据库 URL。Egern 将每周自动更新该数据库。默认值是空
-geoip_db_url: https://geodata.kelee.one/Country-Masaiki.mmdb
+geoip_db_url: https://git.io/GeoLite2-City.mmdb
 
 # 指定自定义的 ASN 数据库 URL。Egern 将每周自动更新该数据库。默认值是空
-asn_db_url: https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
+asn_db_url: https://git.io/GeoLite2-ASN.mmdb
 
 # 自定义的代理延迟测试 URL。默认值是空
 proxy_latency_test_url: http://www.gstatic.com/generate_204
@@ -111,6 +111,16 @@ dns:
       disabled: false
   - proxy_rule_set:
       match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/AI.list
+      value: GLOBAL-DNS
+      update_interval: 2592000
+      disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list
+      value: GLOBAL-DNS
+      update_interval: 2592000
+      disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global_Domain.list
       value: GLOBAL-DNS
       update_interval: 2592000
       disabled: false
@@ -489,11 +499,15 @@ rules:
       policy: PayPal
       update_interval: 2592000
   - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GitHub/GitHub.list
+      policy: Global
+      update_interval: 2592000
+  - rule_set:
       match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list
       policy: Global
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GitHub/GitHub.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global_Domain.list
       policy: Global
       update_interval: 2592000
   - rule_set:

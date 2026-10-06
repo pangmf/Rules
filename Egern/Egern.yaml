@@ -22,10 +22,10 @@ vif_only: false
 hide_vpn_icon: false
 
 # 指定自定义的 GeoIP 数据库 URL。Egern 将每周自动更新该数据库。默认值是空
-geoip_db_url: https://git.io/GeoLite2-City.mmdb
+geoip_db_url: https://geodata.kelee.one/Country-Masaiki.mmdb
 
 # 指定自定义的 ASN 数据库 URL。Egern 将每周自动更新该数据库。默认值是空
-asn_db_url: https://git.io/GeoLite2-ASN.mmdb
+asn_db_url: https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
 
 # 自定义的代理延迟测试 URL。默认值是空
 proxy_latency_test_url: http://www.gstatic.com/generate_204

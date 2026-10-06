@@ -91,22 +91,22 @@ dns:
     - https://cloudflare-dns.com/dns-query
   forward:
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Telegram/Telegram.list
       value: GLOBAL-DNS
       update_interval: 2592000
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Twitter/Twitter.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Twitter/Twitter.list
       value: GLOBAL-DNS
       update_interval: 2592000
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script//master/rule/Surge/GitHub/GitHub.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GitHub/GitHub.list
       value: GLOBAL-DNS
       update_interval: 2592000
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script//master/rule/Surge/Cloudflare/Cloudflare.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Cloudflare/Cloudflare.list
       value: GLOBAL-DNS
       disabled: false
   - proxy_rule_set:
@@ -115,22 +115,22 @@ dns:
       update_interval: 2592000
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/WeChat/WeChat.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/WeChat/WeChat.list
       value: DIRECT-DNS
       update_interval: 2592000
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaMax/ChinaMax.list
       value: DIRECT-DNS
       update_interval: 2592000
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax_Domain.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaMax/ChinaMax_Domain.list
       value: DIRECT-DNS
       update_interval: 2592000
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaASN/ChinaASN.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaASN/ChinaASN.list
       value: DIRECT-DNS
       update_interval: 2592000
       disabled: false
@@ -437,19 +437,19 @@ policy_groups:
 rules:
   # 规则集
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Advertising/Advertising.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Advertising/Advertising.list
       policy: ADs
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Apple/Apple.list
       policy: Apple
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Apple/Apple_Domain.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Apple/Apple_Domain.list
       policy: Apple
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/WeChat/WeChat.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/WeChat/WeChat.list
       policy: DIRECT
       update_interval: 2592000
   - rule_set:
@@ -461,55 +461,55 @@ rules:
       policy: AppleAI
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/TikTok/TikTok.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/TikTok/TikTok.list
       policy: Tiktok
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Netflix/Netflix.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Netflix/Netflix.list
       policy: Netflix
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GoogleVoice/GoogleVoice.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GoogleVoice/GoogleVoice.list
       policy: GoogleVoice
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Spotify/Spotify.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Spotify/Spotify.list
       policy: Spotify
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GlobalMedia/GlobalMedia.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GlobalMedia/GlobalMedia.list
       policy: GlobalMedia
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/AsianMedia/AsianMedia.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/AsianMedia/AsianMedia.list
       policy: AsianMedia
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/PayPal/PayPal.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/PayPal/PayPal.list
       policy: PayPal
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Global/Global.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global.list
       policy: Global
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/GitHub/GitHub.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GitHub/GitHub.list
       policy: Global
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaMax/ChinaMax.list
       policy: DIRECT
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaMax/ChinaMax_Domain.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaMax/ChinaMax_Domain.list
       policy: DIRECT
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/ChinaASN/ChinaASN.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaASN/ChinaASN.list
       policy: DIRECT
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/Lan/Lan.list
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Lan/Lan.list
       policy: DIRECT
       update_interval: 2592000
   # 地理位置规则

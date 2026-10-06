@@ -145,10 +145,6 @@ dns:
       value: DIRECT-DNS
       update_interval: 2592000
       disabled: false
-  - domain_wildcard:
-      match: '*'
-      value: GLOBAL-DNS
-      disabled: false
   proxy_nameservers:
   - PROXY-DNS
   

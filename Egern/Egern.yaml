@@ -16,7 +16,7 @@ socks_port: 3090
 allow_external_connections: false
 
 # 仅虚拟网接口模式。默认值是 false
-vif_only: false
+vif_only: true
 
 # 隐藏 VPN 图标。默认值是 false
 hide_vpn_icon: false

@@ -695,9 +695,6 @@ modules:
     update_interval: 604800
     enabled: true
     icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppStore-02.png
-  - url: https://kelee.one/Tool/Loon/Lpx/CoolApk_remove_ads.lpx
-    update_interval: 2592000
-    enabled: true
   - url: https://kelee.one/Tool/Loon/Lpx/Zhihu_remove_ads.lpx
     update_interval: 2592000
     enabled: true
@@ -771,15 +768,6 @@ modules:
     update_interval: 2592000
     enabled: true
   - url: https://kelee.one/Tool/Loon/Lpx/Amap_remove_ads.lpx
-    update_interval: 2592000
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/iQiYi_Video_remove_ads.lpx
-    update_interval: 2592000
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/Tencent_Video_remove_ads.lpx
-    update_interval: 2592000
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/YouKu_Video_remove_ads.lpx
     update_interval: 2592000
     enabled: true
   - url: https://kelee.one/Tool/Loon/Lpx/MangoTV_remove_ads.lpx

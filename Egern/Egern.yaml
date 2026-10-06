@@ -103,7 +103,6 @@ bypass_tunnel_proxy:
 - 172.16.0.0/12
 - localhost
 - '*.local'
-- e.crashlynatics.com
 
 # 代理列表。
 proxies:

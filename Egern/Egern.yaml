@@ -689,9 +689,9 @@ modules:
     update_interval: 2592000
     enabled: true
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/mgtv.lpx
-    update_interval: 604800
+    update_interval: 2592000
     enabled: true
-  - url: http://script.hub/file/_start_/https://ddgksf2013.top/rewrite/StartUpAds.conf/_end_/StartUpAds.sgmodule?type=qx-rewrite&n=%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F2.0%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%B7%B2%E6%8A%93%E5%8C%85400%E4%BD%99%E5%BA%94%E7%94%A8%E5%8E%BB%E5%BC%80%E5%B1%8F&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
+  - url: https://yfamilys.com/plugin/adlite.plugin
     update_interval: 604800
     enabled: true
     icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppStore-02.png
@@ -779,6 +779,9 @@ modules:
     update_interval: 2592000
     enabled: true
   - url: https://github.com/Moli-X/Resources/raw/main/Loon/Collection.plugin
+    update_interval: 2592000
+    enabled: true
+  - url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/surge-loon-to-egern.yaml
     update_interval: 2592000
     enabled: true
   - url: https://ddgksf2013.top/module/ScriptHub.Egern.sgmodule

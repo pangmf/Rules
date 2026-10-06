@@ -25,7 +25,7 @@ const storeKey = 'wetalk_accounts_v1';
 const SECRET = '0fOiukQq7jXZV2GRi9LGlO';
 const API_HOST = 'api.wetalkapp.com';
 
-const MAX_VIDEO = 1;
+const MAX_VIDEO = 6;
 const VIDEO_FIRST_DELAY = 3000;
 const VIDEO_DELAY = 8000;
 const VIDEO_LIMIT_CODE = 200007;

@@ -1,6 +1,6 @@
 /*
 [rewrite_local]
-^https?://cad\.everdrawing\.com/(mobile/verifyVip|.*authorize/(verify-vip|query)) url script-analyze-echo-response https://raw.githubusercontent.com/Yu9191/Rewrite/refs/heads/main/cad.js
+^https?://cad\.everdrawing\.com/(mobile/verifyVip|.*authorize/(verify-vip|query)) url script-analyze-echo-response https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CADReader.js
 
 [mitm]
 hostname = cad.everdrawing.com

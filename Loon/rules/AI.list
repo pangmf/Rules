@@ -19,7 +19,7 @@
   DOMAIN-SUFFIX,segment.io
   DOMAIN-SUFFIX,amazonaws.com
   DOMAIN-SUFFIX,wp.com
-# DOMAIN-SUFFIX,sentry.io
+  DOMAIN-SUFFIX,sentry.io
   DOMAIN-SUFFIX,stripe.com
   
 # > Anthropic/Claude

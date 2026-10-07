@@ -782,9 +782,6 @@ modules:
   - url: https://kelee.one/Tool/Loon/Lpx/YouTube_remove_ads.lpx
     update_interval: 2592000
     enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/YouTubeSubtitlesTranslation.lpx
-    update_interval: 2592000
-    enabled: true
   - url: https://github.com/Moli-X/Resources/raw/main/Loon/Collection.plugin
     update_interval: 2592000
     enabled: true

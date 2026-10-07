@@ -335,7 +335,6 @@ policy_groups:
     - 夜煞云
     - 橘色云
     - Kitty
-    - CrossWall
     flatten: true
     filter: "^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|发布|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Game|Channel|Author|Traffic)(\\d+)?\b|(\\d{4}-\\d{2}-\\d{2}|\\dG)))).*$"
     update_interval: 2592000
@@ -421,13 +420,6 @@ policy_groups:
     filter: (?i)^(?!.*(🇭🇰|HK|HKG|香港|🇹🇼|TW|TPE|台湾|台灣|🇯🇵|JP|TYO|OSA|NRT|HND|日本|🇸🇬|SG|SIN|新加坡|🇺🇸|USA|LAX|SFO|NYC|JFK|United States|美国|美國|🇰🇷|KR|ICN|SEL|韩国|韓國|🇪🇺|UK|GB|DE|FR|NL|CH|ES|IT|GE|欧洲|欧盟|英国|德国|法国|官网|Music|Game|地址|机场|重置|到期|套餐|发布|流量|导航|专用)).+
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/European_Union.png
     hidden: false
-- external:
-    name: CrossWall
-    type: select
-    urls:
-    - https://162.19.79.201/s/e7e47a5f81fdd9be8648cc986703f40a
-    update_interval: 2592000
-    hidden: true
 - external:
     name: Kitty
     type: select
@@ -553,10 +545,10 @@ scriptings:
       env:
         region: zhejiang/taizhou
       update_interval: 2592000
-- generic:
-    name: 岁时黄历
-    script_url: https://raw.githubusercontent.com/jnlaoshu/MySelf/master/Egern/Widget/Almanac.js
-    update_interval: 2592000
+  - generic:
+      name: 岁时黄历
+      script_url: https://raw.githubusercontent.com/jnlaoshu/MySelf/master/Egern/Widget/Almanac.js
+      update_interval: 2592000
   - generic:
       name: 网络诊断雷达
       script_url: https://raw.githubusercontent.com/lylywayr/NetWork-Module/refs/heads/main/Egern/%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E9%9B%B7%E8%BE%BE/%E7%BD%91%E7%BB%9C%E8%AF%8A%E6%96%AD%E9%9B%B7%E8%BE%BE.js

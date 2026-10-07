@@ -7,13 +7,12 @@
 
 [Argument]
 zeekr = switch,false,tag=极氪汽车获取Token,desc=打开极氪app自动触发
-zeekrqd = switch,false,tag=极氪汽车每日签到,desc=每日6:30自动签到
+#zeekrqd = switch,false,tag=极氪汽车每日签到,desc=每日6:30自动签到
 
 [Script]
 http-response ^https:\/\/api-gw-toc\.zeekrlife\.com\/zeekrlife-app-user\/v\d\/user\/info\/query$ tag=极氪获取Token,script-path=https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js, requires-body=true, timeout=60, enable={zeekr}
 
-cron "30 6 * * *" then script("https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js") with enable={zeekrqd},tag="极氪自动签到", img_url="https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/xiaomiCar.png"
-
+#cron "30 6 * * *" then script("https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js") with enable={zeekrqd},tag="极氪自动签到", img_url="https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/xiaomiCar.png"
 
 [MITM]
 hostname = api-gw-toc.zeekrlife.com

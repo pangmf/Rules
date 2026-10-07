@@ -92,6 +92,21 @@ dns:
     - https://cloudflare-dns.com/dns-query
   forward:
   - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/WeChat/WeChat.list
+      value: DIRECT-DNS
+      update_interval: 2592000
+      disabled: false
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Apple/Apple.list
+      value: DIRECT-DNS
+      update_interval: 2592000
+      disabled: false
+    - proxy_rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Apple/Apple_Domain.list
+      value: DIRECT-DNS
+      update_interval: 2592000
+      disabled: false
+  - proxy_rule_set:
       match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Telegram/Telegram.list
       value: GLOBAL-DNS
       update_interval: 2592000
@@ -123,11 +138,6 @@ dns:
   - proxy_rule_set:
       match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Global/Global_Domain.list
       value: GLOBAL-DNS
-      update_interval: 2592000
-      disabled: false
-  - proxy_rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/WeChat/WeChat.list
-      value: DIRECT-DNS
       update_interval: 2592000
       disabled: false
   - proxy_rule_set:

@@ -20,6 +20,13 @@ env_schema:
     name: 教学周开始时间
     description: 教学周开始时间，时间格式为：2026-09-01
     default_value: '2026-09-01'
+  STYLE:
+    name: 显示风格
+    description: |
+    - glass:   透明玻璃效果
+    - classic: 原生纯色背景
+    default_value: 'glass'
+
 scriptings:
 - generic:
     name: 岁时黄历

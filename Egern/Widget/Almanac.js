@@ -2,7 +2,6 @@
  * ==========================================
  * 📌 岁时黄历 (Almanac) 小组件
  *
- * 【功能说明】
  * • 尺寸支持：适配小号（农历信息全量）、中号（黄历基础布局）、大号（增加节气展示及换行处理）。
  * • 农历引擎：本地计算干支、生肖、农历日期及二十四节气（完美修复跨时区及当月首节气匹配漏洞）。
  * • 远程数据：请求 openApiData 获取宜忌、冲煞及运势评分，网络异常时支持本地容错降级。
@@ -22,10 +21,12 @@ export default async function(ctx) {
   const isSmall=family.includes('small');
   const isLarge=family.includes('large');
 
+  // Apple 系统默认背景 + Liquid Glass 配色
   const C={
     bg:{light:'#F2F2F7',dark:'#000000'},
-    glass:{light:'#FFFFFFCC',dark:'#1C1C1ECC'},
-    glassHighlight:{light:'#FFFFFF55',dark:'#FFFFFF18'},
+    glass:{light:'#FFFFFFB8',dark:'#FFFFFF1F'},
+    glassHighlight:{light:'#FFFFFF66',dark:'#FFFFFF24'},
+    glassBorder:{light:'#FFFFFFCC',dark:'#FFFFFF38'},
     main:{light:'#1C1C1E',dark:'#FFFFFF'},
     sub:{light:'#48484A',dark:'#D1D1D6'},
     muted:{light:'#8E8E93',dark:'#8E8E93'},
@@ -42,19 +43,23 @@ export default async function(ctx) {
   const mkIcon=(src,color,size=13)=>({type:'image',src:`sf-symbol:${src}`,color,width:size,height:size});
   const mkSpacer=length=>length!=null?{type:'spacer',length}:{type:'spacer'};
 
+  // Liquid Glass 主玻璃层
   const glass=(children,padding,radius)=>({
     type:'stack',
     direction:'column',
     alignItems:'start',
     backgroundColor:C.glass,
     borderRadius:radius,
-    shadowColor:{light:'#00000022',dark:'#00000088'},
+    borderWidth:1,
+    borderColor:C.glassBorder,
+    shadowColor:{light:'#00000020',dark:'#00000080'},
     shadowRadius:14,
     shadowOffset:{x:0,y:4},
     padding,
     children
   });
 
+  // Liquid Glass 高光层
   const glassHighlight=(children,radius)=>{
     return {
       type:'stack',
@@ -62,6 +67,8 @@ export default async function(ctx) {
       alignItems:'start',
       backgroundColor:C.glassHighlight,
       borderRadius:radius,
+      borderWidth:1,
+      borderColor:{light:'#FFFFFF55',dark:'#FFFFFF18'},
       padding:0,
       children
     };
@@ -72,8 +79,8 @@ export default async function(ctx) {
   const [Y,M,D]=[now.getFullYear(),now.getMonth()+1,now.getDate()];
   const WEEK='日一二三四五六'[now.getDay()];
   const P=n=>String(n).padStart(2,'0');
-
   let teachingWeekStr='';
+
   if(SHOW_MODE==='astro'&&envShowTW==='true'&&envTWStart){
     const tStart=new Date(envTWStart.replace(/-/g,'/'));
     if(!isNaN(tStart.getTime())){
@@ -142,6 +149,7 @@ export default async function(ctx) {
   [-1,0,1].forEach(offset=>{
     for(let i=1;i<=24;i++) allTerms.push({name:Lunar.termNames[i-1],date:new Date(Y+offset,Math.floor((i-1)/2),Lunar.getTerm(Y+offset,i))});
   });
+
   let upcomingTerms=[],upcomingTermsLarge=[];
   for(let i=0;i<allTerms.length;i++){
     const diff=Math.round((allTerms[i].date.getTime()-todayMs)/86400000);
@@ -156,8 +164,8 @@ export default async function(ctx) {
 
   const obj=Lunar.parse(Y,M,D);
   const shichenStr='子丑寅卯辰巳午未申酉戌亥'[Math.floor((now.getHours()+1)%24/2)]+'时';
-
   let apiData={};
+
   try{
     const resp=await ctx.http.get(`https://raw.githubusercontent.com/zqzess/openApiData/main/calendar_new/${Y}/${Y}${P(M)}.json`,{timeout:10000});
     const json=JSON.parse(await resp.text());
@@ -188,8 +196,8 @@ export default async function(ctx) {
 
   const rawYi=getVal('yi','Yi','suit','appropriate').replace(/[.。]/g,' ').trim();
   const rawJi=getVal('ji','Ji','avoid','taboo').replace(/[.。]/g,' ').trim();
-
   let chongshaInfo=getVal('chongsha','ChongSha','chong');
+
   if(!chongshaInfo||chongshaInfo==='无'){
     const cycle=(Math.round((Date.UTC(Y,M-1,D)-Date.UTC(1900,0,31))/86400000)+40)%60;
     chongshaInfo=`冲${'鼠牛虎兔龙蛇马羊猴鸡狗猪'[(cycle%12+6)%12]}(${'甲乙丙丁戊己庚辛壬癸'[(cycle+6)%10]}${'子丑寅卯辰巳午未申酉戌亥'[(cycle+6)%12]})煞${'南东北西'[cycle%12%4]}`;

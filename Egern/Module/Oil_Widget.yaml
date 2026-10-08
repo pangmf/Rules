@@ -32,6 +32,12 @@ env_schema:
     name: 涨跌幅系数
     description: 默认 1
     default_value: '1'
+  STYLE:
+    name: 显示风格
+    description: |
+      - glass:   透明玻璃效果
+      - classic: 原生纯色背景
+    default_value: 'glass'
 scriptings:
 - generic:
     name: 今日油价

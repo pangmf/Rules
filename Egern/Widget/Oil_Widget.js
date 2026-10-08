@@ -48,13 +48,13 @@ export default async function (ctx) {
 
   const FILL_OIL =
     String(
-      ctx.env.FILL_OIL || "95"
+      ctx.env.FILL_OIL || "92"
     ).trim();
 
 
   const FILL_LITERS =
     parseFloat(
-      ctx.env.FILL_LITERS || "55"
+      ctx.env.FILL_LITERS || "50"
     );
 
 
@@ -913,8 +913,6 @@ export default async function (ctx) {
 
       label: "95号",
 
-      subLabel: "常用",
-
       price:
         prices.p95,
 
@@ -1288,10 +1286,8 @@ export default async function (ctx) {
     let changeText =
       "";
 
-
     let changeColor =
       COLORS.up;
-
 
     if (
 
@@ -1305,7 +1301,6 @@ export default async function (ctx) {
         row.change.direction === "down"
           ? "▼"
           : "▲";
-
 
       changeText =
         `${prefix}${row.change.value.toFixed(2)}`;
@@ -1347,12 +1342,6 @@ export default async function (ctx) {
 
       borderRadius:
         18,
-
-      borderWidth:
-        0.5,
-
-      borderColor:
-        COLORS.cardBorder,
 
       children: [
 
@@ -1593,11 +1582,6 @@ export default async function (ctx) {
         borderRadius:
           13,
 
-        borderWidth:
-          0.5,
-
-        borderColor:
-          COLORS.cardBorder,
 
         children: [
 

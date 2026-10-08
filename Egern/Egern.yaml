@@ -541,9 +541,7 @@ rules:
 scriptings:
   - generic:
       name: 油价查询小组件
-      script_url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/Oil_Widget.JS
-      env:
-        region: zhejiang/taizhou
+      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Egern/Widget/Oil_Widget.js
       update_interval: 2592000
   - generic:
       name: 岁时黄历

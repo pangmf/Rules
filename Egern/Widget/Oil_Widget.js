@@ -1,7 +1,7 @@
 /**
- * ⛽ 全国实时油价小组件
- *
- * iOS Native Style Edition
+ * =========================================================
+ * ⛽ 油价小组件
+ * iOS Native Style
  *
  * 环境变量：
  *
@@ -9,6 +9,7 @@
  *   例如：
  *   beijing
  *   shanghai
+ *   taizhou
  *   guangdong/guangzhou
  *
  * SHOW_TREND
@@ -18,7 +19,12 @@
  *   92 / 95 / 98
  *
  * FILL_LITERS
- *   例如 30 / 50 / 55
+ *   例如：
+ *   30
+ *   50
+ *   55
+ *
+ * =========================================================
  */
 
 export default async function (ctx) {
@@ -30,6 +36,7 @@ export default async function (ctx) {
   const regionParam =
     ctx.env.region || "beijing";
 
+
   const SHOW_TREND =
     (ctx.env.SHOW_TREND || "true")
       .trim()
@@ -37,24 +44,24 @@ export default async function (ctx) {
 
 
   /*
-   * 加油计算参数
+   * 加油油号
    *
-   * FILL_OIL：
    * 92 / 95 / 98
-   *
-   * FILL_LITERS：
-   * 例如 50 / 55
    */
 
   const FILL_OIL =
     String(
-      ctx.env.FILL_OIL || "92"
+      ctx.env.FILL_OIL || "95"
     ).trim();
 
 
+  /*
+   * 加油升数
+   */
+
   const FILL_LITERS =
     parseFloat(
-      ctx.env.FILL_LITERS || "50"
+      ctx.env.FILL_LITERS || "55"
     );
 
 
@@ -84,6 +91,10 @@ export default async function (ctx) {
     ).padStart(2, "0")}`;
 
 
+  /*
+   * 小组件刷新时间
+   */
+
   const refreshTime =
     new Date(
       Date.now() +
@@ -92,7 +103,7 @@ export default async function (ctx) {
 
 
   /* =========================================================
-   * iOS 默认背景
+   * iOS 系统背景
    *
    * Light:
    * #F2F2F7
@@ -116,6 +127,10 @@ export default async function (ctx) {
 
   const COLORS = {
 
+    /*
+     * 主文字
+     */
+
     primary: {
 
       light: "#000000",
@@ -124,6 +139,10 @@ export default async function (ctx) {
 
     },
 
+
+    /*
+     * 次要文字
+     */
 
     secondary: {
 
@@ -134,6 +153,10 @@ export default async function (ctx) {
     },
 
 
+    /*
+     * 辅助文字
+     */
+
     tertiary: {
 
       light: "#AEAEB2",
@@ -142,6 +165,13 @@ export default async function (ctx) {
 
     },
 
+
+    /*
+     * 油价卡片
+     *
+     * 注意：
+     * 不再使用 border
+     */
 
     card: {
 
@@ -152,6 +182,10 @@ export default async function (ctx) {
     },
 
 
+    /*
+     * 底部信息卡片
+     */
+
     infoCard: {
 
       light: "#FFFFFF",
@@ -161,14 +195,9 @@ export default async function (ctx) {
     },
 
 
-    cardBorder: {
-
-      light: "#E5E5EA",
-
-      dark: "#2C2C2E"
-
-    },
-
+    /*
+     * 92号
+     */
 
     p92: {
 
@@ -179,6 +208,10 @@ export default async function (ctx) {
     },
 
 
+    /*
+     * 95号
+     */
+
     p95: {
 
       light: "#E94747",
@@ -187,6 +220,10 @@ export default async function (ctx) {
 
     },
 
+
+    /*
+     * 98号
+     */
 
     p98: {
 
@@ -197,6 +234,10 @@ export default async function (ctx) {
     },
 
 
+    /*
+     * 柴油
+     */
+
     diesel: {
 
       light: "#22B95A",
@@ -205,6 +246,10 @@ export default async function (ctx) {
 
     },
 
+
+    /*
+     * 上涨
+     */
 
     up: {
 
@@ -215,6 +260,10 @@ export default async function (ctx) {
     },
 
 
+    /*
+     * 下跌
+     */
+
     down: {
 
       light: "#34C759",
@@ -223,6 +272,10 @@ export default async function (ctx) {
 
     },
 
+
+    /*
+     * 橙色
+     */
 
     orange: {
 
@@ -269,11 +322,16 @@ export default async function (ctx) {
   };
 
 
-  let regionName = "";
+  let regionName =
+    "";
 
-  let trendInfo = "";
 
-  let hasCache = false;
+  let trendInfo =
+    "";
+
+
+  let hasCache =
+    false;
 
 
   /* =========================================================
@@ -312,7 +370,8 @@ export default async function (ctx) {
         "";
 
 
-      hasCache = true;
+      hasCache =
+        true;
 
     }
 
@@ -344,7 +403,7 @@ export default async function (ctx) {
 
           headers: {
 
-            "referer":
+            referer:
               "http://m.qiyoujiage.com/",
 
             "user-agent":
@@ -352,7 +411,8 @@ export default async function (ctx) {
 
           },
 
-          timeout: 15000
+          timeout:
+            15000
 
         }
       );
@@ -413,7 +473,9 @@ export default async function (ctx) {
 
     const priceList = [];
 
-    let m = null;
+
+    let m =
+      null;
 
 
     while (
@@ -450,34 +512,46 @@ export default async function (ctx) {
 
       const nameMap = {
 
-        "92 号": "p92",
+        "92 号":
+          "p92",
 
-        "92": "p92",
+        "92":
+          "p92",
 
-        "95 号": "p95",
+        "95 号":
+          "p95",
 
-        "95": "p95",
+        "95":
+          "p95",
 
-        "98 号": "p98",
+        "98 号":
+          "p98",
 
-        "98": "p98",
+        "98":
+          "p98",
 
-        "0 号": "diesel",
+        "0 号":
+          "diesel",
 
-        "柴油": "diesel"
+        "柴油":
+          "diesel"
 
       };
 
 
       prices = {
 
-        p92: null,
+        p92:
+          null,
 
-        p95: null,
+        p95:
+          null,
 
-        p98: null,
+        p98:
+          null,
 
-        diesel: null
+        diesel:
+          null
 
       };
 
@@ -494,7 +568,9 @@ export default async function (ctx) {
             );
 
 
-          if (key) {
+          if (
+            key
+          ) {
 
             const priceVal =
               parseFloat(
@@ -567,7 +643,9 @@ export default async function (ctx) {
 
       for (
         let i = 0;
+
         i < changeKeys.length;
+
         i++
       ) {
 
@@ -601,7 +679,9 @@ export default async function (ctx) {
             );
 
 
-          if (match) {
+          if (
+            match
+          ) {
 
             const valueText =
               match[1];
@@ -630,7 +710,9 @@ export default async function (ctx) {
                   valueText.includes("跌") ||
                   valueText.includes("下调")
                 )
+
                   ? "down"
+
                   : "up";
 
 
@@ -695,15 +777,15 @@ export default async function (ctx) {
               valuePart.includes("下调") ||
               valuePart.includes("下跌")
             )
+
               ? "↓"
+
               : "↑";
 
 
           let amount =
             "";
 
-
-          /* 元 / 升 */
 
           const allPrices =
             valuePart.match(
@@ -738,9 +820,6 @@ export default async function (ctx) {
               `${nums[0]}-${nums[1]}`;
 
           }
-
-
-          /* 元 / 吨 */
 
           else {
 
@@ -777,7 +856,6 @@ export default async function (ctx) {
                 `${nums[0]}-${nums[1]}元/吨`;
 
             }
-
 
             else {
 
@@ -835,7 +913,6 @@ export default async function (ctx) {
 
     }
 
-
     else {
 
       if (
@@ -891,9 +968,11 @@ export default async function (ctx) {
 
     {
 
-      key: "p92",
+      key:
+        "p92",
 
-      label: "92号",
+      label:
+        "92号",
 
       price:
         prices.p92,
@@ -909,9 +988,14 @@ export default async function (ctx) {
 
     {
 
-      key: "p95",
+      key:
+        "p95",
 
-      label: "95号",
+      label:
+        "95号",
+
+      subLabel:
+        "常用",
 
       price:
         prices.p95,
@@ -927,9 +1011,11 @@ export default async function (ctx) {
 
     {
 
-      key: "p98",
+      key:
+        "p98",
 
-      label: "98号",
+      label:
+        "98号",
 
       price:
         prices.p98,
@@ -945,9 +1031,11 @@ export default async function (ctx) {
 
     {
 
-      key: "diesel",
+      key:
+        "diesel",
 
-      label: "柴油",
+      label:
+        "柴油",
 
       price:
         prices.diesel,
@@ -967,7 +1055,7 @@ export default async function (ctx) {
 
 
   /* =========================================================
-   * 下一轮调价数据
+   * 下一轮调价
    * ========================================================= */
 
   let nextDateText =
@@ -1022,10 +1110,6 @@ export default async function (ctx) {
       nextDateText =
         `${month}.${day}`;
 
-
-      /* ===================================================
-       * 下一轮日期
-       * =================================================== */
 
       let targetYear =
         now.getFullYear();
@@ -1097,10 +1181,6 @@ export default async function (ctx) {
       }
 
 
-      /* ===================================================
-       * 下调 / 上调
-       * =================================================== */
-
       if (
         trendInfo.includes("↓")
       ) {
@@ -1119,10 +1199,6 @@ export default async function (ctx) {
 
       }
 
-
-      /* ===================================================
-       * 提取 0.11-0.14
-       * =================================================== */
 
       const amountMatch =
         trendInfo.match(
@@ -1154,18 +1230,6 @@ export default async function (ctx) {
 
   /* =========================================================
    * 加油金额
-   *
-   * FILL_OIL
-   * FILL_LITERS
-   *
-   * 例如：
-   *
-   * FILL_OIL = 95
-   * FILL_LITERS = 55
-   *
-   * 结果：
-   *
-   * 95号加满 55L ¥504.4
    * ========================================================= */
 
   let fillText =
@@ -1221,9 +1285,7 @@ export default async function (ctx) {
       `${FILL_OIL}号加满 ${FILL_LITERS}L ¥${fillAmount.toFixed(1)}`;
 
 
-    /* =====================================================
-     * 下轮预计节省
-     * ===================================================== */
+    /* 下轮预计节省 */
 
     if (
 
@@ -1279,6 +1341,8 @@ export default async function (ctx) {
 
   /* =========================================================
    * 价格卡片
+   *
+   * ★ 已经完全去除外框线
    * ========================================================= */
 
   function priceCard(row) {
@@ -1286,8 +1350,10 @@ export default async function (ctx) {
     let changeText =
       "";
 
+
     let changeColor =
       COLORS.up;
+
 
     if (
 
@@ -1301,6 +1367,7 @@ export default async function (ctx) {
         row.change.direction === "down"
           ? "▼"
           : "▲";
+
 
       changeText =
         `${prefix}${row.change.value.toFixed(2)}`;
@@ -1318,17 +1385,23 @@ export default async function (ctx) {
 
     return {
 
-      type: "stack",
+      type:
+        "stack",
 
-      direction: "column",
+      direction:
+        "column",
 
-      alignItems: "center",
+      alignItems:
+        "center",
 
-      justifyContent: "center",
+      justifyContent:
+        "center",
 
-      flex: 1,
+      flex:
+        1,
 
-      gap: 1,
+      gap:
+        1,
 
       padding: [
         8,
@@ -1337,11 +1410,21 @@ export default async function (ctx) {
         3
       ],
 
+
+      /*
+       * ★ 白色卡片
+       *
+       * 没有 borderWidth
+       * 没有 borderColor
+       */
+
       backgroundColor:
         COLORS.card,
 
+
       borderRadius:
         18,
+
 
       children: [
 
@@ -1351,22 +1434,27 @@ export default async function (ctx) {
 
         {
 
-          type: "stack",
+          type:
+            "stack",
 
-          direction: "row",
+          direction:
+            "row",
 
-          alignItems: "center",
+          alignItems:
+            "center",
 
           justifyContent:
             "center",
 
-          gap: 3,
+          gap:
+            3,
 
           children: [
 
             {
 
-              type: "text",
+              type:
+                "text",
 
               text:
                 "●",
@@ -1389,7 +1477,8 @@ export default async function (ctx) {
 
             {
 
-              type: "text",
+              type:
+                "text",
 
               text:
                 row.label,
@@ -1419,7 +1508,8 @@ export default async function (ctx) {
 
                   {
 
-                    type: "text",
+                    type:
+                      "text",
 
                     text:
                       row.subLabel,
@@ -1454,7 +1544,8 @@ export default async function (ctx) {
 
         {
 
-          type: "text",
+          type:
+            "text",
 
           text:
 
@@ -1490,7 +1581,7 @@ export default async function (ctx) {
 
 
         /* ===============================================
-         * 本轮涨跌
+         * 涨跌
          * =============================================== */
 
         ...(changeText
@@ -1499,7 +1590,8 @@ export default async function (ctx) {
 
               {
 
-                type: "text",
+                type:
+                  "text",
 
                 text:
                   changeText,
@@ -1556,18 +1648,23 @@ export default async function (ctx) {
 
       return {
 
-        type: "stack",
+        type:
+          "stack",
 
-        direction: "column",
+        direction:
+          "column",
 
-        alignItems: "center",
+        alignItems:
+          "center",
 
         justifyContent:
           "center",
 
-        flex: 1,
+        flex:
+          1,
 
-        gap: 1,
+        gap:
+          1,
 
         padding: [
           4,
@@ -1575,6 +1672,11 @@ export default async function (ctx) {
           4,
           2
         ],
+
+
+        /*
+         * ★ Small 卡片同样去掉边框
+         */
 
         backgroundColor:
           COLORS.card,
@@ -1587,9 +1689,11 @@ export default async function (ctx) {
 
           {
 
-            type: "stack",
+            type:
+              "stack",
 
-            direction: "row",
+            direction:
+              "row",
 
             alignItems:
               "center",
@@ -1597,13 +1701,15 @@ export default async function (ctx) {
             justifyContent:
               "center",
 
-            gap: 2,
+            gap:
+              2,
 
             children: [
 
               {
 
-                type: "text",
+                type:
+                  "text",
 
                 text:
                   "●",
@@ -1623,7 +1729,8 @@ export default async function (ctx) {
 
               {
 
-                type: "text",
+                type:
+                  "text",
 
                 text:
                   row.label,
@@ -1653,7 +1760,8 @@ export default async function (ctx) {
 
           {
 
-            type: "text",
+            type:
+              "text",
 
             text:
 
@@ -1694,7 +1802,8 @@ export default async function (ctx) {
     }
 
 
-    const pairs = [];
+    const pairs =
+      [];
 
 
     for (
@@ -1719,7 +1828,8 @@ export default async function (ctx) {
 
     return {
 
-      type: "widget",
+      type:
+        "widget",
 
       padding: [
         8,
@@ -1728,7 +1838,8 @@ export default async function (ctx) {
         8
       ],
 
-      gap: 4,
+      gap:
+        4,
 
       backgroundColor:
         backgroundColor,
@@ -1744,27 +1855,33 @@ export default async function (ctx) {
 
         {
 
-          type: "stack",
+          type:
+            "stack",
 
-          direction: "row",
+          direction:
+            "row",
 
           alignItems:
             "center",
 
-          gap: 4,
+          gap:
+            4,
 
           children: [
 
             {
 
-              type: "image",
+              type:
+                "image",
 
               src:
                 "sf-symbol:fuelpump.fill",
 
-              width: 13,
+              width:
+                13,
 
-              height: 13,
+              height:
+                13,
 
               color:
                 COLORS.p92
@@ -1774,7 +1891,8 @@ export default async function (ctx) {
 
             {
 
-              type: "text",
+              type:
+                "text",
 
               text:
                 regionName ||
@@ -1804,14 +1922,16 @@ export default async function (ctx) {
 
             {
 
-              type: "spacer"
+              type:
+                "spacer"
 
             },
 
 
             {
 
-              type: "text",
+              type:
+                "text",
 
               text:
                 `${dateStr} ${timeStr}`,
@@ -1839,27 +1959,34 @@ export default async function (ctx) {
 
         {
 
-          type: "stack",
+          type:
+            "stack",
 
           direction:
             "column",
 
-          flex: 1,
+          flex:
+            1,
 
-          gap: 4,
+          gap:
+            4,
 
           children:
+
             pairs.map(
               pair => ({
 
-                type: "stack",
+                type:
+                  "stack",
 
                 direction:
                   "row",
 
-                flex: 1,
+                flex:
+                  1,
 
-                gap: 4,
+                gap:
+                  4,
 
                 children:
                   pair.map(
@@ -1878,7 +2005,8 @@ export default async function (ctx) {
 
         {
 
-          type: "stack",
+          type:
+            "stack",
 
           direction:
             "row",
@@ -1890,7 +2018,8 @@ export default async function (ctx) {
 
             {
 
-              type: "text",
+              type:
+                "text",
 
               text:
                 nextDateText
@@ -1915,14 +2044,16 @@ export default async function (ctx) {
 
             {
 
-              type: "spacer"
+              type:
+                "spacer"
 
             },
 
 
             {
 
-              type: "text",
+              type:
+                "text",
 
               text:
                 "元/升",
@@ -1956,7 +2087,8 @@ export default async function (ctx) {
 
   return {
 
-    type: "widget",
+    type:
+      "widget",
 
     padding: [
       10,
@@ -1965,7 +2097,8 @@ export default async function (ctx) {
       10
     ],
 
-    gap: 6,
+    gap:
+      6,
 
     backgroundColor:
       backgroundColor,
@@ -1981,7 +2114,8 @@ export default async function (ctx) {
 
       {
 
-        type: "stack",
+        type:
+          "stack",
 
         direction:
           "row",
@@ -1989,7 +2123,8 @@ export default async function (ctx) {
         alignItems:
           "center",
 
-        gap: 5,
+        gap:
+          5,
 
         padding: [
           0,
@@ -2002,14 +2137,17 @@ export default async function (ctx) {
 
           {
 
-            type: "image",
+            type:
+              "image",
 
             src:
               "sf-symbol:fuelpump.fill",
 
-            width: 17,
+            width:
+              17,
 
-            height: 17,
+            height:
+              17,
 
             color:
               COLORS.p92
@@ -2019,7 +2157,8 @@ export default async function (ctx) {
 
           {
 
-            type: "text",
+            type:
+              "text",
 
             text:
               titleText,
@@ -2048,14 +2187,16 @@ export default async function (ctx) {
 
           {
 
-            type: "spacer"
+            type:
+              "spacer"
 
           },
 
 
           {
 
-            type: "text",
+            type:
+              "text",
 
             text:
               `更新 ${dateStr} ${timeStr}`,
@@ -2089,7 +2230,8 @@ export default async function (ctx) {
 
       {
 
-        type: "stack",
+        type:
+          "stack",
 
         direction:
           "row",
@@ -2100,9 +2242,11 @@ export default async function (ctx) {
         justifyContent:
           "space-between",
 
-        gap: 5,
+        gap:
+          5,
 
-        flex: 1,
+        flex:
+          1,
 
         children:
 
@@ -2116,7 +2260,8 @@ export default async function (ctx) {
 
                 {
 
-                  type: "stack",
+                  type:
+                    "stack",
 
                   direction:
                     "column",
@@ -2127,22 +2272,27 @@ export default async function (ctx) {
                   justifyContent:
                     "center",
 
-                  flex: 1,
+                  flex:
+                    1,
 
-                  gap: 5,
+                  gap:
+                    5,
 
                   children: [
 
                     {
 
-                      type: "image",
+                      type:
+                        "image",
 
                       src:
                         "sf-symbol:exclamationmark.triangle.fill",
 
-                      width: 22,
+                      width:
+                        22,
 
-                      height: 22,
+                      height:
+                        22,
 
                       color:
                         COLORS.p98
@@ -2152,7 +2302,8 @@ export default async function (ctx) {
 
                     {
 
-                      type: "text",
+                      type:
+                        "text",
 
                       text:
                         fetchError
@@ -2181,17 +2332,19 @@ export default async function (ctx) {
 
 
       /* =====================================================
-       * 底部信息卡片
+       * 底部信息卡
        * ===================================================== */
 
       {
 
-        type: "stack",
+        type:
+          "stack",
 
         direction:
           "column",
 
-        gap: 3,
+        gap:
+          3,
 
         padding: [
           8,
@@ -2214,7 +2367,8 @@ export default async function (ctx) {
 
           {
 
-            type: "stack",
+            type:
+              "stack",
 
             direction:
               "row",
@@ -2222,7 +2376,8 @@ export default async function (ctx) {
             alignItems:
               "center",
 
-            gap: 4,
+            gap:
+              4,
 
             children: [
 
@@ -2230,14 +2385,17 @@ export default async function (ctx) {
 
               {
 
-                type: "image",
+                type:
+                  "image",
 
                 src:
                   "sf-symbol:clock.fill",
 
-                width: 15,
+                width:
+                  15,
 
-                height: 15,
+                height:
+                  15,
 
                 color:
                   COLORS.orange
@@ -2249,7 +2407,8 @@ export default async function (ctx) {
 
               {
 
-                type: "text",
+                type:
+                  "text",
 
                 text:
                   nextDateText
@@ -2275,18 +2434,21 @@ export default async function (ctx) {
               },
 
 
-              /* 橙色进度条 */
+              /* 进度条 */
 
               {
 
-                type: "stack",
+                type:
+                  "stack",
 
                 direction:
                   "row",
 
-                width: 55,
+                width:
+                  55,
 
-                height: 6,
+                height:
+                  6,
 
                 backgroundColor: {
 
@@ -2305,11 +2467,14 @@ export default async function (ctx) {
 
                   {
 
-                    type: "stack",
+                    type:
+                      "stack",
 
-                    width: 38,
+                    width:
+                      38,
 
-                    height: 6,
+                    height:
+                      6,
 
                     backgroundColor:
                       COLORS.orange,
@@ -2328,7 +2493,8 @@ export default async function (ctx) {
 
               {
 
-                type: "text",
+                type:
+                  "text",
 
                 text:
                   nextCountdown ||
@@ -2358,7 +2524,8 @@ export default async function (ctx) {
 
               {
 
-                type: "spacer"
+                type:
+                  "spacer"
 
               },
 
@@ -2367,7 +2534,8 @@ export default async function (ctx) {
 
               {
 
-                type: "text",
+                type:
+                  "text",
 
                 text:
                   forecastText,
@@ -2412,16 +2580,12 @@ export default async function (ctx) {
 
           /* ===============================================
            * 第二行
-           *
-           * 使用环境变量：
-           *
-           * FILL_OIL
-           * FILL_LITERS
            * =============================================== */
 
           {
 
-            type: "stack",
+            type:
+              "stack",
 
             direction:
               "row",
@@ -2429,7 +2593,8 @@ export default async function (ctx) {
             alignItems:
               "center",
 
-            gap: 4,
+            gap:
+              4,
 
             children: [
 
@@ -2437,14 +2602,17 @@ export default async function (ctx) {
 
               {
 
-                type: "image",
+                type:
+                  "image",
 
                 src:
                   "sf-symbol:flame.fill",
 
-                width: 14,
+                width:
+                  14,
 
-                height: 14,
+                height:
+                  14,
 
                 color:
                   COLORS.p95
@@ -2456,7 +2624,8 @@ export default async function (ctx) {
 
               {
 
-                type: "text",
+                type:
+                  "text",
 
                 text:
                   fillText ||
@@ -2484,7 +2653,7 @@ export default async function (ctx) {
               },
 
 
-              /* 分隔符 */
+              /* 节省 */
 
               ...(savingText
 
@@ -2492,7 +2661,8 @@ export default async function (ctx) {
 
                     {
 
-                      type: "text",
+                      type:
+                        "text",
 
                       text:
                         " · ",
@@ -2510,11 +2680,10 @@ export default async function (ctx) {
                     },
 
 
-                    /* 预计节省 */
-
                     {
 
-                      type: "text",
+                      type:
+                        "text",
 
                       text:
                         savingText,

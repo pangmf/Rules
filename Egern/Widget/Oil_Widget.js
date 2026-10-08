@@ -3,13 +3,13 @@
  * 环境变量：
  * region = zhejiang/taizhou
  * SHOW_TREND = true
- * FILL_OIL = 90
+ * FILL_OIL = 92
  * FILL_LITERS = 50
  */
 export default async function(ctx) {
   const regionParam = ctx.env.region || "zhejiang/taizhou";
   const SHOW_TREND = (ctx.env.SHOW_TREND || "true").trim().toLowerCase() !== "false";
-  const FILL_OIL = (ctx.env.FILL_OIL || "90").trim().toLowerCase();
+  const FILL_OIL = (ctx.env.FILL_OIL || "92").trim().toLowerCase();
   const FILL_LITERS = parseFloat(ctx.env.FILL_LITERS || "50") || 55;
   const now = new Date();
   const timeStr = `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
@@ -65,9 +65,7 @@ export default async function(ctx) {
     if (resp.status !== 200) throw new Error(`HTTP ${resp.status}`);
     const html = await resp.text();
     const titleMatch = html.match(/<title>([^_]+)_/);
-    if (titleMatch && titleMatch[1]) {
-      regionName = titleMatch[1].trim().replace(/(油价|实时|今日|最新|查询|价格)/g,"").trim();
-    }
+    if (titleMatch && titleMatch[1]) regionName = titleMatch[1].trim().replace(/(油价|实时|今日|最新|查询|价格)/g,"").trim();
     const regPrice = /<dl>[\s\S]+?<dt>(.*油)<\/dt>[\s\S]+?<dd>(.*)\(元\)<\/dd>/gm;
     const priceList = [];
     let m = null;
@@ -140,9 +138,7 @@ export default async function(ctx) {
     if (match) {
       const min = parseFloat(match[1]);
       const max = parseFloat(match[2]);
-      if (!isNaN(min) && !isNaN(max)) {
-        savingText = `下轮预计省 ¥${(min * FILL_LITERS).toFixed(1)}-${(max * FILL_LITERS).toFixed(1)}`;
-      }
+      if (!isNaN(min) && !isNaN(max)) savingText = `下轮预计省 ¥${(min * FILL_LITERS).toFixed(1)}-${(max * FILL_LITERS).toFixed(1)}`;
     }
   }
   function glassBackground() {
@@ -160,10 +156,9 @@ export default async function(ctx) {
       alignItems:"center",
       justifyContent:"center",
       flex:1,
-      height:58,
-      padding:[5,3,5,3],
+      padding:[7,3,7,3],
       backgroundGradient:glassBackground(),
-      borderRadius:17,
+      borderRadius:18,
       shadowColor:{light:"#00000012",dark:"#00000045"},
       shadowRadius:8,
       shadowOffset:{x:0,y:2},
@@ -173,7 +168,6 @@ export default async function(ctx) {
           direction:"row",
           alignItems:"center",
           justifyContent:"center",
-          height:21,
           padding:[2,7,2,7],
           backgroundColor:{light:row.color.light+"18",dark:row.color.dark+"20"},
           borderRadius:11,
@@ -190,7 +184,7 @@ export default async function(ctx) {
         {
           type:"text",
           text:row.price !== null ? row.price.toFixed(2) : "--",
-          font:{size:"title3",weight:"semibold"},
+          font:{size:"headline",weight:"semibold"},
           textColor:COLORS.primary,
           textAlign:"center",
           lineLimit:1,
@@ -207,8 +201,7 @@ export default async function(ctx) {
         alignItems:"center",
         justifyContent:"center",
         flex:1,
-        height:45,
-        padding:[3,2,3,2],
+        padding:[4,2,4,2],
         backgroundGradient:glassBackground(),
         borderRadius:14,
         shadowColor:{light:"#00000010",dark:"#00000040"},
@@ -220,7 +213,6 @@ export default async function(ctx) {
             direction:"row",
             alignItems:"center",
             justifyContent:"center",
-            height:18,
             padding:[1,6,1,6],
             backgroundColor:{light:row.color.light+"18",dark:row.color.dark+"20"},
             borderRadius:9,
@@ -237,7 +229,7 @@ export default async function(ctx) {
           {
             type:"text",
             text:row.price.toFixed(2),
-            font:{size:"callout",weight:"semibold"},
+            font:{size:"subheadline",weight:"semibold"},
             textColor:COLORS.primary,
             textAlign:"center",
             lineLimit:1,
@@ -250,8 +242,8 @@ export default async function(ctx) {
     for (let i=0;i<rows.length;i+=2) pairs.push(rows.slice(i,i+2));
     return {
       type:"widget",
-      padding:[7,7,7,7],
-      gap:4,
+      padding:[8,8,8,8],
+      gap:5,
       backgroundColor:backgroundColor,
       refreshAfter:refreshTime,
       children:[
@@ -259,14 +251,13 @@ export default async function(ctx) {
           type:"stack",
           direction:"row",
           alignItems:"center",
-          height:19,
           gap:4,
           children:[
             {
               type:"image",
               src:"sf-symbol:fuelpump.fill",
-              width:13,
-              height:13,
+              width:12,
+              height:12,
               color:COLORS.p92
             },
             {
@@ -291,12 +282,12 @@ export default async function(ctx) {
           type:"stack",
           direction:"column",
           flex:1,
-          gap:4,
+          gap:5,
           children:pairs.map(pair => ({
             type:"stack",
             direction:"row",
             flex:1,
-            gap:4,
+            gap:5,
             children:pair.map(smallCard)
           }))
         } : {
@@ -310,8 +301,8 @@ export default async function(ctx) {
             {
               type:"image",
               src:"sf-symbol:exclamationmark.triangle.fill",
-              width:20,
-              height:20,
+              width:18,
+              height:18,
               color:COLORS.p98
             },
             {
@@ -326,7 +317,6 @@ export default async function(ctx) {
           type:"stack",
           direction:"row",
           alignItems:"center",
-          height:14,
           children:[
             {
               type:"text",
@@ -350,8 +340,8 @@ export default async function(ctx) {
   }
   return {
     type:"widget",
-    padding:[6,8,6,8],
-    gap:5,
+    padding:[8,10,8,10],
+    gap:6,
     backgroundColor:backgroundColor,
     refreshAfter:refreshTime,
     children:[
@@ -359,20 +349,19 @@ export default async function(ctx) {
         type:"stack",
         direction:"row",
         alignItems:"center",
-        height:21,
         gap:5,
         children:[
           {
             type:"image",
             src:"sf-symbol:fuelpump.fill",
-            width:15,
-            height:15,
+            width:14,
+            height:14,
             color:COLORS.p92
           },
           {
             type:"text",
             text:titleText,
-            font:{size:"headline",weight:"semibold"},
+            font:{size:"subheadline",weight:"semibold"},
             textColor:COLORS.primary,
             lineLimit:1,
             minScale:0.7
@@ -401,8 +390,8 @@ export default async function(ctx) {
         direction:"row",
         alignItems:"center",
         justifyContent:"space-between",
-        gap:5,
-        height:58,
+        gap:6,
+        flex:1,
         children:rows.map(priceCard)
       } : {
         type:"stack",
@@ -415,14 +404,14 @@ export default async function(ctx) {
           {
             type:"image",
             src:"sf-symbol:exclamationmark.triangle.fill",
-            width:22,
-            height:22,
+            width:20,
+            height:20,
             color:COLORS.p98
           },
           {
             type:"text",
             text:fetchError ? "数据获取失败" : "暂无数据",
-            font:{size:"body"},
+            font:{size:"subheadline"},
             textColor:COLORS.secondary
           }
         ]
@@ -430,16 +419,15 @@ export default async function(ctx) {
       {
         type:"stack",
         direction:"column",
-        gap:3,
-        height:43,
-        padding:[6,10,6,10],
+        gap:4,
+        padding:[7,10,7,10],
         backgroundGradient:{
           type:"linear",
           colors:[COLORS.glassHighlight,COLORS.infoGlass,COLORS.glassBottom],
           startPoint:{x:0,y:0},
           endPoint:{x:0,y:1}
         },
-        borderRadius:15,
+        borderRadius:16,
         shadowColor:{light:"#00000010",dark:"#00000040"},
         shadowRadius:7,
         shadowOffset:{x:0,y:2},
@@ -452,14 +440,14 @@ export default async function(ctx) {
               {
                 type:"image",
                 src:"sf-symbol:flame.fill",
-                width:13,
-                height:13,
+                width:12,
+                height:12,
                 color:COLORS.orange
               },
               {
                 type:"text",
                 text:`${FILL_OIL === "diesel" || FILL_OIL === "0" ? "柴油" : FILL_OIL + "号"}加满 ${FILL_LITERS}L`,
-                font:{size:"caption1",weight:"semibold"},
+                font:{size:"caption2",weight:"semibold"},
                 textColor:COLORS.primary,
                 lineLimit:1,
                 minScale:0.65
@@ -468,7 +456,7 @@ export default async function(ctx) {
               {
                 type:"text",
                 text:fillCost !== null ? `¥${fillCost.toFixed(1)}` : "--",
-                font:{size:"callout",weight:"bold"},
+                font:{size:"subheadline",weight:"bold"},
                 textColor:COLORS.primary,
                 textAlign:"right",
                 lineLimit:1,
@@ -484,8 +472,8 @@ export default async function(ctx) {
               {
                 type:"image",
                 src:"sf-symbol:arrow.down.right",
-                width:10,
-                height:10,
+                width:9,
+                height:9,
                 color:COLORS.down
               },
               {

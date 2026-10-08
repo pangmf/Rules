@@ -1,394 +1,239 @@
 /**
- * =========================================================
- * ⛽ 油价小组件
- * iOS Native Style
+ * ⛽ 全国实时油价 Liquid Glass 小组件
+ *
+ * 数据源：http://m.qiyoujiage.com/
  *
  * 环境变量：
  *
  * region
- *   例如：
- *   beijing
- *   shanghai
- *   taizhou
- *   guangdong/guangzhou
+ * 例如：
+ * jiangsu/taizhou
+ * hainan/haikou
+ * beijing
  *
  * SHOW_TREND
- *   true / false
+ * true / false
  *
  * FILL_OIL
- *   92 / 95 / 98
+ * 92 / 95 / 98 / diesel
  *
  * FILL_LITERS
- *   例如：
- *   30
- *   50
- *   55
+ * 50
  *
- * =========================================================
+ * 示例：
+ *
+ * region = zhejiang/taizhou
+ * SHOW_TREND = true
+ * FILL_OIL = 92
+ * FILL_LITERS = 50
  */
 
 export default async function (ctx) {
 
-  /* =========================================================
-   * 环境变量
-   * ========================================================= */
+  // =========================================================
+  // 环境变量
+  // =========================================================
 
-  const regionParam =
-    ctx.env.region || "beijing";
-
+  const regionParam = ctx.env.region || "zhejiang/taizhou";
 
   const SHOW_TREND =
-    (ctx.env.SHOW_TREND || "true")
-      .trim()
-      .toLowerCase() !== "false";
-
-
-  /*
-   * 加油油号
-   *
-   * 92 / 95 / 98
-   */
+    (ctx.env.SHOW_TREND || "true").trim().toLowerCase() !== "false";
 
   const FILL_OIL =
-    String(
-      ctx.env.FILL_OIL || "95"
-    ).trim();
-
-
-  /*
-   * 加油升数
-   */
+    (ctx.env.FILL_OIL || "92").trim().toLowerCase();
 
   const FILL_LITERS =
-    parseFloat(
-      ctx.env.FILL_LITERS || "55"
-    );
+    parseFloat(ctx.env.FILL_LITERS || "50") || 50;
 
 
-  /* =========================================================
-   * 时间
-   * ========================================================= */
+  // =========================================================
+  // 时间
+  // =========================================================
 
-  const now =
-    new Date();
-
+  const now = new Date();
 
   const timeStr =
-    `${String(
-      now.getHours()
-    ).padStart(2, "0")}:` +
-    `${String(
-      now.getMinutes()
-    ).padStart(2, "0")}`;
-
-
-  const dateStr =
-    `${String(
-      now.getMonth() + 1
-    ).padStart(2, "0")}-` +
-    `${String(
-      now.getDate()
-    ).padStart(2, "0")}`;
-
-
-  /*
-   * 小组件刷新时间
-   */
+    `${String(now.getHours()).padStart(2, "0")}:` +
+    `${String(now.getMinutes()).padStart(2, "0")}`;
 
   const refreshTime =
-    new Date(
-      Date.now() +
-      6 * 60 * 60 * 1000
-    ).toISOString();
+    new Date(Date.now() + 6 * 60 * 60 * 1000).toISOString();
 
 
-  /* =========================================================
-   * iOS 系统背景
-   *
-   * Light:
-   * #F2F2F7
-   *
-   * Dark:
-   * #000000
-   * ========================================================= */
+  // =========================================================
+  // iOS 背景
+  //
+  // Liquid Glass 的关键：
+  // 背景不要做成卡片色，而是作为玻璃后面的环境。
+  // =========================================================
 
   const backgroundColor = {
-
     light: "#F2F2F7",
-
     dark: "#000000"
-
   };
 
 
-  /* =========================================================
-   * iOS 风格颜色
-   * ========================================================= */
+  // =========================================================
+  // 颜色
+  // =========================================================
 
   const COLORS = {
 
-    /*
-     * 主文字
-     */
-
     primary: {
-
-      light: "#000000",
-
+      light: "#111111",
       dark: "#FFFFFF"
-
     },
-
-
-    /*
-     * 次要文字
-     */
 
     secondary: {
-
       light: "#8E8E93",
-
       dark: "#98989D"
-
     },
-
-
-    /*
-     * 辅助文字
-     */
 
     tertiary: {
-
       light: "#AEAEB2",
-
       dark: "#636366"
-
     },
 
 
-    /*
-     * 油价卡片
-     *
-     * 注意：
-     * 不再使用 border
-     */
+    // -------------------------------------------------------
+    // Liquid Glass
+    // -------------------------------------------------------
 
-    card: {
+    glass: {
+      light: "#FFFFFFB8",
+      dark: "#FFFFFF1C"
+    },
 
-      light: "#FFFFFF",
+    glassHighlight: {
+      light: "#FFFFFFE8",
+      dark: "#FFFFFF28"
+    },
 
-      dark: "#1C1C1E"
+    glassBottom: {
+      light: "#FFFFFF88",
+      dark: "#FFFFFF0D"
+    },
 
+    infoGlass: {
+      light: "#FFFFFFCC",
+      dark: "#1C1C1ECC"
     },
 
 
-    /*
-     * 底部信息卡片
-     */
-
-    infoCard: {
-
-      light: "#FFFFFF",
-
-      dark: "#1C1C1E"
-
-    },
-
-
-    /*
-     * 92号
-     */
+    // -------------------------------------------------------
+    // 油价颜色
+    // -------------------------------------------------------
 
     p92: {
-
-      light: "#F5A900",
-
+      light: "#FF9F0A",
       dark: "#FFB340"
-
     },
-
-
-    /*
-     * 95号
-     */
 
     p95: {
-
-      light: "#E94747",
-
-      dark: "#FF6969"
-
+      light: "#EF4050",
+      dark: "#FF6675"
     },
-
-
-    /*
-     * 98号
-     */
 
     p98: {
-
-      light: "#4A9BEA",
-
+      light: "#4598E8",
       dark: "#64B5F6"
-
     },
-
-
-    /*
-     * 柴油
-     */
 
     diesel: {
-
-      light: "#22B95A",
-
+      light: "#20B957",
       dark: "#30D158"
-
     },
 
 
-    /*
-     * 上涨
-     */
+    // -------------------------------------------------------
+    // 趋势
+    // -------------------------------------------------------
 
     up: {
-
       light: "#FF3B30",
-
       dark: "#FF453A"
-
     },
-
-
-    /*
-     * 下跌
-     */
 
     down: {
-
       light: "#34C759",
-
       dark: "#30D158"
-
     },
 
-
-    /*
-     * 橙色
-     */
-
     orange: {
-
       light: "#FF9F0A",
-
       dark: "#FF9F0A"
-
     }
-
   };
 
 
-  /* =========================================================
-   * 缓存
-   * ========================================================= */
+  // =========================================================
+  // 数据
+  // =========================================================
 
   const CACHE_KEY =
     `qiyoujiage_oil_${regionParam}`;
 
-
   let prices = {
-
     p92: null,
-
     p95: null,
-
     p98: null,
-
     diesel: null
-
   };
 
+  let regionName = "";
 
-  let changes = {
+  let trendInfo = "";
 
-    p92: null,
+  let trendDirection = "";
 
-    p95: null,
+  let trendDate = "";
 
-    p98: null,
+  let trendAmount = "";
 
-    diesel: null
+  let hasCache = false;
 
-  };
+  let fetchError = false;
 
-
-  let regionName =
-    "";
-
-
-  let trendInfo =
-    "";
+  let errorMsg = "";
 
 
-  let hasCache =
-    false;
-
-
-  /* =========================================================
-   * 读取缓存
-   * ========================================================= */
+  // =========================================================
+  // 读取缓存
+  // =========================================================
 
   try {
 
     const cached =
-      ctx.storage.getJSON(
-        CACHE_KEY
-      );
+      ctx.storage.getJSON(CACHE_KEY);
 
+    if (cached && cached.prices) {
 
-    if (
-      cached &&
-      cached.prices
-    ) {
-
-      prices =
-        cached.prices;
-
-
-      changes =
-        cached.changes ||
-        changes;
-
+      prices = cached.prices;
 
       regionName =
-        cached.regionName ||
-        "";
-
+        cached.regionName || "";
 
       trendInfo =
-        cached.trendInfo ||
-        "";
+        cached.trendInfo || "";
 
+      trendDirection =
+        cached.trendDirection || "";
 
-      hasCache =
-        true;
+      trendDate =
+        cached.trendDate || "";
 
+      trendAmount =
+        cached.trendAmount || "";
+
+      hasCache = true;
     }
 
   } catch (_) {}
 
 
-  /* =========================================================
-   * 获取油价
-   * ========================================================= */
-
-  let fetchError =
-    false;
-
-
-  let errorMsg =
-    "";
-
+  // =========================================================
+  // 获取油价
+  // =========================================================
 
   try {
 
@@ -397,35 +242,26 @@ export default async function (ctx) {
 
 
     const resp =
-      await ctx.http.get(
-        queryAddr,
-        {
+      await ctx.http.get(queryAddr, {
 
-          headers: {
+        headers: {
 
-            referer:
-              "http://m.qiyoujiage.com/",
+          "referer":
+            "http://m.qiyoujiage.com/",
 
-            "user-agent":
-              "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+          "user-agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+        },
 
-          },
-
-          timeout:
-            15000
-
-        }
-      );
+        timeout: 15000
+      });
 
 
-    if (
-      resp.status !== 200
-    ) {
+    if (resp.status !== 200) {
 
       throw new Error(
         `HTTP ${resp.status}: 页面不存在`
       );
-
     }
 
 
@@ -433,24 +269,18 @@ export default async function (ctx) {
       await resp.text();
 
 
-    /* =======================================================
-     * 地区名称
-     * ======================================================= */
+    // =======================================================
+    // 地区名称
+    // =======================================================
 
     const titleMatch =
-      html.match(
-        /<title>([^_]+)_/
-      );
+      html.match(/<title>([^_]+)_/);
 
 
-    if (
-      titleMatch &&
-      titleMatch[1]
-    ) {
+    if (titleMatch && titleMatch[1]) {
 
       let rawName =
         titleMatch[1].trim();
-
 
       regionName =
         rawName
@@ -459,13 +289,12 @@ export default async function (ctx) {
             ""
           )
           .trim();
-
     }
 
 
-    /* =======================================================
-     * 油价
-     * ======================================================= */
+    // =======================================================
+    // 油价
+    // =======================================================
 
     const regPrice =
       /<dl>[\s\S]+?<dt>(.*油)<\/dt>[\s\S]+?<dd>(.*)\(元\)<\/dd>/gm;
@@ -473,25 +302,18 @@ export default async function (ctx) {
 
     const priceList = [];
 
-
-    let m =
-      null;
+    let m = null;
 
 
     while (
-      (m =
-        regPrice.exec(html)) !== null
+      (m = regPrice.exec(html)) !== null
     ) {
 
       if (
-        m.index ===
-        regPrice.lastIndex
+        m.index === regPrice.lastIndex
       ) {
-
         regPrice.lastIndex++;
-
       }
-
 
       priceList.push({
 
@@ -500,260 +322,74 @@ export default async function (ctx) {
 
         value:
           m[2].trim()
-
       });
-
     }
 
 
-    if (
-      priceList.length >= 3
-    ) {
+    if (priceList.length >= 3) {
 
       const nameMap = {
 
-        "92 号":
-          "p92",
+        "92 号": "p92",
+        "92": "p92",
 
-        "92":
-          "p92",
+        "95 号": "p95",
+        "95": "p95",
 
-        "95 号":
-          "p95",
+        "98 号": "p98",
+        "98": "p98",
 
-        "95":
-          "p95",
-
-        "98 号":
-          "p98",
-
-        "98":
-          "p98",
-
-        "0 号":
-          "diesel",
-
-        "柴油":
-          "diesel"
-
+        "0 号": "diesel",
+        "柴油": "diesel"
       };
 
 
       prices = {
 
-        p92:
-          null,
-
-        p95:
-          null,
-
-        p98:
-          null,
-
-        diesel:
-          null
-
+        p92: null,
+        p95: null,
+        p98: null,
+        diesel: null
       };
 
 
-      priceList.forEach(
-        item => {
+      priceList.forEach(item => {
 
-          const key =
-            Object.keys(
-              nameMap
-            ).find(
-              k =>
-                item.name.includes(k)
+        const key =
+          Object.keys(nameMap)
+            .find(k =>
+              item.name.includes(k)
             );
 
 
-          if (
-            key
-          ) {
+        if (key) {
 
-            const priceVal =
-              parseFloat(
-                item.value
-              );
+          const priceVal =
+            parseFloat(item.value);
 
 
-            if (
-              !isNaN(priceVal)
-            ) {
+          if (!isNaN(priceVal)) {
 
-              prices[
-                nameMap[key]
-              ] =
-                priceVal;
-
-            }
-
+            prices[
+              nameMap[key]
+            ] = priceVal;
           }
-
         }
-      );
+      });
 
 
-      /* =====================================================
-       * 解析本轮涨跌
-       * ===================================================== */
+      // =====================================================
+      // 调价趋势
+      // =====================================================
 
-      const changeKeys = [
-
-        "p92",
-
-        "p95",
-
-        "p98",
-
-        "diesel"
-
-      ];
-
-
-      const changeNames = [
-
-        [
-          "92号",
-          "92 号",
-          "92#"
-        ],
-
-        [
-          "95号",
-          "95 号",
-          "95#"
-        ],
-
-        [
-          "98号",
-          "98 号",
-          "98#"
-        ],
-
-        [
-          "柴油",
-          "0号",
-          "0 号"
-        ]
-
-      ];
-
-
-      for (
-        let i = 0;
-
-        i < changeKeys.length;
-
-        i++
-      ) {
-
-        const names =
-          changeNames[i];
-
-
-        for (
-          const name of names
-        ) {
-
-          const escaped =
-            name.replace(
-              /[.*+?^${}()|[\]\\]/g,
-              "\\$&"
-            );
-
-
-          const areaReg =
-            new RegExp(
-              `${escaped}[\\s\\S]{0,150}?` +
-              `((?:↑|↓|\\+|-|涨|跌|上调|下调)` +
-              `\\s*[0-9]+(?:\\.[0-9]+)?)`,
-              "i"
-            );
-
-
-          const match =
-            html.match(
-              areaReg
-            );
-
-
-          if (
-            match
-          ) {
-
-            const valueText =
-              match[1];
-
-
-            const numberMatch =
-              valueText.match(
-                /([0-9]+(?:\.[0-9]+)?)/
-              );
-
-
-            if (
-              numberMatch
-            ) {
-
-              const value =
-                parseFloat(
-                  numberMatch[1]
-                );
-
-
-              const direction =
-                (
-                  valueText.includes("↓") ||
-                  valueText.includes("-") ||
-                  valueText.includes("跌") ||
-                  valueText.includes("下调")
-                )
-
-                  ? "down"
-
-                  : "up";
-
-
-              changes[
-                changeKeys[i]
-              ] = {
-
-                value,
-
-                direction
-
-              };
-
-
-              break;
-
-            }
-
-          }
-
-        }
-
-      }
-
-
-      /* =====================================================
-       * 下一轮调价趋势
-       * ===================================================== */
-
-      if (
-        SHOW_TREND
-      ) {
+      if (SHOW_TREND) {
 
         const regTrend =
           /<div class="tishi">[\s\S]*?<span>([^<]+)<\/span>[\s\S]*?<br\/>([\s\S]+?)<br\/>/;
 
 
         const trendMatch =
-          html.match(
-            regTrend
-          );
+          html.match(regTrend);
 
 
         if (
@@ -764,27 +400,39 @@ export default async function (ctx) {
           const datePart =
             trendMatch[1]
               .split("价")[1]
-              ?.slice(0, -2) ||
-            "";
+              ?.slice(0, -2) || "";
 
 
           const valuePart =
             trendMatch[2];
 
 
-          const trend =
+          // -------------------------------------------------
+          // 上调 / 下调
+          // -------------------------------------------------
+
+          trendDirection =
             (
               valuePart.includes("下调") ||
               valuePart.includes("下跌")
             )
-
-              ? "↓"
-
-              : "↑";
+              ? "down"
+              : "up";
 
 
-          let amount =
-            "";
+          // -------------------------------------------------
+          // 日期
+          // -------------------------------------------------
+
+          trendDate =
+            datePart;
+
+
+          // -------------------------------------------------
+          // 元 / 升
+          // -------------------------------------------------
+
+          let amount = "";
 
 
           const allPrices =
@@ -799,27 +447,25 @@ export default async function (ctx) {
           ) {
 
             const nums =
-              allPrices.map(
-                p => {
+              allPrices.map(p => {
 
-                  const x =
-                    p.match(
-                      /([\d.]+)/
-                    );
+                const x =
+                  p.match(/([\d.]+)/);
 
-
-                  return x
-                    ? x[1]
-                    : "";
-
-                }
-              );
+                return x
+                  ? parseFloat(x[1])
+                  : 0;
+              });
 
 
             amount =
               `${nums[0]}-${nums[1]}`;
-
           }
+
+
+          // -------------------------------------------------
+          // 元 / 吨
+          // -------------------------------------------------
 
           else {
 
@@ -835,27 +481,25 @@ export default async function (ctx) {
             ) {
 
               const nums =
-                allTons.map(
-                  p => {
+                allTons.map(p => {
 
-                    const x =
-                      p.match(
-                        /([\d]+)/
-                      );
+                  const x =
+                    p.match(/([\d]+)/);
 
-
-                    return x
-                      ? x[1]
-                      : "";
-
-                  }
-                );
+                  return x
+                    ? x[1]
+                    : "";
+                });
 
 
               amount =
                 `${nums[0]}-${nums[1]}元/吨`;
-
             }
+
+
+            // -------------------------------------------------
+            // 单个元/L
+            // -------------------------------------------------
 
             else {
 
@@ -865,32 +509,30 @@ export default async function (ctx) {
                 );
 
 
-              if (
-                singleMatch
-              ) {
+              if (singleMatch) {
 
                 amount =
                   `${singleMatch[1]}元/L`;
-
               }
-
             }
-
           }
 
 
+          trendAmount =
+            amount;
+
+
           trendInfo =
-            `${datePart}调整 ${trend} ${amount}`
-              .trim();
-
+            `${datePart}调整 ` +
+            `${trendDirection === "down" ? "↓" : "↑"} ` +
+            `${amount}`.trim();
         }
-
       }
 
 
-      /* =====================================================
-       * 保存缓存
-       * ===================================================== */
+      // =====================================================
+      // 保存缓存
+      // =====================================================
 
       ctx.storage.setJSON(
         CACHE_KEY,
@@ -898,671 +540,351 @@ export default async function (ctx) {
 
           prices,
 
-          changes,
-
           regionName,
 
-          trendInfo
+          trendInfo,
 
+          trendDirection,
+
+          trendDate,
+
+          trendAmount
         }
       );
 
 
-      fetchError =
-        false;
+      fetchError = false;
 
-    }
+    } else {
 
-    else {
+      if (!hasCache) {
 
-      if (
-        !hasCache
-      ) {
-
-        fetchError =
-          true;
+        fetchError = true;
 
         errorMsg =
           "解析失败";
-
       }
-
     }
 
-  }
 
+  } catch (e) {
 
-  catch (e) {
+    if (!hasCache) {
 
-    if (
-      !hasCache
-    ) {
-
-      fetchError =
-        true;
+      fetchError = true;
 
       errorMsg =
-        e.message ||
-        "数据获取失败";
-
+        e.message || "数据获取失败";
     }
-
   }
 
 
-  /* =========================================================
-   * 标题
-   * ========================================================= */
+  // =========================================================
+  // 标题
+  // =========================================================
 
   const titleText =
     regionName
-      ? `${regionName}油价`
+      ? `${regionName}实时油价`
       : "实时油价";
 
 
-  /* =========================================================
-   * 油品数据
-   * ========================================================= */
+  // =========================================================
+  // 油价列表
+  // =========================================================
 
   const rows = [
 
     {
-
-      key:
-        "p92",
-
-      label:
-        "92号",
-
-      price:
-        prices.p92,
-
-      change:
-        changes.p92,
-
-      color:
-        COLORS.p92
-
+      key: "p92",
+      label: "92 号",
+      price: prices.p92,
+      color: COLORS.p92
     },
 
-
     {
-
-      key:
-        "p95",
-
-      label:
-        "95号",
-
-      subLabel:
-        "常用",
-
-      price:
-        prices.p95,
-
-      change:
-        changes.p95,
-
-      color:
-        COLORS.p95
-
+      key: "p95",
+      label: "95 号",
+      price: prices.p95,
+      color: COLORS.p95
     },
 
-
     {
-
-      key:
-        "p98",
-
-      label:
-        "98号",
-
-      price:
-        prices.p98,
-
-      change:
-        changes.p98,
-
-      color:
-        COLORS.p98
-
+      key: "p98",
+      label: "98 号",
+      price: prices.p98,
+      color: COLORS.p98
     },
 
-
     {
-
-      key:
-        "diesel",
-
-      label:
-        "柴油",
-
-      price:
-        prices.diesel,
-
-      change:
-        changes.diesel,
-
-      color:
-        COLORS.diesel
-
+      key: "diesel",
+      label: "柴油",
+      price: prices.diesel,
+      color: COLORS.diesel
     }
 
   ].filter(
-    r =>
-      r.price !== null
+    r => r.price !== null
   );
 
 
-  /* =========================================================
-   * 下一轮调价
-   * ========================================================= */
+  // =========================================================
+  // 当前加油价格
+  // =========================================================
 
-  let nextDateText =
-    "";
-
-
-  let nextCountdown =
-    "";
-
-
-  let nextTrend =
-    "";
-
-
-  let nextAmountMin =
-    null;
-
-
-  let nextAmountMax =
-    null;
+  let fillPrice = null;
 
 
   if (
-    SHOW_TREND &&
-    trendInfo
+    FILL_OIL === "92"
   ) {
 
-    const dateMatch =
-      trendInfo.match(
-        /(\d{1,2})月(\d{1,2})日/
+    fillPrice =
+      prices.p92;
+
+  } else if (
+    FILL_OIL === "95"
+  ) {
+
+    fillPrice =
+      prices.p95;
+
+  } else if (
+    FILL_OIL === "98"
+  ) {
+
+    fillPrice =
+      prices.p98;
+
+  } else if (
+    FILL_OIL === "diesel" ||
+    FILL_OIL === "0"
+  ) {
+
+    fillPrice =
+      prices.diesel;
+  }
+
+
+  // =========================================================
+  // 加满金额
+  // =========================================================
+
+  const fillCost =
+    fillPrice !== null
+      ? fillPrice * FILL_LITERS
+      : null;
+
+
+  // =========================================================
+  // 预计节省
+  //
+  // 只有下调才显示
+  // =========================================================
+
+  let savingText = "";
+
+
+  if (
+    trendDirection === "down" &&
+    trendAmount &&
+    fillPrice !== null
+  ) {
+
+    const match =
+      trendAmount.match(
+        /([\d.]+)-([\d.]+)/
       );
 
 
-    if (
-      dateMatch
-    ) {
+    if (match) {
 
-      const month =
-        parseInt(
-          dateMatch[1],
-          10
-        );
+      const min =
+        parseFloat(match[1]);
 
-
-      const day =
-        parseInt(
-          dateMatch[2],
-          10
-        );
-
-
-      nextDateText =
-        `${month}.${day}`;
-
-
-      let targetYear =
-        now.getFullYear();
+      const max =
+        parseFloat(match[2]);
 
 
       if (
-        month <
-        now.getMonth() + 1
+        !isNaN(min) &&
+        !isNaN(max)
       ) {
 
-        targetYear++;
+        const saveMin =
+          min * FILL_LITERS;
 
+        const saveMax =
+          max * FILL_LITERS;
+
+
+        savingText =
+          `下轮预计省 ¥` +
+          `${saveMin.toFixed(1)}-${saveMax.toFixed(1)}`;
       }
-
-
-      const targetDate =
-        new Date(
-          targetYear,
-          month - 1,
-          day + 1,
-          0,
-          0,
-          0
-        );
-
-
-      const diff =
-        targetDate.getTime() -
-        now.getTime();
-
-
-      if (
-        diff > 0
-      ) {
-
-        const totalHours =
-          Math.floor(
-            diff /
-            (1000 * 60 * 60)
-          );
-
-
-        const days =
-          Math.floor(
-            totalHours / 24
-          );
-
-
-        const hours =
-          totalHours % 24;
-
-
-        if (
-          days > 0
-        ) {
-
-          nextCountdown =
-            `${days}天${hours}时后`;
-
-        }
-
-        else {
-
-          nextCountdown =
-            `${hours}时后`;
-
-        }
-
-      }
-
-
-      if (
-        trendInfo.includes("↓")
-      ) {
-
-        nextTrend =
-          "↓";
-
-      }
-
-      else if (
-        trendInfo.includes("↑")
-      ) {
-
-        nextTrend =
-          "↑";
-
-      }
-
-
-      const amountMatch =
-        trendInfo.match(
-          /([\d.]+)\s*-\s*([\d.]+)/
-        );
-
-
-      if (
-        amountMatch
-      ) {
-
-        nextAmountMin =
-          parseFloat(
-            amountMatch[1]
-          );
-
-
-        nextAmountMax =
-          parseFloat(
-            amountMatch[2]
-          );
-
-      }
-
     }
-
   }
 
 
-  /* =========================================================
-   * 加油金额
-   * ========================================================= */
-
-  let fillText =
-    "";
-
-
-  let savingText =
-    "";
-
-
-  const fillOilMap = {
-
-    "92":
-      prices.p92,
-
-    "95":
-      prices.p95,
-
-    "98":
-      prices.p98
-
-  };
-
-
-  const fillOilPrice =
-    fillOilMap[
-      FILL_OIL
-    ];
-
-
-  if (
-
-    fillOilPrice !== null &&
-
-    fillOilPrice !== undefined &&
-
-    !isNaN(fillOilPrice) &&
-
-    !isNaN(FILL_LITERS) &&
-
-    FILL_LITERS > 0
-
-  ) {
-
-    /* 当前加油金额 */
-
-    const fillAmount =
-      fillOilPrice *
-      FILL_LITERS;
-
-
-    fillText =
-      `${FILL_OIL}号加满 ${FILL_LITERS}L ¥${fillAmount.toFixed(1)}`;
-
-
-    /* 下轮预计节省 */
-
-    if (
-
-      nextTrend === "↓" &&
-
-      nextAmountMin !== null &&
-
-      nextAmountMax !== null
-
-    ) {
-
-      const saveMin =
-        nextAmountMin *
-        FILL_LITERS;
-
-
-      const saveMax =
-        nextAmountMax *
-        FILL_LITERS;
-
-
-      savingText =
-        `下轮预计省 ¥${saveMin.toFixed(1)}-${saveMax.toFixed(1)}`;
-
-    }
-
-  }
-
-
-  /* =========================================================
-   * 下轮预测
-   * ========================================================= */
-
-  let forecastText =
-    "下轮预测";
-
-
-  if (
-
-    nextTrend &&
-
-    nextAmountMin !== null &&
-
-    nextAmountMax !== null
-
-  ) {
-
-    forecastText =
-      `下轮预测 ${nextTrend}${nextAmountMin.toFixed(2)}-${nextAmountMax.toFixed(2)}`;
-
-  }
-
-
-  /* =========================================================
-   * 价格卡片
-   *
-   * ★ 已经完全去除外框线
-   * ========================================================= */
-
-  function priceCard(row) {
-
-    let changeText =
-      "";
-
-
-    let changeColor =
-      COLORS.up;
-
-
-    if (
-
-      row.change &&
-
-      typeof row.change.value === "number"
-
-    ) {
-
-      const prefix =
-        row.change.direction === "down"
-          ? "▼"
-          : "▲";
-
-
-      changeText =
-        `${prefix}${row.change.value.toFixed(2)}`;
-
-
-      changeColor =
-        row.change.direction === "down"
-
-          ? COLORS.down
-
-          : COLORS.up;
-
-    }
-
+  // =========================================================
+  // Liquid Glass：玻璃卡片
+  // =========================================================
+
+  function glassBackground() {
 
     return {
 
-      type:
-        "stack",
+      type: "linear",
 
-      direction:
-        "column",
+      colors: [
 
-      alignItems:
-        "center",
+        COLORS.glassHighlight,
 
-      justifyContent:
-        "center",
+        COLORS.glass,
 
-      flex:
-        1,
+        COLORS.glassBottom
 
-      gap:
-        1,
+      ],
+
+      startPoint: {
+        x: 0,
+        y: 0
+      },
+
+      endPoint: {
+        x: 0,
+        y: 1
+      }
+    };
+  }
+
+
+  // =========================================================
+  // 油价卡片
+  // =========================================================
+
+  function priceCard(row) {
+
+    return {
+
+      type: "stack",
+
+      direction: "column",
+
+      alignItems: "center",
+
+      justifyContent: "center",
+
+      flex: 1,
 
       padding: [
         8,
-        3,
-        7,
-        3
+        4,
+        8,
+        4
       ],
 
 
-      /*
-       * ★ 白色卡片
-       *
-       * 没有 borderWidth
-       * 没有 borderColor
-       */
-
-      backgroundColor:
-        COLORS.card,
+      // Liquid Glass
+      backgroundGradient:
+        glassBackground(),
 
 
-      borderRadius:
-        18,
+      borderRadius: 20,
+
+
+      // 柔和阴影
+      shadowColor: {
+
+        light: "#00000018",
+
+        dark: "#00000055"
+      },
+
+      shadowRadius: 10,
+
+      shadowOffset: {
+        x: 0,
+        y: 3
+      },
 
 
       children: [
 
-        /* ===============================================
-         * 油品名称
-         * =============================================== */
+        // ---------------------------------------------------
+        // 油号标签
+        // ---------------------------------------------------
 
         {
 
-          type:
-            "stack",
+          type: "stack",
 
-          direction:
-            "row",
+          direction: "row",
 
-          alignItems:
-            "center",
+          alignItems: "center",
 
-          justifyContent:
-            "center",
+          justifyContent: "center",
 
-          gap:
-            3,
+          width: 48,
+
+          height: 24,
+
+          backgroundColor: {
+
+            light:
+              row.color.light + "20",
+
+            dark:
+              row.color.dark + "25"
+          },
+
+          borderRadius: 12,
 
           children: [
 
             {
 
-              type:
-                "text",
-
-              text:
-                "●",
-
-              font: {
-
-                size:
-                  "caption2",
-
-                weight:
-                  "bold"
-
-              },
-
-              textColor:
-                row.color
-
-            },
-
-
-            {
-
-              type:
-                "text",
+              type: "text",
 
               text:
                 row.label,
 
               font: {
 
-                size:
-                  "caption1",
+                size: "caption2",
 
-                weight:
-                  "semibold"
-
+                weight: "bold"
               },
 
               textColor:
                 row.color,
 
-              lineLimit:
-                1
-
-            },
-
-
-            ...(row.subLabel
-
-              ? [
-
-                  {
-
-                    type:
-                      "text",
-
-                    text:
-                      row.subLabel,
-
-                    font: {
-
-                      size:
-                        "caption2"
-
-                    },
-
-                    textColor:
-                      COLORS.secondary,
-
-                    lineLimit:
-                      1
-
-                  }
-
-                ]
-
-              : [])
+              textAlign:
+                "center"
+            }
 
           ]
-
         },
 
 
-        /* ===============================================
-         * 当前价格
-         * =============================================== */
+        // ---------------------------------------------------
+        // 价格
+        // ---------------------------------------------------
 
         {
 
-          type:
-            "text",
+          type: "text",
 
           text:
-
             row.price !== null
-
               ? row.price.toFixed(2)
-
               : "--",
 
           font: {
 
-            size:
-              "title",
+            size: "title3",
 
-            weight:
-              "bold"
-
+            weight: "semibold"
           },
 
           textColor:
@@ -1571,100 +893,39 @@ export default async function (ctx) {
           textAlign:
             "center",
 
-          lineLimit:
-            1,
+          lineLimit: 1,
 
-          minScale:
-            0.65
-
-        },
-
-
-        /* ===============================================
-         * 涨跌
-         * =============================================== */
-
-        ...(changeText
-
-          ? [
-
-              {
-
-                type:
-                  "text",
-
-                text:
-                  changeText,
-
-                font: {
-
-                  size:
-                    "caption1",
-
-                  weight:
-                    "semibold"
-
-                },
-
-                textColor:
-                  changeColor,
-
-                textAlign:
-                  "center",
-
-                lineLimit:
-                  1
-
-              }
-
-            ]
-
-          : [])
-
+          minScale: 0.7
+        }
       ]
-
     };
-
   }
 
 
-  /* =========================================================
-   * Small 小组件
-   * ========================================================= */
+  // =========================================================
+  // Small 小组件
+  // =========================================================
 
   if (
-    ctx.widgetFamily ===
-    "systemSmall"
+    ctx.widgetFamily === "systemSmall"
   ) {
-
-    const smallRows =
-      rows.slice(
-        0,
-        4
-      );
 
 
     function smallCard(row) {
 
       return {
 
-        type:
-          "stack",
+        type: "stack",
 
-        direction:
-          "column",
+        direction: "column",
 
-        alignItems:
-          "center",
+        alignItems: "center",
 
-        justifyContent:
-          "center",
+        justifyContent: "center",
 
-        flex:
-          1,
+        flex: 1,
 
-        gap:
-          1,
+        gap: 1,
 
         padding: [
           4,
@@ -1674,111 +935,95 @@ export default async function (ctx) {
         ],
 
 
-        /*
-         * ★ Small 卡片同样去掉边框
-         */
+        backgroundGradient:
+          glassBackground(),
 
-        backgroundColor:
-          COLORS.card,
 
-        borderRadius:
-          13,
+        borderRadius: 14,
+
+
+        shadowColor: {
+
+          light: "#00000014",
+
+          dark: "#00000050"
+        },
+
+        shadowRadius: 7,
+
+        shadowOffset: {
+          x: 0,
+          y: 2
+        },
 
 
         children: [
 
           {
 
-            type:
-              "stack",
+            type: "stack",
 
-            direction:
-              "row",
+            direction: "row",
 
-            alignItems:
-              "center",
+            alignItems: "center",
 
-            justifyContent:
-              "center",
+            justifyContent: "center",
 
-            gap:
-              2,
+            width: 44,
+
+            height: 21,
+
+            backgroundColor: {
+
+              light:
+                row.color.light + "20",
+
+              dark:
+                row.color.dark + "25"
+            },
+
+            borderRadius: 10,
+
 
             children: [
 
               {
 
-                type:
-                  "text",
-
-                text:
-                  "●",
-
-                font: {
-
-                  size:
-                    "caption2"
-
-                },
-
-                textColor:
-                  row.color
-
-              },
-
-
-              {
-
-                type:
-                  "text",
+                type: "text",
 
                 text:
                   row.label,
 
                 font: {
 
-                  size:
-                    "caption2",
+                  size: "caption2",
 
-                  weight:
-                    "bold"
-
+                  weight: "bold"
                 },
 
                 textColor:
                   row.color,
 
-                lineLimit:
-                  1
-
+                textAlign:
+                  "center"
               }
 
             ]
-
           },
 
 
           {
 
-            type:
-              "text",
+            type: "text",
 
             text:
-
-              row.price !== null
-
-                ? row.price.toFixed(2)
-
-                : "--",
+              row.price.toFixed(2),
 
             font: {
 
-              size:
-                "callout",
+              size: "callout",
 
-              weight:
-                "bold"
-
+              weight: "semibold"
             },
 
             textColor:
@@ -1787,49 +1032,61 @@ export default async function (ctx) {
             textAlign:
               "center",
 
-            lineLimit:
-              1,
+            lineLimit: 1,
 
-            minScale:
-              0.65
-
+            minScale: 0.7
           }
-
         ]
-
       };
-
     }
 
 
-    const pairs =
-      [];
+    // -------------------------------------------------------
+    // 两两排列
+    // -------------------------------------------------------
+
+    const pairs = [];
 
 
     for (
-
       let i = 0;
-
-      i < smallRows.length;
-
+      i < rows.length;
       i += 2
-
     ) {
 
       pairs.push(
-        smallRows.slice(
-          i,
-          i + 2
-        )
+        rows.slice(i, i + 2)
+      );
+    }
+
+
+    // -------------------------------------------------------
+    // 日期
+    // -------------------------------------------------------
+
+    let dateText = "";
+
+
+    const dm =
+      trendInfo.match(
+        /(\d{1,2})月(\d{1,2})日/
       );
 
+
+    if (
+      SHOW_TREND &&
+      dm
+    ) {
+
+      dateText =
+        `${dm[1].padStart(2, "0")}-` +
+        `${dm[2].padStart(2, "0")}`;
     }
 
 
     return {
 
-      type:
-        "widget",
+      type: "widget",
 
       padding: [
         8,
@@ -1838,8 +1095,7 @@ export default async function (ctx) {
         8
       ],
 
-      gap:
-        4,
+      gap: 5,
 
       backgroundColor:
         backgroundColor,
@@ -1847,258 +1103,254 @@ export default async function (ctx) {
       refreshAfter:
         refreshTime,
 
+
       children: [
 
-        /* ===============================================
-         * 顶部
-         * =============================================== */
+        // ===================================================
+        // 顶部
+        // ===================================================
 
         {
 
-          type:
-            "stack",
+          type: "stack",
 
-          direction:
-            "row",
+          direction: "row",
 
-          alignItems:
-            "center",
+          alignItems: "center",
 
-          gap:
-            4,
+          gap: 4,
 
           children: [
 
             {
 
-              type:
-                "image",
+              type: "image",
 
               src:
                 "sf-symbol:fuelpump.fill",
 
-              width:
-                13,
+              width: 13,
 
-              height:
-                13,
+              height: 13,
 
               color:
                 COLORS.p92
-
             },
 
 
             {
 
-              type:
-                "text",
+              type: "text",
 
               text:
-                regionName ||
-                "油价",
+                regionName || "油价",
 
               font: {
 
-                size:
-                  "caption2",
+                size: "caption2",
 
-                weight:
-                  "semibold"
-
-              },
-
-              textColor:
-                COLORS.primary,
-
-              lineLimit:
-                1,
-
-              minScale:
-                0.7
-
-            },
-
-
-            {
-
-              type:
-                "spacer"
-
-            },
-
-
-            {
-
-              type:
-                "text",
-
-              text:
-                `${dateStr} ${timeStr}`,
-
-              font: {
-
-                size:
-                  "caption2"
-
-              },
-
-              textColor:
-                COLORS.secondary
-
-            }
-
-          ]
-
-        },
-
-
-        /* ===============================================
-         * 油价
-         * =============================================== */
-
-        {
-
-          type:
-            "stack",
-
-          direction:
-            "column",
-
-          flex:
-            1,
-
-          gap:
-            4,
-
-          children:
-
-            pairs.map(
-              pair => ({
-
-                type:
-                  "stack",
-
-                direction:
-                  "row",
-
-                flex:
-                  1,
-
-                gap:
-                  4,
-
-                children:
-                  pair.map(
-                    smallCard
-                  )
-
-              })
-            )
-
-        },
-
-
-        /* ===============================================
-         * 底部
-         * =============================================== */
-
-        {
-
-          type:
-            "stack",
-
-          direction:
-            "row",
-
-          alignItems:
-            "center",
-
-          children: [
-
-            {
-
-              type:
-                "text",
-
-              text:
-                nextDateText
-                  ? `下轮 ${nextDateText}`
-                  : "油价",
-
-              font: {
-
-                size:
-                  "caption2"
-
+                weight: "semibold"
               },
 
               textColor:
                 COLORS.secondary,
 
-              lineLimit:
-                1
+              lineLimit: 1,
 
+              minScale: 0.7
             },
 
 
             {
-
-              type:
-                "spacer"
-
+              type: "spacer"
             },
 
 
+            ...(dateText
+              ? [
+
+                  {
+
+                    type: "text",
+
+                    text:
+                      dateText,
+
+                    font: {
+
+                      size: "caption2"
+                    },
+
+                    textColor:
+                      COLORS.secondary,
+
+                    lineLimit: 1
+                  }
+
+                ]
+
+              : [])
+          ]
+        },
+
+
+        // ===================================================
+        // 油价
+        // ===================================================
+
+        rows.length > 0
+
+          ? {
+
+              type: "stack",
+
+              direction: "column",
+
+              flex: 1,
+
+              gap: 5,
+
+              children:
+
+                pairs.map(pair => ({
+
+                  type: "stack",
+
+                  direction: "row",
+
+                  flex: 1,
+
+                  gap: 5,
+
+                  children:
+                    pair.map(smallCard)
+                }))
+            }
+
+          : {
+
+              type: "stack",
+
+              direction: "column",
+
+              alignItems: "center",
+
+              justifyContent: "center",
+
+              flex: 1,
+
+              gap: 5,
+
+              children: [
+
+                {
+
+                  type: "image",
+
+                  src:
+                    "sf-symbol:exclamationmark.triangle.fill",
+
+                  width: 20,
+
+                  height: 20,
+
+                  color:
+                    COLORS.p98
+                },
+
+                {
+
+                  type: "text",
+
+                  text:
+                    fetchError
+                      ? errorMsg
+                      : "暂无数据",
+
+                  font: {
+
+                    size: "caption2"
+                  },
+
+                  textColor:
+                    COLORS.secondary
+                }
+              ]
+            },
+
+
+        // ===================================================
+        // 底部
+        // ===================================================
+
+        {
+
+          type: "stack",
+
+          direction: "row",
+
+          alignItems: "center",
+
+          children: [
+
             {
 
-              type:
-                "text",
+              type: "text",
+
+              text:
+                `${timeStr} 更新`,
+
+              font: {
+
+                size: "caption2"
+              },
+
+              textColor:
+                COLORS.tertiary
+            },
+
+            {
+              type: "spacer"
+            },
+
+            {
+
+              type: "text",
 
               text:
                 "元/升",
 
               font: {
 
-                size:
-                  "caption2"
-
+                size: "caption2"
               },
 
               textColor:
                 COLORS.tertiary
-
             }
-
           ]
-
         }
-
       ]
-
     };
-
   }
 
 
-  /* =========================================================
-   * Medium 中号小组件
-   * ========================================================= */
+  // =========================================================
+  // Medium 小组件
+  // =========================================================
 
   return {
 
-    type:
-      "widget",
+    type: "widget",
 
     padding: [
       10,
       10,
-      9,
+      10,
       10
     ],
 
-    gap:
-      6,
+    gap: 7,
 
     backgroundColor:
       backgroundColor,
@@ -2106,623 +1358,535 @@ export default async function (ctx) {
     refreshAfter:
       refreshTime,
 
+
     children: [
 
-      /* =====================================================
-       * 顶部标题
-       * ===================================================== */
+      // =====================================================
+      // 标题栏
+      // =====================================================
 
       {
 
-        type:
-          "stack",
+        type: "stack",
 
-        direction:
-          "row",
+        direction: "row",
 
-        alignItems:
-          "center",
+        alignItems: "center",
 
-        gap:
-          5,
+        gap: 5,
 
         padding: [
           0,
-          4,
+          3,
           0,
-          4
+          3
         ],
 
         children: [
 
           {
 
-            type:
-              "image",
+            type: "image",
 
             src:
               "sf-symbol:fuelpump.fill",
 
-            width:
-              17,
+            width: 15,
 
-            height:
-              17,
+            height: 15,
 
             color:
               COLORS.p92
-
           },
 
 
           {
 
-            type:
-              "text",
+            type: "text",
 
             text:
               titleText,
 
             font: {
 
-              size:
-                "title3",
+              size: "headline",
 
-              weight:
-                "bold"
-
+              weight: "semibold"
             },
 
             textColor:
               COLORS.primary,
 
-            lineLimit:
-              1,
+            lineLimit: 1,
 
-            minScale:
-              0.7
-
+            minScale: 0.7
           },
 
 
           {
-
-            type:
-              "spacer"
-
+            type: "spacer"
           },
 
 
-          {
-
-            type:
-              "text",
-
-            text:
-              `更新 ${dateStr} ${timeStr}`,
-
-            font: {
-
-              size:
-                "caption1"
-
-            },
-
-            textColor:
-              COLORS.secondary,
-
-            lineLimit:
-              1,
-
-            minScale:
-              0.65
-
-          }
-
-        ]
-
-      },
-
-
-      /* =====================================================
-       * 四个油价卡片
-       * ===================================================== */
-
-      {
-
-        type:
-          "stack",
-
-        direction:
-          "row",
-
-        alignItems:
-          "center",
-
-        justifyContent:
-          "space-between",
-
-        gap:
-          5,
-
-        flex:
-          1,
-
-        children:
-
-          rows.length > 0
-
-            ? rows.map(
-                priceCard
-              )
-
-            : [
+          ...(SHOW_TREND && trendInfo
+            ? [
 
                 {
 
-                  type:
-                    "stack",
+                  type: "text",
 
-                  direction:
-                    "column",
+                  text:
+                    trendInfo,
 
-                  alignItems:
-                    "center",
+                  font: {
 
-                  justifyContent:
-                    "center",
+                    size: "caption2",
 
-                  flex:
-                    1,
+                    weight: "medium"
+                  },
 
-                  gap:
-                    5,
+                  textColor:
+                    trendDirection === "down"
+                      ? COLORS.down
+                      : COLORS.up,
+
+                  textAlign:
+                    "right",
+
+                  lineLimit: 1,
+
+                  minScale: 0.7
+                }
+
+              ]
+
+            : []),
+
+
+          ...(fetchError
+            ? [
+
+                {
+
+                  type: "text",
+
+                  text:
+                    errorMsg,
+
+                  font: {
+
+                    size: "caption2"
+                  },
+
+                  textColor:
+                    COLORS.p98,
+
+                  lineLimit: 1,
+
+                  minScale: 0.6
+                }
+
+              ]
+
+            : [])
+        ].filter(Boolean)
+      },
+
+
+      // =====================================================
+      // 油价卡片
+      // =====================================================
+
+      rows.length > 0
+
+        ? {
+
+            type: "stack",
+
+            direction: "row",
+
+            alignItems: "center",
+
+            justifyContent: "space-between",
+
+            gap: 6,
+
+            flex: 1,
+
+            children:
+              rows.map(priceCard)
+          }
+
+        : {
+
+            type: "stack",
+
+            direction: "column",
+
+            alignItems: "center",
+
+            justifyContent: "center",
+
+            flex: 1,
+
+            gap: 6,
+
+            children: [
+
+              {
+
+                type: "image",
+
+                src:
+                  "sf-symbol:exclamationmark.triangle.fill",
+
+                width: 24,
+
+                height: 24,
+
+                color:
+                  COLORS.p98
+              },
+
+
+              {
+
+                type: "text",
+
+                text:
+                  fetchError
+                    ? "数据获取失败"
+                    : "暂无数据",
+
+                font: {
+
+                  size: "body"
+                },
+
+                textColor:
+                  COLORS.secondary
+              }
+            ]
+          },
+
+
+      // =====================================================
+      // 底部 Liquid Glass 信息卡
+      // =====================================================
+
+      {
+
+        type: "stack",
+
+        direction: "column",
+
+        gap: 5,
+
+        padding: [
+          8,
+          11,
+          8,
+          11
+        ],
+
+
+        backgroundGradient: {
+
+          type: "linear",
+
+          colors: [
+
+            COLORS.glassHighlight,
+
+            COLORS.infoGlass,
+
+            COLORS.glassBottom
+
+          ],
+
+          startPoint: {
+            x: 0,
+            y: 0
+          },
+
+          endPoint: {
+            x: 0,
+            y: 1
+          }
+        },
+
+
+        borderRadius: 18,
+
+
+        shadowColor: {
+
+          light: "#00000014",
+
+          dark: "#00000045"
+        },
+
+        shadowRadius: 10,
+
+        shadowOffset: {
+
+          x: 0,
+
+          y: 3
+        },
+
+
+        children: [
+
+          // -------------------------------------------------
+          // 第一行
+          // -------------------------------------------------
+
+          {
+
+            type: "stack",
+
+            direction: "row",
+
+            alignItems: "center",
+
+            children: [
+
+              {
+
+                type: "image",
+
+                src:
+                  "sf-symbol:flame.fill",
+
+                width: 14,
+
+                height: 14,
+
+                color:
+                  COLORS.orange
+              },
+
+
+              {
+
+                type: "text",
+
+                text:
+                  fillPrice !== null
+
+                    ? `${FILL_OIL === "diesel" ? "柴油" : FILL_OIL + "号"}加满 ${FILL_LITERS}L`
+
+                    : `${FILL_OIL}号加满 ${FILL_LITERS}L`,
+
+                font: {
+
+                  size: "caption1",
+
+                  weight: "semibold"
+                },
+
+                textColor:
+                  COLORS.primary,
+
+                lineLimit: 1,
+
+                minScale: 0.7
+              },
+
+
+              {
+                type: "spacer"
+              },
+
+
+              {
+
+                type: "text",
+
+                text:
+                  fillCost !== null
+
+                    ? `¥${fillCost.toFixed(1)}`
+
+                    : "--",
+
+                font: {
+
+                  size: "callout",
+
+                  weight: "bold"
+                },
+
+                textColor:
+                  COLORS.primary,
+
+                textAlign:
+                  "right",
+
+                lineLimit: 1,
+
+                minScale: 0.7
+              }
+            ]
+          },
+
+
+          // -------------------------------------------------
+          // 第二行：预计节省
+          // -------------------------------------------------
+
+          ...(savingText
+            ? [
+
+                {
+
+                  type: "stack",
+
+                  direction: "row",
+
+                  alignItems: "center",
 
                   children: [
 
                     {
 
-                      type:
-                        "image",
+                      type: "image",
 
                       src:
-                        "sf-symbol:exclamationmark.triangle.fill",
+                        "sf-symbol:arrow.down.right",
 
-                      width:
-                        22,
+                      width: 11,
 
-                      height:
-                        22,
+                      height: 11,
 
                       color:
-                        COLORS.p98
-
+                        COLORS.down
                     },
 
 
                     {
 
-                      type:
-                        "text",
-
-                      text:
-                        fetchError
-                          ? "数据获取失败"
-                          : "暂无数据",
-
-                      font: {
-
-                        size:
-                          "body"
-
-                      },
-
-                      textColor:
-                        COLORS.secondary
-
-                    }
-
-                  ]
-
-                }
-
-              ]
-
-      },
-
-
-      /* =====================================================
-       * 底部信息卡
-       * ===================================================== */
-
-      {
-
-        type:
-          "stack",
-
-        direction:
-          "column",
-
-        gap:
-          3,
-
-        padding: [
-          8,
-          9,
-          7,
-          9
-        ],
-
-        backgroundColor:
-          COLORS.infoCard,
-
-        borderRadius:
-          14,
-
-        children: [
-
-          /* ===============================================
-           * 第一行
-           * =============================================== */
-
-          {
-
-            type:
-              "stack",
-
-            direction:
-              "row",
-
-            alignItems:
-              "center",
-
-            gap:
-              4,
-
-            children: [
-
-              /* 时钟 */
-
-              {
-
-                type:
-                  "image",
-
-                src:
-                  "sf-symbol:clock.fill",
-
-                width:
-                  15,
-
-                height:
-                  15,
-
-                color:
-                  COLORS.orange
-
-              },
-
-
-              /* 下轮日期 */
-
-              {
-
-                type:
-                  "text",
-
-                text:
-                  nextDateText
-                    ? `下轮 ${nextDateText}`
-                    : "下轮",
-
-                font: {
-
-                  size:
-                    "body",
-
-                  weight:
-                    "semibold"
-
-                },
-
-                textColor:
-                  COLORS.primary,
-
-                lineLimit:
-                  1
-
-              },
-
-
-              /* 进度条 */
-
-              {
-
-                type:
-                  "stack",
-
-                direction:
-                  "row",
-
-                width:
-                  55,
-
-                height:
-                  6,
-
-                backgroundColor: {
-
-                  light:
-                    "#F1E2C4",
-
-                  dark:
-                    "#4A3A20"
-
-                },
-
-                borderRadius:
-                  5,
-
-                children: [
-
-                  {
-
-                    type:
-                      "stack",
-
-                    width:
-                      38,
-
-                    height:
-                      6,
-
-                    backgroundColor:
-                      COLORS.orange,
-
-                    borderRadius:
-                      5
-
-                  }
-
-                ]
-
-              },
-
-
-              /* 倒计时 */
-
-              {
-
-                type:
-                  "text",
-
-                text:
-                  nextCountdown ||
-                  "计算中",
-
-                font: {
-
-                  size:
-                    "caption1",
-
-                  weight:
-                    "semibold"
-
-                },
-
-                textColor:
-                  COLORS.orange,
-
-                lineLimit:
-                  1,
-
-                minScale:
-                  0.65
-
-              },
-
-
-              {
-
-                type:
-                  "spacer"
-
-              },
-
-
-              /* 下轮预测 */
-
-              {
-
-                type:
-                  "text",
-
-                text:
-                  forecastText,
-
-                font: {
-
-                  size:
-                    "caption1",
-
-                  weight:
-                    "semibold"
-
-                },
-
-                textColor:
-
-                  nextTrend === "↓"
-
-                    ? COLORS.down
-
-                    : nextTrend === "↑"
-
-                      ? COLORS.up
-
-                      : COLORS.secondary,
-
-                textAlign:
-                  "right",
-
-                lineLimit:
-                  1,
-
-                minScale:
-                  0.55
-
-              }
-
-            ]
-
-          },
-
-
-          /* ===============================================
-           * 第二行
-           * =============================================== */
-
-          {
-
-            type:
-              "stack",
-
-            direction:
-              "row",
-
-            alignItems:
-              "center",
-
-            gap:
-              4,
-
-            children: [
-
-              /* 火焰 */
-
-              {
-
-                type:
-                  "image",
-
-                src:
-                  "sf-symbol:flame.fill",
-
-                width:
-                  14,
-
-                height:
-                  14,
-
-                color:
-                  COLORS.p95
-
-              },
-
-
-              /* 加油金额 */
-
-              {
-
-                type:
-                  "text",
-
-                text:
-                  fillText ||
-                  `${FILL_OIL}号加满 ${FILL_LITERS}L`,
-
-                font: {
-
-                  size:
-                    "caption1",
-
-                  weight:
-                    "medium"
-
-                },
-
-                textColor:
-                  COLORS.primary,
-
-                lineLimit:
-                  1,
-
-                minScale:
-                  0.6
-
-              },
-
-
-              /* 节省 */
-
-              ...(savingText
-
-                ? [
-
-                    {
-
-                      type:
-                        "text",
-
-                      text:
-                        " · ",
-
-                      font: {
-
-                        size:
-                          "caption1"
-
-                      },
-
-                      textColor:
-                        COLORS.tertiary
-
-                    },
-
-
-                    {
-
-                      type:
-                        "text",
+                      type: "text",
 
                       text:
                         savingText,
 
                       font: {
 
-                        size:
-                          "caption1",
+                        size: "caption2",
 
-                        weight:
-                          "semibold"
-
+                        weight: "medium"
                       },
 
                       textColor:
                         COLORS.down,
 
-                      lineLimit:
-                        1,
+                      lineLimit: 1,
 
-                      minScale:
-                        0.55
+                      minScale: 0.7
+                    },
 
-                    }
 
+                    {
+                      type: "spacer"
+                    },
+
+
+                    ...(trendDate
+                      ? [
+
+                          {
+
+                            type: "text",
+
+                            text:
+                              `${trendDate} 调整`,
+
+                            font: {
+
+                              size: "caption2"
+                            },
+
+                            textColor:
+                              COLORS.tertiary,
+
+                            lineLimit: 1
+                          }
+
+                        ]
+
+                      : [])
                   ]
+                }
 
-                : [])
+              ]
 
-            ]
-
-          }
-
+            : [])
         ]
+      },
 
+
+      // =====================================================
+      // 更新时间
+      // =====================================================
+
+      {
+
+        type: "stack",
+
+        direction: "row",
+
+        alignItems: "center",
+
+        padding: [
+          0,
+          3,
+          0,
+          3
+        ],
+
+        children: [
+
+          {
+
+            type: "text",
+
+            text:
+              `${timeStr} 更新`,
+
+            font: {
+
+              size: "caption2"
+            },
+
+            textColor:
+              COLORS.tertiary
+          },
+
+
+          {
+            type: "spacer"
+          },
+
+
+          {
+
+            type: "text",
+
+            text:
+              "元/升",
+
+            font: {
+
+              size: "caption2"
+            },
+
+            textColor:
+              COLORS.tertiary
+          }
+        ]
       }
-
     ]
-
   };
-
 }

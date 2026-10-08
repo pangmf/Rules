@@ -19,6 +19,7 @@
  *  MY_FUEL   常加的油号：92 / 95 / 98 / 柴油（默认 92）
  *  TANK_L    油箱容量，升（默认 50）
  *  TITLE     标题（默认「<城市>油价」）
+ *  STYLE     背景样式：glass / classic（默认 glass）
  */
 const BASE = 'https://cx.sinopecsales.com/yjkqiantai';
 const QYJ_BASE = 'http://m.qiyoujiage.com';
@@ -246,7 +247,19 @@ const FUELS = [
   { id: '98', label: '98号', key: 'p98', hex: '#64A8FF' },
   { id: '柴油', label: '柴油', key: 'diesel', hex: '#30D158' },
 ];
-function bg() {
+function bg(style = 'glass') {
+  if (style === 'glass') {
+    return {
+      type: 'linear',
+      colors: [
+        { light: '#00000000', dark: '#00000000' },
+        { light: '#00000000', dark: '#00000000' }
+      ],
+      stops: [0, 1],
+      startPoint: { x: 0, y: 0 },
+      endPoint: { x: 1, y: 1 }
+    };
+  }
   return {
     type: 'linear',
     colors: [
@@ -305,6 +318,7 @@ function fmtDelta(off) {
 // ---------------------------------------------------------------------------
 async function getState(ctx) {
   const env = ctx.env || {};
+  const style = getEnv(env, ['STYLE'], 'glass').toLowerCase() === 'classic' ? 'classic' : 'glass';
   const provinceCode = normalizeProvince(getEnv(env, ['PROVINCE', 'PROVINCE_ID', 'province'], '33'));
   const cityName = getEnv(env, ['CITY', 'city'], PROVINCES[provinceCode] || '台州');
   const rawArea = getEnv(env, ['AREA', 'AREA_INDEX', 'area'], '');
@@ -357,7 +371,7 @@ async function getState(ctx) {
   const my = FUELS.find(x => x.id === myId || (myId.includes('柴') && x.id === '柴油')) || FUELS[0];
   const tank = Math.max(1, toNumber(getEnv(env, ['TANK_L'], '50'), 50));
   const title = getEnv(env, ['TITLE'], `${cityName || '全国'}油价`);
-  return { state, error, win, trend, my, tank, title, now, cityName };
+  return { state, error, win, trend, my, tank, title, now, cityName, style };
 }
 function tankInfo(S) {
   const f = S.state && S.state.fuels[S.my.key];
@@ -430,14 +444,14 @@ function refreshAfter(S) {
 }
 function errorWidget(S) {
   return {
-    type: 'widget', padding: 14, gap: 6, backgroundGradient: bg(),
+    type: 'widget', padding: 14, gap: 6, backgroundGradient: bg(S.style),
     children: [header(S), { type: 'spacer' }, icon('exclamationmark.triangle.fill', C.gold, 20), T('油价加载失败', 14, C.text, 'semibold'), T(S.error || '', 10, C.dim, 'regular', { maxLines: 3 }), { type: 'spacer' }],
   };
 }
 function buildSmall(S) {
   const o = { label: 10, price: 15, delta: 9, pad: [5, 3], gap: 1 };
   return {
-    type: 'widget', padding: 11, gap: 6, backgroundGradient: bg(), refreshAfter: refreshAfter(S), url: BASE,
+    type: 'widget', padding: 11, gap: 6, backgroundGradient: bg(S.style), refreshAfter: refreshAfter(S), url: BASE,
     children: [
       row([icon('fuelpump.fill', C.gold, 11), T(S.title, 12, C.text, 'semibold', { minScale: 1 }), { type: 'spacer' }, T(S.state ? fmtTs(S.state.updatedAt).slice(6) : '', 9, C.dim, 'regular', { minScale: 1 })]),
       { type: 'stack', direction: 'column', gap: 5, flex: 1, children: [
@@ -451,7 +465,7 @@ function buildSmall(S) {
 function buildMedium(S) {
   const o = { label: 10, price: 19, delta: 10, pad: [7, 4], gap: 2, height: 66 };
   return {
-    type: 'widget', padding: [10, 11], gap: 6, backgroundGradient: bg(), refreshAfter: refreshAfter(S), url: BASE,
+    type: 'widget', padding: [10, 11], gap: 6, backgroundGradient: bg(S.style), refreshAfter: refreshAfter(S), url: BASE,
     children: [
       header(S),
       row(FUELS.map(f => priceCard(S, f, o)), { gap: 6 }),
@@ -476,7 +490,7 @@ function buildLarge(S) {
     parts.push(T('·', 10, C.dim), T(`下轮预计${pr.up ? '多花' : '省'} ¥${lo === hi ? lo : lo + '-' + hi}`, 10, pr.up ? C.up : C.down, 'medium', { minScale: 1 }));
   }
   return {
-    type: 'widget', padding: 14, gap: 8, backgroundGradient: bg(), refreshAfter: refreshAfter(S), url: BASE,
+    type: 'widget', padding: 14, gap: 8, backgroundGradient: bg(S.style), refreshAfter: refreshAfter(S), url: BASE,
     children: [
       header(S, 14),
       row(FUELS.slice(0, 2).map(f => priceCard(S, f, o)), { gap: 8 }),

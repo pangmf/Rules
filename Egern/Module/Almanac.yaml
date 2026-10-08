@@ -14,7 +14,7 @@ env_schema:
   SHOW_TEACHING_WEEK:
     name: 显示教学周
     description: 星座模式可附带教学周进度，周次模式纯净显示年/周次及年内天数 true / false
-    default_value: 北京
+    default_value: false
   TEACHING_WEEK_START:
     name: 教学周开始时间
     description: 教学周开始时间，时间格式为：2026-09-01

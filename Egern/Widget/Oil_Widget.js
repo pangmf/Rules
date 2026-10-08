@@ -43,7 +43,7 @@ export default async function (ctx) {
     (ctx.env.FILL_OIL || "92").trim().toLowerCase();
 
   const FILL_LITERS =
-    parseFloat(ctx.env.FILL_LITERS || "50") || 50;
+    parseFloat(ctx.env.FILL_LITERS || "50") || 55;
 
 
   // =========================================================

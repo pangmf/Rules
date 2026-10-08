@@ -1,6 +1,6 @@
 name: 实时油价小组件
 description: 92/95/98/柴油实时油价、调价倒计时进度条、加满一箱花费与本轮涨跌影响、临近调价预测（基于 jnlaoshu GasPrice 改版）
-author: "pangmf"
+author: "@pangmf"
 homepage: "https://github.com/pangmf"
 icon: "https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/PharosPro.png"
 env_schema:

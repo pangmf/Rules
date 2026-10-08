@@ -23,8 +23,8 @@ env_schema:
   STYLE:
     name: 显示风格
     description: |
-    - glass:   透明玻璃效果
-    - classic: 原生纯色背景
+      - glass:   透明玻璃效果
+      - classic: 原生纯色背景
     default_value: 'glass'
 
 scriptings:

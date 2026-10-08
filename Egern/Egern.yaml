@@ -547,10 +547,6 @@ scriptings:
       name: 岁时黄历
       script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Egern/Widget/Almanac.js
       update_interval: 2592000
-  - generic:
-      name: 网络诊断雷达
-      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Egern/Widget/NetWork.js
-      update_interval: 2592000
   # 定时任务脚本
   - schedule:
       # 脚本名称
@@ -651,8 +647,6 @@ widgets:
   script_name: 油价查询小组件
 - name: 黄历
   script_name: 岁时黄历
-- name: 网络诊断
-  script_name: 网络诊断雷达
   
 # 模块配置列表
 modules:

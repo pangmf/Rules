@@ -8,8 +8,7 @@
  * 2. 检测 AI 服务的 HTTP 连通性
  * 3. 查询当前出口 IP 及国家/地区
  * 4. 尝试识别 Netflix 服务地区
- * 5. 检测 Muse.ai / Skiv 新旧域名
- * 6. 支持小号、中号、大号小组件
+ * 5. 支持小号、中号、大号小组件
  *
  * 注意：
  * HTTP 连通不代表账号具备使用资格。
@@ -110,9 +109,8 @@ const SERVICES = [
   },
   {
     category: "AI 服务",
-    name: "Muse / Skiv",
-    url: "https://skiv.com/",
-    legacyUrl: "https://muse.ai/",
+    name: "Muse AI",
+    url: "https://muse.ai/",
     type: "muse"
   }
 ];
@@ -349,40 +347,23 @@ async function checkNetflix(ctx) {
 
 /**
  * 检查 Muse / Skiv。
- *
- * 新域名为 skiv.com。
- * 旧域名 muse.ai 作为迁移兼容检测项。
- *
- * 两个域名的连通性不等同于账号可用性。
+ * 域名的连通性不等同于账号可用性。
  */
 async function checkMuse(ctx) {
   const primary = await checkURL(
     ctx,
-    "https://skiv.com/"
-  );
-
-  if (primary.ok) {
-    primary.label = "Skiv 可访问";
-    primary.color = COLORS.green;
-    primary.detail = "新域名";
-    return primary;
-  }
-
-  const legacy = await checkURL(
-    ctx,
     "https://muse.ai/"
   );
 
-  if (legacy.ok) {
-    legacy.label = "旧域名可访问";
-    legacy.color = COLORS.yellow;
-    legacy.detail = "旧域名";
-    return legacy;
+  if (primary.ok) {
+    primary.label = "Muse 可访问";
+    primary.color = COLORS.green;
+    primary.detail = "muse";
+    return primary;
   }
-
   primary.label = "无法访问";
   primary.color = COLORS.red;
-  primary.detail = "新旧域名均失败";
+  primary.detail = "访问失败";
 
   return primary;
 }

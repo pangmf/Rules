@@ -1,7 +1,7 @@
 name: PingMe自动化任务
 description: PingMe自动化签到+视频奖励
 author: 怎么肥事 & yaowuliu
-icon: https://raw.githubusercontent.com/axhani/icon/refs/heads/main/pingme&wetalk.png
+icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png
 
 compat_arguments:
   CAPTURE_ENABLED: false

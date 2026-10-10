@@ -5,7 +5,7 @@ icon: https://play-lh.googleusercontent.com/5ZrUOlwaiR80ExEfuakPVmDeOkXYSwbdv_Bi
 
 compat_arguments:
   CAPTURE_ENABLED: false
-  CRON_TASK: "15 8,20 * * *"
+  CRON_TASK: "20 8,20 * * *"
   CRON_TASK_TIMEOUT: 300
 
 compat_arguments_schema:
@@ -20,7 +20,7 @@ compat_arguments_schema:
   CRON_TASK:
     name: "定时任务"
     description: "自定义任务运行时间"
-    default_value: "15 8,20 * * *"
+    default_value: "20 8,20 * * *"
 
   CRON_TASK_TIMEOUT:
     name: "定时任务超时时间"

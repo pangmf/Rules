@@ -332,6 +332,7 @@ policy_groups:
 - select:
     name: 手动选择
     policies:
+    - CrossWall
     - 夜煞云
     - 橘色云
     - Kitty
@@ -419,6 +420,13 @@ policy_groups:
     filter: (?i)^(?!.*(🇭🇰|HK|HKG|香港|🇹🇼|TW|TPE|台湾|台灣|🇯🇵|JP|TYO|OSA|NRT|HND|日本|🇸🇬|SG|SIN|新加坡|🇺🇸|USA|LAX|SFO|NYC|JFK|United States|美国|美國|🇰🇷|KR|ICN|SEL|韩国|韓國|🇪🇺|UK|GB|DE|FR|NL|CH|ES|IT|GE|欧洲|欧盟|英国|德国|法国|官网|Music|Game|地址|机场|重置|到期|套餐|发布|流量|导航|专用)).+
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/European_Union.png
     hidden: false
+- external:
+    name: CrossWall
+    type: select
+    urls:
+    - https://162.19.79.201/s/e7e47a5f81fdd9be8648cc986703f40a
+    filter: ^(?!.*(HA1)).*[A-Z]A.*$
+    hidden: true
 - external:
     name: Kitty
     type: select

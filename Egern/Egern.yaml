@@ -650,7 +650,7 @@ modules:
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Egern/Module/Oil_Widget.yaml
     update_interval: 0
     enabled: true
-  - url: https://raw.githubusercontent.com/xepes0/wloc/refs/heads/main/modules/wloc.lpx
+  - url: https://raw.githubusercontent.com/ios151/wloc/refs/heads/main/modules/wloc.lpx
     update_interval: 0
     enabled: false
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/PingMe&WeTalk.lpx

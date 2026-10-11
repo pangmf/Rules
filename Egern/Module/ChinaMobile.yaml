@@ -1,6 +1,7 @@
 name: "中国移动（Hark 仪表盘版）"
 description: "桌面/锁屏小组件：剩余话费 + 流量/其他流量/语音半圆仪表 + 近 7 天流量柱状图、今日已用、日均可用、用完预测。先在「中国移动」App 用短信验证码登录一次自动捕获参数"
 author: "Hark（基于 zhaohantao1360-hash v20 改版，iOS 液态玻璃风格 + 用量洞察）"
+icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/ChinaMobile.png
 
 # 需要解密中国移动 App 的 HTTPS 流量：Egern 设置里安装并信任 CA，
 # 再到 iOS「设置→通用→关于本机→证书信任设置」里打开信任

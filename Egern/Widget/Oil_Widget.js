@@ -234,9 +234,9 @@ const pad = n => String(n).padStart(2, '0');
 const C = {
   text: { light: '#000000', dark: '#FFFFFF' },
   dim: { light: '#3C3C4399', dark: '#EBEBF599' },
-  glass: { light: '#FFFFFFB8', dark: '#FFFFFF24' },
-  glassHi: { light: '#FFFFFFE8', dark: '#FFFFFF38' },
-  glassBorder: { light: '#FFFFFFCC', dark: '#FFFFFF40' },
+  glass: { light: 'rgba(255, 255, 255, 0.18)', dark: 'rgba(255, 255, 255, 0.12)' },
+glassHi: { light: 'rgba(255, 255, 255, 0.26)', dark: 'rgba(255, 255, 255, 0.18)' },
+glassBorder: { light: 'rgba(255, 255, 255, 0.20)', dark: 'rgba(255, 255, 255, 0.12)' },
   up: '#FF453A',
   down: '#30D158',
   gold: '#FFB340',
@@ -297,13 +297,10 @@ function glass(children, extra = {}) {
     alignItems: 'start',
     gap: 4,
     padding: 10,
-    borderRadius: 16,
+    borderRadius: 10,
     backgroundColor: C.glass,
     borderWidth: 1,
     borderColor: C.glassBorder,
-    shadowColor: { light: '#00000018', dark: '#00000066' },
-    shadowRadius: 10,
-    shadowOffset: { x: 0, y: 3 },
     children,
     ...extra
   };
@@ -404,7 +401,7 @@ function priceCard(S, fu, o) {
     T(f && Number.isFinite(f.price) ? f.price.toFixed(2) : '--', o.price, C.text, 'bold', { minScale: 0.8 }),
     T(d.text, o.delta, d.color, 'semibold', { minScale: 1 }),
     ...(line ? [{ type: 'image', src: line, width: o.sparkW, height: o.sparkH }] : []),
-  ], { flex: 1, alignItems: 'center', gap: o.gap || 2, padding: o.pad || [8, 4], borderRadius: 14, backgroundColor: mine ? C.glassHi : C.glass, ...(o.height ? { height: o.height } : {}) });
+  ], { flex: 1, alignItems: 'center', gap: o.gap || 2, padding: o.pad || [8, 4], borderRadius: 10, backgroundColor: mine ? C.glassHi : C.glass, ...(o.height ? { height: o.height } : {}) });
 }
 function countdownRow(S, barW, short) {
   const w = S.win;

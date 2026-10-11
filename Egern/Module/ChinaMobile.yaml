@@ -10,7 +10,11 @@ mitm:
     includes:
       - client.app.coc.10086.cn
       - 10086.online-cmcc.cn
-
+env_schema:
+  CM_PHONENUMBER:
+    name: 手机号码
+    description: 必填：11 位移动手机号
+    default_value: ""
 scriptings:
   # 小组件脚本（generic）
   - generic:

@@ -12,7 +12,7 @@ mitm:
       - 10086.online-cmcc.cn
 env_schema:
   CM_PHONENUMBER:
-    name: 手机号码
+    name: "手机号码"
     description: 必填：11 位移动手机号
     default_value: ""
 scriptings:

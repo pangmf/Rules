@@ -24,8 +24,8 @@ export default async function(ctx) {
   const isLarge = family.includes('large');
   const C = {
     bg: { light: '#F2F2F7', dark: '#000000' },
-    glass: { light: '#FFFFFFB8', dark: '#FFFFFF1F' },
-    glassBorder: { light: '#FFFFFFCC', dark: '#FFFFFF38' },
+glass: { light: 'rgba(255, 255, 255, 0.18)', dark: 'rgba(255, 255, 255, 0.12)' },
+glassBorder: { light: 'rgba(255, 255, 255, 0.20)', dark: 'rgba(255, 255, 255, 0.12)' },
     main: { light: '#1C1C1E', dark: '#FFFFFF' },
     sub: { light: '#48484A', dark: '#D1D1D6' },
     muted: { light: '#8E8E93', dark: '#8E8E93' },
@@ -40,21 +40,23 @@ export default async function(ctx) {
   const mkRow = (children, gap = 4, opts = {}) => ({ type: 'stack', direction: 'row', alignItems: 'center', gap, children, ...opts });
   const mkIcon = (src, color, size = 13) => ({ type: 'image', src: `sf-symbol:${src}`, color, width: size, height: size });
   const mkSpacer = length => length != null ? { type: 'spacer', length } : { type: 'spacer' };
-  const makeBackground = (children, padding, radius) => ({
-    type: 'stack',
-    direction: 'column',
-    alignItems: 'start',
-    flex: 1,
-    backgroundColor: STYLE === 'glass' ? C.glass : C.bg,
-    borderRadius: STYLE === 'glass' ? radius : 0,
-    borderWidth: STYLE === 'glass' ? 1 : 0,
-    borderColor: C.glassBorder,
-    shadowColor: STYLE === 'glass' ? { light: '#00000020', dark: '#00000080' } : C.transparent,
-    shadowRadius: STYLE === 'glass' ? 14 : 0,
-    shadowOffset: { x: 0, y: 4 },
-    padding,
-    children
-  });
+// 玻璃模式使用透明组件底色，仅内容行显示玻璃效果
+const makeBackground = (children, padding, radius) => ({
+  type: 'stack',
+  direction: 'column',
+  alignItems: 'start',
+  flex: 1,
+  ...(STYLE === 'classic' ? { backgroundColor: C.bg } : {}),
+  padding,
+  children
+});
+const glassSurface = {
+  backgroundColor: C.glass,
+  borderRadius: 10,
+  borderWidth: 1,
+  borderColor: C.glassBorder,
+  padding: [3, 6, 3, 6]
+};
   const tzOffset = new Date().getTimezoneOffset();
   const now = new Date(Date.now() + (tzOffset + 480) * 60000);
   const [Y, M, D] = [now.getFullYear(), now.getMonth() + 1, now.getDate()];
@@ -190,6 +192,7 @@ export default async function(ctx) {
       direction: 'row',
       alignItems: 'start',
       gap: 4,
+      ...(STYLE === 'glass' ? glassSurface : {}),
       children: [
         { type: 'stack', direction: 'row', alignItems: 'center', gap: 2, width: config.lw, children: [
           mkIcon(idx === 0 ? icon : 'circle.fill', idx === 0 ? color : C.transparent, config.icz),

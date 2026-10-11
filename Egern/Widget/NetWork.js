@@ -1043,24 +1043,20 @@ export default async function (ctx) {
       ? { type: "spacer" }
       : { type: "spacer", length: S(length) };
   }
-  function card(children, extra) {
-    return merge(
-      {
-        type: "stack",
-        direction: "column",
-        alignItems: "start",
-        padding: [6, 7],
-        gap: 4,
-        backgroundColor: C.glass,
-        borderRadius: 14,
-        shadowColor: C.shadow,
-        shadowRadius: S(7),
-        shadowOffset: { x: 0, y: 2 },
-        children: children || []
-      },
-      extra
-    );
-  }
+function card(children, extra) {
+  return merge({
+    type: "stack",
+    direction: "column",
+    alignItems: "start",
+    padding: [6, 7],
+    gap: 4,
+    backgroundColor: C.glass,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: C.glassBorder,
+    children: children || []
+  }, extra);
+}
   function pill(value, tone, fill, extra) {
     return row(
       [
@@ -1900,20 +1896,13 @@ export default async function (ctx) {
       gap: 6
     }
   );
-  return {
-    type: "widget",
-    padding: S(8),
-    gap: 0,
-    backgroundColor: C.root,
-    refreshAfter: new Date(
-      Date.now() + REFRESH_MINUTES * 60 * 1000
-    ).toISOString(),
-    children: [
-      dashboard,
-      spacer()
-    ]
-  };
-}
+return {
+  type: "widget",
+  padding: S(8),
+  gap: 0,
+  refreshAfter: new Date(Date.now() + REFRESH_MINUTES * 60 * 1000).toISOString(),
+  children: [dashboard, spacer()]
+};
 function palette() {
   const adaptive = (light, dark) => ({
     light: light,
@@ -1923,7 +1912,8 @@ function palette() {
     root: adaptive("#F2F2F7", "#000000"),
     dashboard: adaptive("#F2F2F7", "#000000"),
     dashboardBorder: adaptive("#F2F2F7", "#000000"),
-    glass: adaptive("#FFFFFFCC", "#1C1C1ECC"),
+    glass: adaptive("rgba(255, 255, 255, 0.18)", "rgba(255, 255, 255, 0.12)"),
+    glassBorder: adaptive("rgba(255, 255, 255, 0.20)", "rgba(255, 255, 255, 0.12)"),
     shadow: adaptive("#00000026", "#00000066"),
     tileBg: adaptive("#0000000D", "#FFFFFF14"),
     tileIconBg: adaptive("#00000012", "#FFFFFF1F"),

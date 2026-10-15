@@ -234,9 +234,9 @@ const pad = n => String(n).padStart(2, '0');
 const C = {
   text: { light: '#000000', dark: '#FFFFFF' },
   dim: { light: '#3C3C4399', dark: '#EBEBF599' },
-  glass: { light: 'rgba(255, 255, 255, 0.18)', dark: 'rgba(255, 255, 255, 0.12)' },
-glassHi: { light: 'rgba(255, 255, 255, 0.26)', dark: 'rgba(255, 255, 255, 0.18)' },
-glassBorder: { light: 'rgba(255, 255, 255, 0.20)', dark: 'rgba(255, 255, 255, 0.12)' },
+  glass: { light: 'rgba(255, 255, 255, 0.10)', dark: 'rgba(255, 255, 255, 0.06)' },
+glassHi: { light: 'rgba(255, 255, 255, 0.16)', dark: 'rgba(255, 255, 255, 0.10)' },
+glassBorder: { light: 'rgba(255, 255, 255, 0.28)', dark: 'rgba(255, 255, 255, 0.10)' },
   up: '#FF453A',
   down: '#30D158',
   gold: '#FFB340',
@@ -290,6 +290,8 @@ function T(text, size, color, weight = 'regular', extra = {}) {
   return { type: 'text', text: String(text ?? ''), font: { size, weight }, textColor: color || C.text, maxLines: 1, minScale: 0.7, ...extra };
 }
 function icon(name, color, size = 12) { return { type: 'image', src: `sf-symbol:${name}`, width: size, height: size, color }; }
+// iOS 26 液态玻璃适配：widget 背景保持透明，系统自动套 Liquid Glass 材质；
+// 卡片不再叠加厚重半透明白底（避免双层玻璃发灰），仅保留淡描边提供层次
 function glass(children, extra = {}) {
   return {
     type: 'stack',
@@ -297,8 +299,8 @@ function glass(children, extra = {}) {
     alignItems: 'start',
     gap: 4,
     padding: 10,
-    borderRadius: 10,
-    backgroundColor: C.glass,
+    borderRadius: 14,
+    backgroundColor: '#00000000',
     borderWidth: 1,
     borderColor: C.glassBorder,
     children,
@@ -401,7 +403,7 @@ function priceCard(S, fu, o) {
     T(f && Number.isFinite(f.price) ? f.price.toFixed(2) : '--', o.price, C.text, 'bold', { minScale: 0.8 }),
     T(d.text, o.delta, d.color, 'semibold', { minScale: 1 }),
     ...(line ? [{ type: 'image', src: line, width: o.sparkW, height: o.sparkH }] : []),
-  ], { flex: 1, alignItems: 'center', gap: o.gap || 2, padding: o.pad || [8, 4], borderRadius: 10, backgroundColor: mine ? C.glassHi : C.glass, ...(o.height ? { height: o.height } : {}) });
+  ], { flex: 1, alignItems: 'center', gap: o.gap || 2, padding: o.pad || [8, 4], borderRadius: 10, backgroundColor: '#00000000', borderColor: mine ? C.glassBorder : { light: 'rgba(255,255,255,0.10)', dark: 'rgba(255,255,255,0.05)' }, ...(o.height ? { height: o.height } : {}) });
 }
 function countdownRow(S, barW, short) {
   const w = S.win;

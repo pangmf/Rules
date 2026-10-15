@@ -24,8 +24,8 @@ export default async function(ctx) {
   const isLarge = family.includes('large');
   const C = {
     bg: { light: '#F2F2F7', dark: '#000000' },
-glass: { light: 'rgba(255, 255, 255, 0.18)', dark: 'rgba(255, 255, 255, 0.12)' },
-glassBorder: { light: 'rgba(255, 255, 255, 0.20)', dark: 'rgba(255, 255, 255, 0.12)' },
+glass: { light: 'rgba(255, 255, 255, 0.10)', dark: 'rgba(255, 255, 255, 0.06)' },
+glassBorder: { light: 'rgba(255, 255, 255, 0.28)', dark: 'rgba(255, 255, 255, 0.10)' },
     main: { light: '#1C1C1E', dark: '#FFFFFF' },
     sub: { light: '#48484A', dark: '#D1D1D6' },
     muted: { light: '#8E8E93', dark: '#8E8E93' },
@@ -50,9 +50,11 @@ const makeBackground = (children, padding, radius) => ({
   padding,
   children
 });
+// iOS 26 液态玻璃适配：widget 背景保持透明，系统会自动为其套用 Liquid Glass 材质；
+// 行表面不再叠加半透明白底（避免双层玻璃发灰），仅保留极淡描边提供层次
 const glassSurface = {
-  backgroundColor: C.glass,
-  borderRadius: 10,
+  backgroundColor: C.transparent,
+  borderRadius: 14,
   borderWidth: 1,
   borderColor: C.glassBorder,
   padding: [3, 6, 3, 6]

@@ -1,77 +1,20 @@
 /**
- * PingMe 每日签到 + 看视频领币 —— Loon / Egern 通用版
+ * PingMe 每日签到 + 看视频领币 —— Loon 专用版（经典脚本）
  *
- * Loon（Plugin 或 独立脚本）：
- *   [script]
- *   PingMe签到 = cron "30 8,20 * * *" script-path=<本文件>, tag=PingMe签到, timeout=300
- *   [mitm]
- *   hostname = api.pingmeapp.net
+ * [Script]
+ * PingMe签到 = cron "30 8,20 * * *" script-path=<本文件>, tag=PingMe签到, timeout=300
+ * [mitm]
+ * hostname = api.pingmeapp.net
  *
- * Egern（计划任务脚本）：
- *   类型：计划任务（schedule），Cron：30 8,20 * * *
- *
- * 前置：先用 PingMeCapture.js（同样通用）抓一次参数。
- *
- * 环境变量（两种平台均可）：
- *  MAX_VIDEO   视频次数（默认 5）
- *  VIDEO_DELAY 视频间隔毫秒（默认 8000）
+ * 前置：先运行 PingMe抓参（http-request 脚本）并打开 PingMe App 触发一次
+ * 可调项：$persistentStore 键 PINGME_MAX_VIDEO / PINGME_VIDEO_DELAY
  */
 
 const SECRET = '0fOiukQq7jXZV2GRi9LGlO';
 const API = 'https://api.pingmeapp.net/app';
 const CK_KEY = 'pingme_capture_v3';
 
-// ---------------------------------------------------------------- 环境适配层
-function detectEnv() {
-  if (typeof $loon !== 'undefined') return 'Loon';
-  if (typeof $environment !== 'undefined' && $environment['surge-version']) return 'Surge';
-  if (typeof $task !== 'undefined') return 'QuantumultX';
-  return 'Egern';
-}
-const PLATFORM = detectEnv();
-
-const $store = {
-  getJSON(k) {
-    if (PLATFORM === 'Egern') return null; // 由 ctx 注入，不走这里
-    try { return JSON.parse($persistentStore.read(k) || 'null'); } catch (e) { return null; }
-  },
-  setJSON(k, v) {
-    if (PLATFORM === 'Egern') return;
-    try { $persistentStore.write(JSON.stringify(v), k); } catch (e) {}
-  }
-};
-
-const $http = {
-  get(url, headers) {
-    if (PLATFORM === 'Egern') return null; // 由 ctx 注入，不走这里
-    return new Promise((resolve, reject) => {
-      $httpClient.get({ url, headers, timeout: 15000 }, (err, resp, body) => {
-        if (err) return reject(err);
-        resolve({ status: resp.status || resp.statusCode, text: async () => body });
-      });
-    });
-  }
-};
-
-const $note = {
-  show(title, body) {
-    if (PLATFORM === 'Egern') return;
-    try {
-      if (typeof $notification !== 'undefined') $notification.post(title, '', body);
-      else if (typeof $notify !== 'undefined') $notify(title, '', body);
-    } catch (e) {}
-  }
-};
-
-function finish(log, isErr) {
-  const title = `${isErr ? '❌' : '🎉'} PingMe签到`;
-  console.log(title + '\n' + log.join('\n'));
-  $note.show(title, log.join('\n'));
-  if (PLATFORM !== 'Egern' && typeof $done === 'function') $done({});
-  return { title, body: log.join('\n') };
-}
-
-// ---------------------------------------------------------------- MD5（社区验证版）
+// ---------------------------------------------------------------- MD5（社区验证版，勿改）
 function MD5(string) {
   function RotateLeft(lValue, iShiftBits) { return (lValue << iShiftBits) | (lValue >>> (32 - iShiftBits)); }
   function AddUnsigned(lX, lY) {
@@ -177,43 +120,44 @@ function buildUrl(path, capture) {
   return `${API}/${path}?${qs}`;
 }
 
+function fetchApi(path, capture) {
+  return new Promise((resolve, reject) => {
+    $httpClient.get({ url: buildUrl(path, capture), headers: buildHeaders(capture), timeout: 15000 }, (err, resp, body) => {
+      if (err) return reject(new Error(String(err)));
+      try { resolve(JSON.parse(body)); }
+      catch (e) { reject(new Error(`接口响应异常 HTTP ${resp.status || resp.statusCode || ''}`)); }
+    });
+  });
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
 // ---------------------------------------------------------------- 主流程
-async function run(ctx) {
-  const env = (PLATFORM === 'Egern' ? (ctx?.env || {}) : ($environment || {}));
-  const maxVideo = Math.max(0, Math.min(10, Number(env.MAX_VIDEO) || 5));
-  const videoDelay = Math.max(3000, Number(env.VIDEO_DELAY) || 8000);
+async function run() {
   const log = [];
+  let maxVideo = 5, videoDelay = 8000;
+  try {
+    maxVideo = Math.max(0, Math.min(10, Number($persistentStore.read('PINGME_MAX_VIDEO')) || 5));
+    videoDelay = Math.max(3000, Number($persistentStore.read('PINGME_VIDEO_DELAY')) || 8000);
+  } catch (_) {}
 
-  const httpGet = PLATFORM === 'Egern'
-    ? (url, headers) => ctx.http.get(url, { headers, timeout: 15000 })
-    : (url, headers) => $http.get(url, headers);
-  const getCapture = () => {
-    if (PLATFORM === 'Egern') { try { return ctx.storage?.getJSON(CK_KEY) || null; } catch (e) { return null; } }
-    return $store.getJSON(CK_KEY);
-  };
-
-  const capture = getCapture();
+  let capture = null;
+  try { capture = JSON.parse($persistentStore.read(CK_KEY) || 'null'); } catch (_) {}
   if (!capture || !capture.paramsRaw) {
     log.push('❌ 未找到签到参数');
     log.push('先运行 PingMe抓参 脚本并打开 PingMe App 触发一次请求');
     return finish(log, true);
   }
 
-  const fetchApi = async (path) => {
-    const resp = await httpGet(buildUrl(path, capture), buildHeaders(capture));
-    const text = await resp.text();
-    try { return JSON.parse(text); } catch (e) { throw new Error(`接口响应异常 HTTP ${resp.status || ''}`); }
-  };
-
   let balance = null;
   try {
-    const d = await fetchApi('queryBalanceAndBonus');
+    const d = await fetchApi('queryBalanceAndBonus', capture);
     if (d.retcode === 0) { balance = d.result?.balance; log.push(`💰 运行前余额：${balance} Coins`); }
     else log.push(`⚠️ 查询：${d.retmsg}`);
   } catch (e) { log.push(`❌ 查询失败：${e.message}`); }
 
   try {
-    const d = await fetchApi('checkIn');
+    const d = await fetchApi('checkIn', capture);
     if (d.retcode === 0) log.push(`✅ 签到：${(d.result?.bonusHint || d.retmsg || '成功').replace(/\n/g, ' ')}`);
     else log.push(`⚠️ 签到：${d.retmsg}`);
   } catch (e) { log.push(`❌ 签到失败：${e.message}`); }
@@ -221,14 +165,14 @@ async function run(ctx) {
   for (let i = 1; i <= maxVideo; i++) {
     await sleep(i === 1 ? 1500 : videoDelay);
     try {
-      const d = await fetchApi('videoBonus');
+      const d = await fetchApi('videoBonus', capture);
       if (d.retcode === 0) log.push(`🎬 视频${i}：+${d.result?.bonus ?? '?'} Coins`);
       else { log.push(`⏸ 视频${i}：${d.retmsg || '已达上限'}`); break; }
     } catch (e) { log.push(`❌ 视频${i}：${e.message}`); break; }
   }
 
   try {
-    const d = await fetchApi('queryBalanceAndBonus');
+    const d = await fetchApi('queryBalanceAndBonus', capture);
     if (d.retcode === 0) {
       const now = d.result?.balance;
       const delta = balance != null && now != null ? now - balance : null;
@@ -236,13 +180,14 @@ async function run(ctx) {
     }
   } catch (_) {}
 
-  return finish(log, false);
+  finish(log, false);
 }
 
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-// ---------------------------------------------------------------- 入口
-if (PLATFORM !== 'Egern') {
-  run(null); // Loon / QuantumultX / Surge：全局入口
+function finish(log, isErr) {
+  const title = `${isErr ? '❌' : '🎉'} PingMe签到`;
+  console.log(title + '\n' + log.join('\n'));
+  try { $notification.post(title, '', log.join('\n')); } catch (_) {}
+  $done({});
 }
-export default run; // Egern：计划任务脚本入口
+
+run();

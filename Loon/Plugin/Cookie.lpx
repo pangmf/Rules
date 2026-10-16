@@ -13,9 +13,8 @@ qqmusic = switch,false,tag=QQ音乐,desc=QQ 音乐 App 进绿钻会员中心触�
 wps = switch,false,tag=WPS,desc=WPS App 进任务中心或福利中心触发(详见 README)
 camscanner = switch,false,tag=扫描全能王,desc=扫描全能王 App 任意页停留几秒触发(详见 README)
 dreame = switch,false,tag=追觅,desc=追觅 App 进「商城」或「我的」页触发(详见 README)
-linghu = switch,false,tag=灵狐灵购,desc=灵狐灵购 App 进「商城」或「我的」页触发(详见 README)
-nodeseek = switch,false,tag=NodeSeek,desc=用 Safari 打开 nodeseek.com 任意页面触发(详见 README)
-
+wetalk = switch,false,tag=WeTalk,desc=WeTalk App 停留1秒后自动抓包账号，收到通知即成功。
+pingme = switch,false,tag=PingMe,desc=PingMe App 停留1秒后自动抓包账号，收到通知即成功。
 
 [Script]
 http-response ^https:\/\/api-gw-toc\.zeekrlife\.com\/zeekrlife-app-user\/v\d\/user\/info\/query$ tag=极氪获取Token,script-path=https://raw.githubusercontent.com/m20104600/zeekr-checkin/main/dist/zeekr.js, requires-body=true, img-url=https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/43/a2/ab/43a2ab42-0f91-3ecc-dee7-90d54bf26b1f/ZeekrAppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.png, enable={zeekr}
@@ -25,8 +24,8 @@ http-request ^https:\/\/u6\.y\.qq\.com\/cgi-bin\/musics\.fcg\?.*(EveryDaySignLvz
 http-request ^https:\/\/personal-act\.wps\.cn\/activity-rubik\/activity\/page_info tag=WPS Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.cookie.js, requires-body=false, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/wps.png, enable={wps}
 http-request ^https:\/\/api-cs\.intsig\.net\/user\/cs\/get_user_attribute tag=扫描全能王 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/camscanner/camscanner.cookie.js, requires-body=false, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/camscanner.png, enable={camscanner}
 http-request ^https:\/\/cn-wxmall\.dreame\.tech\/main\/my\/info tag=追觅 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/dreame/dreame.js, requires-body=true, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/dreame.png, enable={dreame}
-http-request ^https:\/\/cn-yx-wxmall\.dreame\.tech\/main\/my\/info tag=灵狐灵购 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/linghu/linghu.js, requires-body=true, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/linghu.png, enable={linghu}
-http-request ^https://www\.nodeseek\.com/ tag=NodeSeek Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/nodeseek/nodeseek.cookie.js, requires-body=false, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/nodeseek.png, enable={nodeseek}
+http-request ^https:\/\/api\.wetalkapp\.com\/app\/(?:queryBalanceAndBonus|checkIn|videoBonus) tag=WeTalk Cookie, script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/WeTalk.js, img-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png, enable={wetalk}
+http-request ^https:\/\/api\.pingmeapp\.net\/app\/queryBalanceAndBonus(?:\?.*)?$  script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe.js,tag=PingMe Cookie, img-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png, enable={pingme}
 
 [MITM]
-hostname = api-gw-toc.zeekrlife.com, app.mixcapp.com, shop-api.retail.mi.com, personal-act.wps.cn, api-cs.intsig.net, cn-wxmall.dreame.tech, cn-yx-wxmall.dreame.tech, 
+hostname = api-gw-toc.zeekrlife.com, app.mixcapp.com, shop-api.retail.mi.com, personal-act.wps.cn, api-cs.intsig.net, cn-wxmall.dreame.tech, cn-yx-wxmall.dreame.tech, api.wetalkapp.com, api.pingmeapp.net

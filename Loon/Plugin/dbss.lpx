@@ -2,11 +2,11 @@
 #!desc=解锁会员
 #!author=pangmf
 #!homepage=https://github.com/pangmf/rules
-#!icon=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/camscanner.png
+#!icon=https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/70/42/fc/7042fc38-4464-31c3-e2f7-212f065c44cc/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.png
 #!tag=会员
 
 [Script]
-http-response ^https?:\/\/api\.revenuecat\.com\/v1\/receipts script-path=https://raw.githubusercontent.com/AlookB/qx/main/dbss_Loon.js, tag=读不舍手解锁, requires-body=true, timeout=10
+http-response ^https?:\/\/api\.revenuecat\.com\/v1\/receipts script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/dbss.js, tag=读不舍手解锁, requires-body=true, timeout=10
 
 [MITM]
 hostname = %APPEND% api.revenuecat.com

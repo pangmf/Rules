@@ -6,7 +6,7 @@
 #!tag=签到, Cookie
 
 [Argument]
-
+zeekr = switch,false,tag=极氪汽车,desc=极氪 App 任意页面自动触发
 mishop = switch,false,tag=小米商城,desc=小米商城 App 进米金签到页触发(详见 README)
 milottery = switch,false,tag=小米抽奖,desc=小米商城 App 进「狂欢礼」抽奖活动页触发(详见 README)
 qqmusic = switch,false,tag=QQ音乐,desc=QQ 音乐 App 进绿钻会员中心触发(详见 README)
@@ -16,8 +16,9 @@ dreame = switch,false,tag=追觅,desc=追觅 App 进「商城」或「我的」�
 linghu = switch,false,tag=灵狐灵购,desc=灵狐灵购 App 进「商城」或「我的」页触发(详见 README)
 nodeseek = switch,false,tag=NodeSeek,desc=用 Safari 打开 nodeseek.com 任意页面触发(详见 README)
 
-[Script]
 
+[Script]
+http-response ^https:\/\/api-gw-toc\.zeekrlife\.com\/zeekrlife-app-user\/v\d\/user\/info\/query$ tag=极氪获取Token,script-path=https://raw.githubusercontent.com/m20104600/zeekr-checkin/main/dist/zeekr.js, requires-body=true, img-url=, enable={zeekr}
 http-request ^https:\/\/shop-api\.retail\.mi\.com\/mtop\/mf\/act\/infinite\/(do|done) tag=小米商城 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/mishop/mishop.cookie.js, requires-body=0, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/mishop.png, enable={mishop}
 http-request ^https:\/\/shop-api\.retail\.mi\.com\/mtop\/navi\/venue\/batch tag=小米抽奖 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/milottery/milottery.js, requires-body=true, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/mishop.png, enable={milottery}
 http-request ^https:\/\/u6\.y\.qq\.com\/cgi-bin\/musics\.fcg\?.*(EveryDaySignLvzScore|GetSignInSummary) tag=QQ音乐 Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/qqmusic/qqmusic.js, requires-body=true, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/qqmusic.png, enable={qqmusic}

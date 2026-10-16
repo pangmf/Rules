@@ -553,7 +553,7 @@ scriptings:
       # 定时任务表达式
       cron: 30 6 * * *
       # 脚本 URL。可以是本地路径或远程代理链接
-      script_url: https://raw.githubusercontent.com/wf021325/qx/master/task/zeekr.js
+      script_url: https://raw.githubusercontent.com/m20104600/zeekr-checkin/main/dist/zeekr.js
       # 更新间隔。默认间隔 1 天
       update_interval: 0
       # 超时时间

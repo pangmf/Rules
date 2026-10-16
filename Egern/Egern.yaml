@@ -653,22 +653,7 @@ modules:
   - url: https://raw.githubusercontent.com/ios151/wloc/refs/heads/main/modules/wloc.lpx
     update_interval: 0
     enabled: false
-  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/PingMe&WeTalk.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-cookie/paperclip-cookie.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/zeekr.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Google-Redirect.lpx
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Cookie.lpx
     update_interval: 0
     enabled: true
   - url: https://reven.jsforbaby.workers.dev/reven/iTunes.lpx
@@ -678,32 +663,78 @@ modules:
     update_interval: 0
     enabled: true
     icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Spotify.png
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/dbss.lpx
+    update_interval: 0
+    enabled: true
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CamScanner.lpx
     update_interval: 0
     enabled: true
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/mgtv.lpx
     update_interval: 0
     enabled: true
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CADReader.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Google-Redirect.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx
+    update_interval: 0
+    enabled: true
   - url: https://yfamilys.com/plugin/adlite.plugin
     update_interval: 604800
     enabled: true
     icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppStore-02.png
+  - url: https://raw.githubusercontent.com/chxm1023/Advertising/Loon/AppAD.plugin
+    update_interval: 604800
+    enabled: true
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppStore-02.png
+  - url: https://loon.103516.xyz/Plugin/CoolApk.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://loon.103516.xyz/Plugin/WeChat.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://loon.103516.xyz/Plugin/BaiduNetDisk.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://loon.103516.xyz/Plugin/ChinaMobile.lpx
+    compat_arguments:
+      HomeBasicClean: 'true'
+      HideTopFamily: 'false'
+      HideTopAge: 'false'
+      HideTopPhone: 'false'
+      HideTopNearby: 'false'
+      HideTopAI: 'true'
+      HideTopEnterprise: 'true'
+      MineClean: 'true'
+      HideMyCheckIn: 'true'
+      HideMyMarketing: 'true'
+      HideMyServices: 'true'
+      HideMyFamilyCube: 'true'
+      HideMyDevicesCube: 'true'
+      HideMyMiniProgram: 'true'
+      HideMyDigitalHuman: 'true'
+      HideMySelections: 'false'
+      HideMyGroup: 'true'
+      HideMyRingtone: 'true'
+      HideMyCloudDrive: 'true'
+      HideMyToolbox: 'true'
+      HideMyLifeServices: 'true'
+    update_interval: 0
+    enabled: true
+  - url: https://loon.103516.xyz/Plugin/YouTube_CN.lpx
+    update_interval: 0
+    enabled: true
   - url: https://kelee.one/Tool/Loon/Lpx/Zhihu_remove_ads.lpx
     update_interval: 0
     enabled: true
   - url: https://kelee.one/Tool/Loon/Lpx/RedPaper_remove_ads.lpx
     update_interval: 0
     enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/Weixin_Official_Accounts_remove_ads.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/WexinMiniPrograms_Remove_ads.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://raw.githubusercontent.com/chxm1023/Advertising/Loon/AppAD.plugin
-    update_interval: 604800
-    enabled: true
-    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppStore-02.png
   - url: https://kelee.one/Tool/Loon/Lpx/Weibo_intl_remove_ads.lpx
     update_interval: 0
     enabled: true
@@ -722,20 +753,10 @@ modules:
   - url: https://kelee.one/Tool/Loon/Lpx/Tieba_remove_ads.lpx
     update_interval: 0
     enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/BaiduNetDisk_remove_ads.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://raw.githubusercontent.com/chengkongyiban/Loon/main/Loon-Gallery/BaiduCloud.plugin
-    update_interval: 0
-    enabled: true
-    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/BaiduNetDisk.png
   - url: https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx
     update_interval: 0
     enabled: true
   - url: https://raw.githubusercontent.com/Keywos/rule/main/script/wy/wy.plugin
-    update_interval: 0
-    enabled: true
-  - url: https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/release/loon/plugin/bilibili.lpx
     update_interval: 0
     enabled: true
   - url: https://kelee.one/Tool/Loon/Lpx/XiaChuFang_remove_ads.lpx
@@ -759,13 +780,13 @@ modules:
   - url: https://kelee.one/Tool/Loon/Lpx/Amap_remove_ads.lpx
     update_interval: 0
     enabled: true
+  - url: https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/release/loon/plugin/bilibili.lpx
+    update_interval: 0
+    enabled: true
   - url: https://kelee.one/Tool/Loon/Lpx/MangoTV_remove_ads.lpx
     update_interval: 0
     enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/YouTube_remove_ads.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://github.com/Moli-X/Resources/raw/main/Loon/Collection.plugin
+  - url: https://loon.103516.xyz/Plugin/LoonGallery.lpx
     update_interval: 0
     enabled: true
   - url: https://raw.githubusercontent.com/IBL3ND/module/refs/heads/main/surge-loon-to-egern.yaml
@@ -776,13 +797,5 @@ modules:
     enabled: true
     icon: https://iili.io/B40FK21.png
   - url: https://raw.githubusercontent.com/Moli-X/Tool/X/Loon/Plugin/Kelee/Script-Hub.plugin
-    compat_arguments:
-      Notify: 跟随链接
-      启用插件随机图标: 禁用
-      替换原始插件图标: 禁用
-      插件随机图标合集: Pokemon(112P)
-      ScriptHub通知: 跟随链接
     update_interval: 0
     enabled: true
-
-

@@ -2,7 +2,7 @@
 #!desc= 打开极氪app自动获取Token，收到通知即成功。
 #!author=pangmf
 #!homepage=https://github.com/pangmf/rules
-#!icon=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/xiaomiCar.png
+#!icon=https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/43/a2/ab/43a2ab42-0f91-3ecc-dee7-90d54bf26b1f/ZeekrAppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.png
 #!tag=签到, Cookie
 
 [Argument]
@@ -11,7 +11,7 @@ zeekr = switch,false,tag=极氪汽车获取Token,desc=打开极氪app自动触�
 [Script]
 http-response ^https:\/\/api-gw-toc\.zeekrlife\.com\/zeekrlife-app-user\/v\d\/user\/info\/query$ tag=极氪获取Token,script-path=https://raw.githubusercontent.com/m20104600/zeekr-checkin/main/dist/zeekr.js, requires-body=true, timeout=60, enable={zeekr}
 
-#cron “30 6 * * *” then script(“https://raw.githubusercontent.com/m20104600/zeekr-checkin/main/dist/zeekr.js” with enable=false, timeout=300, tag=“极氪自动签到”, img_url=“https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/xiaomiCar.png”
+#cron “30 6 * * *” then script(“https://raw.githubusercontent.com/m20104600/zeekr-checkin/main/dist/zeekr.js” with enable=false, timeout=300, tag=“极氪自动签到”, img_url=“https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/43/a2/ab/43a2ab42-0f91-3ecc-dee7-90d54bf26b1f/ZeekrAppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.png”
 
 [MITM]
 hostname = api-gw-toc.zeekrlife.com

@@ -1,0 +1,18 @@
+#!name=自用Cookie获取
+#!desc=自用app签到脚本获取Cookie
+#!author=pangmf
+#!homepage=https://github.com/pangmf/rules
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Notifyman.png
+#!tag=签到, Cookie
+
+[Argument]
+wps = switch,false,tag=WPS Cookie,desc=抓取:打开「WPS」APP → 进任意活动页(任务中心/福利中心)→ 自动触发 page_info,抓 wps_sid
+
+
+[Script]
+http-request ^https:\/\/personal-act\.wps\.cn\/activity-rubik\/activity\/page_info tag=WPS Cookie, script-path=https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.cookie.js, requires-body=false, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/wps.png, enable={wps}
+
+#cron "0 10 * * *" then script("https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/app/wps/wps.js") with enable={wpsqd},tag="WPS签到", img_url="https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/wps.png"
+
+[MITM]
+hostname = personal-act.wps.cn

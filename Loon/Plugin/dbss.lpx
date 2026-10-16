@@ -1,0 +1,12 @@
+#!name=读不舍手
+#!desc=解锁会员
+#!author=pangmf
+#!homepage=https://github.com/pangmf/rules
+#!icon=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/camscanner.png
+#!tag=会员
+
+[Script]
+http-response https:\/\/(api|api-cs)\.intsig\.net\/purchase\/cs\/query_property\? script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Surge/JS/CamScanner.js, requires-body=true, timeout=60, tag=CamScanner, img-url=https://raw.githubusercontent.com/MaYIHEI/pin/refs/heads/main/app/camscanner.png
+
+[MITM]
+hostname = *.camscanner.com, ap*.intsig.net

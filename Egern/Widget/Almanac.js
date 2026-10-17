@@ -1,20 +1,32 @@
 /**
  * ==========================================
- * 📌 岁时黄历 (Almanac) 小组件
+ * 📌 岁时黄历 (Almanac) 小组件 · 透明液态玻璃
  * • 尺寸支持：小号、中号、大号
  * • 农历引擎：本地计算干支、生肖、农历日期及二十四节气
  * • 远程数据：获取宜忌、冲煞及运势评分，支持异常降级
  * • 顶部角标：支持星座、周次及教学周
  *
+ * 液态玻璃（liquid，默认）实现：
+ *   - 面板四层透明材质叠加：斜向淡彩底 → 斜向高光 → 顶部径向光晕 → 1px 边缘描光
+ *   - 小号/中号：内容直接置于玻璃面板（iOS 26 原生小组件形态，行不叠玻璃，防撑高与发灰）
+ *   - 大号：宜/忌/冲煞/节气为按语义着色的内嵌玻璃卡（宜·绿/忌·红/冲煞·金/节气·青），
+ *     农历条为金色玻璃条，面板顶部带一道高光带（specular），模拟光线掠过玻璃上缘
+ *   - 星座模式角标为金色玻璃胶囊；周次模式文本较长，保持普通行
+ *   - 全部材质颜色随系统深浅色模式自适应；关键文字带极淡投影保证可读性
+ *   - 面板底色透明度经过压制，即便系统再套一层 Liquid Glass 也不会发灰
+ *
  * 环境变量：
- * STYLE = glass / classic
+ * STYLE = liquid / glass / classic
+ *   liquid（默认）→ 透明液态玻璃；glass → 旧版极简玻璃（透明 + 细描边）；classic → 经典纯色
  * ASTRO_OR_WEEK = astro / week
  * SHOW_TEACHING_WEEK = true / false
  * TEACHING_WEEK_START = 2026-09-01
  */
 export default async function(ctx) {
   const env = ctx.env || {};
-  const STYLE = String(env.STYLE ?? 'glass').trim().toLowerCase() === 'classic' ? 'classic' : 'glass';
+  const STYLE = String(env.STYLE ?? 'liquid').trim().toLowerCase();
+  const LIQUID = STYLE !== 'classic' && STYLE !== 'glass'; // 默认液态玻璃
+  const LEGACY_GLASS = STYLE === 'glass'; // 旧版极简玻璃（兼容原行为）
   const envMode = String(env.ASTRO_OR_WEEK ?? '').trim();
   const SHOW_MODE = envMode === '周次' || envMode.toLowerCase() === 'week' ? 'week' : 'astro';
   const envShowTW = String(env.SHOW_TEACHING_WEEK ?? 'true').trim().toLowerCase();
@@ -24,8 +36,8 @@ export default async function(ctx) {
   const isLarge = family.includes('large');
   const C = {
     bg: { light: '#F2F2F7', dark: '#000000' },
-glass: { light: 'rgba(255, 255, 255, 0.10)', dark: 'rgba(255, 255, 255, 0.06)' },
-glassBorder: { light: 'rgba(255, 255, 255, 0.28)', dark: 'rgba(255, 255, 255, 0.10)' },
+    glass: { light: 'rgba(255, 255, 255, 0.10)', dark: 'rgba(255, 255, 255, 0.06)' },
+    glassBorder: { light: 'rgba(255, 255, 255, 0.28)', dark: 'rgba(255, 255, 255, 0.10)' },
     main: { light: '#1C1C1E', dark: '#FFFFFF' },
     sub: { light: '#48484A', dark: '#D1D1D6' },
     muted: { light: '#8E8E93', dark: '#8E8E93' },
@@ -36,29 +48,176 @@ glassBorder: { light: 'rgba(255, 255, 255, 0.28)', dark: 'rgba(255, 255, 255, 0.
     term: { light: '#628C7B', dark: '#73A491' },
     transparent: '#00000000'
   };
+  // ---------- 液态玻璃材质参数 ----------
+  const G = {
+    // 面板：斜向淡彩底（深色偏冷蓝、浅色偏白），整体压低透明度避免叠层发灰
+    panelTint: { light: 'rgba(255, 255, 255, 0.38)', dark: 'rgba(26, 28, 36, 0.46)' },
+    panelTint2: { light: 'rgba(255, 255, 255, 0.20)', dark: 'rgba(12, 13, 18, 0.36)' },
+    sheen: 'rgba(255, 255, 255, 0.10)', // 斜向高光（两态通用）
+    bloom: { light: 'rgba(255, 255, 255, 0.32)', dark: 'rgba(255, 255, 255, 0.11)' }, // 顶部光晕
+    rim: { light: 'rgba(255, 255, 255, 0.55)', dark: 'rgba(255, 255, 255, 0.18)' }, // 边缘描光
+    chipTop: { light: 'rgba(255, 255, 255, 0.44)', dark: 'rgba(255, 255, 255, 0.10)' }, // 玻璃面受光
+    chipBottom: { light: 'rgba(255, 255, 255, 0.26)', dark: 'rgba(255, 255, 255, 0.05)' }, // 玻璃面背光
+    chipBorder: { light: 'rgba(255, 255, 255, 0.62)', dark: 'rgba(255, 255, 255, 0.14)' },
+    chipShadow: { light: 'rgba(0, 0, 0, 0.10)', dark: 'rgba(0, 0, 0, 0.30)' }
+  };
+  const RGB = {
+    yi: { light: '46, 128, 69', dark: '50, 215, 75' },
+    ji: { light: '202, 59, 50', dark: '255, 69, 58' },
+    gold: { light: '176, 128, 26', dark: '227, 181, 87' },
+    term: { light: '98, 140, 123', dark: '115, 164, 145' }
+  };
+  // 语义着色玻璃：顶部着色较重、底部渐隐，模拟液体玻璃的染色与受光
+  const tint = (key, a) => ({ light: `rgba(${RGB[key].light}, ${a})`, dark: `rgba(${RGB[key].dark}, ${a})` });
+  // 液态模式文本色：玻璃之上略提亮，保证可读性
+  const PAL = LIQUID ? {
+    ...C,
+    sub: { light: '#3C3C40', dark: '#E8E8ED' },
+    muted: { light: '#74747A', dark: '#A6A6AD' },
+    gold: { light: '#9A6B12', dark: '#E3B557' }
+  } : C;
+  // 极淡文字投影：让文字从透明材质里"浮"出来
+  const TXT_SHADOW = LIQUID ? {
+    shadowColor: { light: 'rgba(0, 0, 0, 0.14)', dark: 'rgba(0, 0, 0, 0.35)' },
+    shadowRadius: 3,
+    shadowOffset: { x: 0, y: 1 }
+  } : {};
   const mkText = (text, size, weight, color, opts = {}) => ({ type: 'text', text: String(text), font: { size, weight }, textColor: color, ...opts });
   const mkRow = (children, gap = 4, opts = {}) => ({ type: 'stack', direction: 'row', alignItems: 'center', gap, children, ...opts });
-  const mkIcon = (src, color, size = 13) => ({ type: 'image', src: `sf-symbol:${src}`, color, width: size, height: size });
+  const mkIcon = (src, color, size = 13, opts = {}) => ({ type: 'image', src: `sf-symbol:${src}`, color, width: size, height: size, ...opts });
   const mkSpacer = length => length != null ? { type: 'spacer', length } : { type: 'spacer' };
-// 玻璃模式使用透明组件底色，仅内容行显示玻璃效果
-const makeBackground = (children, padding, radius) => ({
-  type: 'stack',
-  direction: 'column',
-  alignItems: 'start',
-  flex: 1,
-  ...(STYLE === 'classic' ? { backgroundColor: C.bg } : {}),
-  padding,
-  children
-});
-// iOS 26 液态玻璃适配：widget 背景保持透明，系统会自动为其套用 Liquid Glass 材质；
-// 行表面不再叠加半透明白底（避免双层玻璃发灰），仅保留极淡描边提供层次
-const glassSurface = {
-  backgroundColor: C.transparent,
-  borderRadius: 14,
-  borderWidth: 1,
-  borderColor: C.glassBorder,
-  padding: [3, 6, 3, 6]
-};
+  // 旧版极简玻璃的行表面（STYLE=glass 时保持原样）
+  const glassSurface = {
+    backgroundColor: C.transparent,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: C.glassBorder,
+    padding: [3, 6, 3, 6]
+  };
+  // ---------- 液态玻璃构件 ----------
+  const PANEL_R = isSmall ? 20 : 24; // 面板圆角（贴合 Widget 容器圆角）
+  const BLOOM_R = isSmall ? 120 : isLarge ? 250 : 190; // 顶部光晕半径
+  // 四层面板：淡彩底 → 斜向高光 → 顶部径向光晕 → 边缘描光（rim 内承载内容与内边距）
+  const glassPanel = (children, padding) => {
+    const layer = (bg, child) => ({
+      type: 'stack',
+      direction: 'column',
+      alignItems: 'start',
+      flex: 1,
+      borderRadius: PANEL_R,
+      ...(bg ? { backgroundGradient: bg } : {}),
+      children: [child]
+    });
+    const rim = {
+      type: 'stack',
+      direction: 'column',
+      alignItems: 'start',
+      flex: 1,
+      borderRadius: PANEL_R,
+      borderWidth: 1,
+      borderColor: G.rim,
+      padding,
+      children
+    };
+    return layer({
+      type: 'linear',
+      colors: [G.panelTint, G.panelTint2],
+      stops: [0, 1],
+      startPoint: { x: 0.1, y: 0 },
+      endPoint: { x: 0.9, y: 1 }
+    }, layer({
+      type: 'linear',
+      colors: [G.sheen, 'rgba(255, 255, 255, 0)'],
+      stops: [0, 0.65],
+      startPoint: { x: 0, y: 0 },
+      endPoint: { x: 1, y: 1 }
+    }, layer({
+      type: 'radial',
+      colors: [G.bloom, 'rgba(255, 255, 255, 0)'],
+      stops: [0, 1],
+      center: { x: 0.5, y: 0 },
+      startRadius: 0,
+      endRadius: BLOOM_R
+    }, rim)));
+  };
+  // 内嵌玻璃卡：可传语义着色（yi/ji/gold/term），不传则为中性玻璃
+  const glassChip = (children, tintKey, extra = {}) => ({
+    type: 'stack',
+    direction: 'row',
+    alignItems: 'center',
+    gap: 4,
+    padding: [4, 8, 4, 8],
+    borderRadius: 14,
+    backgroundGradient: {
+      type: 'linear',
+      colors: tintKey ? [tint(tintKey, 0.13), tint(tintKey, 0.045)] : [G.chipTop, G.chipBottom],
+      stops: [0, 1],
+      startPoint: { x: 0, y: 0 },
+      endPoint: { x: 0.3, y: 1 }
+    },
+    borderWidth: 1,
+    borderColor: G.chipBorder,
+    shadowColor: G.chipShadow,
+    shadowRadius: 5,
+    shadowOffset: { x: 0, y: 2 },
+    children,
+    ...extra
+  });
+  // 行容器：液态→玻璃卡；旧版 glass→细描边；classic→纯容器
+  const chip = (children, tintKey, extra) => {
+    if (LIQUID) return glassChip(children, tintKey, extra);
+    if (LEGACY_GLASS) return { type: 'stack', direction: 'row', alignItems: 'start', gap: 4, ...glassSurface, children };
+    return { type: 'stack', direction: 'row', alignItems: 'start', gap: 4, children };
+  };
+  // 金色胶囊角标（星座 / 周次 / 教学周）
+  const glassBadge = (children, extra = {}) => LIQUID ? {
+    type: 'stack',
+    direction: 'row',
+    alignItems: 'center',
+    gap: 3,
+    padding: [3, 8, 3, 8],
+    borderRadius: 13,
+    backgroundGradient: {
+      type: 'linear',
+      colors: [tint('gold', 0.16), tint('gold', 0.05)],
+      stops: [0, 1],
+      startPoint: { x: 0, y: 0 },
+      endPoint: { x: 0, y: 1 }
+    },
+    borderWidth: 1,
+    borderColor: G.chipBorder,
+    shadowColor: G.chipShadow,
+    shadowRadius: 4,
+    shadowOffset: { x: 0, y: 1 },
+    children,
+    ...extra
+  } : { type: 'stack', direction: 'row', alignItems: 'center', gap: 3, children, ...extra };
+  // 面板顶部高光带：模拟光线掠过玻璃上缘
+  const specular = {
+    type: 'stack',
+    direction: 'row',
+    height: 1.5,
+    backgroundGradient: {
+      type: 'linear',
+      colors: ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.40)', 'rgba(255, 255, 255, 0.06)', 'rgba(255, 255, 255, 0)'],
+      stops: [0, 0.3, 0.55, 1],
+      startPoint: { x: 0, y: 0 },
+      endPoint: { x: 1, y: 0 }
+    }
+  };
+  // 面板容器：液态→四层材质；classic→纯色；旧版 glass→透明
+  const wrapPanel = (children, padding) => {
+    if (LIQUID) return glassPanel(children, padding);
+    return {
+      type: 'stack',
+      direction: 'column',
+      alignItems: 'start',
+      flex: 1,
+      ...(STYLE === 'classic' ? { backgroundColor: C.bg } : {}),
+      padding,
+      children
+    };
+  };
   const tzOffset = new Date().getTimezoneOffset();
   const now = new Date(Date.now() + (tzOffset + 480) * 60000);
   const [Y, M, D] = [now.getFullYear(), now.getMonth() + 1, now.getDate()];
@@ -187,14 +346,28 @@ const glassSurface = {
     if (line) lines.push(line.replace(/^[，\s]+|[，\s]+$/g, ''));
     return lines;
   };
-  const createRowFactory = config => (raw, icon, color, label, contentColor = C.sub) => {
+  // 行工厂：大号·液态 → 整组一张语义玻璃卡（标签列左、多行文本右）；
+  // 中号/小号·液态 → 内容直接置于玻璃面板（iOS 26 原生小组件形态，行不叠玻璃防撑高）；
+  // classic / 旧版 glass → 与原脚本一致的逐行结构
+  const createRowFactory = config => (raw, icon, color, label, contentColor = PAL.sub, tintKey = null) => {
     if (!raw) return [];
-    return splitTextToLines(raw, config.maxW).map((lineStr, idx) => ({
+    const lines = splitTextToLines(raw, config.maxW);
+    if (LIQUID && isLarge) {
+      return [chip([
+        { type: 'stack', direction: 'row', alignItems: 'center', gap: 2, width: config.lw, children: [
+          mkIcon(icon, color, config.icz),
+          mkText(label, config.fz, 'heavy', color)
+        ]},
+        { type: 'stack', direction: 'column', alignItems: 'start', gap: 2, flex: 1, children:
+          lines.map(l => mkText(l, config.fz, 'medium', contentColor, { maxLines: 1, ...TXT_SHADOW })) }
+      ], tintKey, { padding: config.rowPad, borderRadius: config.rowR })];
+    }
+    return lines.map((lineStr, idx) => ({
       type: 'stack',
       direction: 'row',
       alignItems: 'start',
       gap: 4,
-      ...(STYLE === 'glass' ? glassSurface : {}),
+      ...(LEGACY_GLASS ? glassSurface : {}),
       children: [
         { type: 'stack', direction: 'row', alignItems: 'center', gap: 2, width: config.lw, children: [
           mkIcon(idx === 0 ? icon : 'circle.fill', idx === 0 ? color : C.transparent, config.icz),
@@ -207,64 +380,70 @@ const glassSurface = {
   if (isSmall) {
     const smallContent = [
       mkRow([
-        mkText(D, 30, 'heavy', C.main, { maxLines: 1, minScale: 0.5 }),
+        mkText(D, 30, 'heavy', PAL.main, { maxLines: 1, minScale: 0.5, ...TXT_SHADOW }),
         { type: 'stack', direction: 'column', alignItems: 'start', padding: [3, 0, 0, 0], children: [
-          mkText(`${M}月`, 11, 'heavy', C.muted),
-          mkText(`周${WEEK}`, 11, 'heavy', C.muted)
+          mkText(`${M}月`, 11, 'heavy', PAL.muted),
+          mkText(`周${WEEK}`, 11, 'heavy', PAL.muted)
         ] },
         mkSpacer(),
-        mkRow([mkIcon(topIcon, C.gold, 10), mkText(topText, 9, 'bold', C.muted, { maxLines: 1, minScale: 0.8 })], 3)
+        // 液态·星座模式：金色胶囊角标（文本短，放得下）；周次模式文本较长，保持普通行避免溢出
+        LIQUID && SHOW_MODE !== 'week'
+          ? glassBadge([mkIcon(topIcon, PAL.gold, 10), mkText(topText, 9, 'bold', PAL.muted, { maxLines: 1, minScale: 0.8 })], { padding: [2, 6, 2, 6] })
+          : mkRow([mkIcon(topIcon, PAL.gold, 10), mkText(topText, 9, 'bold', PAL.muted, { maxLines: 1, minScale: 0.8 })], 3)
       ], 5),
-      mkSpacer(7),
-      mkText(`${obj.gz}(${obj.ani})年 ${obj.cn} ${shichenStr}${obj.term ? ` · 今日${obj.term}` : ''}`, 10, 'bold', C.gold, { maxLines: 1, minScale: 0.75 }),
-      mkSpacer(7),
-      ...(rawYi ? [mkRow([mkIcon('checkmark.circle.fill', C.yi, 10), mkText(rawYi.replace(/\s+/g, ' '), 10, 'medium', C.sub, { maxLines: 1, minScale: 0.75 })], 5)] : []),
       mkSpacer(5),
-      ...(rawJi ? [mkRow([mkIcon('xmark.circle.fill', C.ji, 10), mkText(rawJi.replace(/\s+/g, ' '), 10, 'medium', C.sub, { maxLines: 1, minScale: 0.75 })], 5)] : []),
-      mkSpacer(7),
-      mkRow([mkIcon('shield.lefthalf.filled', C.gold, 10), mkText(chongshaInfo, 9, 'medium', C.muted, { maxLines: 1, minScale: 0.75 })], 5),
+      mkText(`${obj.gz}(${obj.ani})年 ${obj.cn} ${shichenStr}${obj.term ? ` · 今日${obj.term}` : ''}`, 10, 'bold', PAL.gold, { maxLines: 1, minScale: 0.75, ...TXT_SHADOW }),
+      mkSpacer(4),
+      ...(rawYi ? [mkRow([mkIcon('checkmark.circle.fill', PAL.yi, 10), mkText(rawYi.replace(/\s+/g, ' '), 10, 'medium', PAL.sub, { maxLines: 1, minScale: 0.75 })], 5)] : []),
+      mkSpacer(4),
+      ...(rawJi ? [mkRow([mkIcon('xmark.circle.fill', PAL.ji, 10), mkText(rawJi.replace(/\s+/g, ' '), 10, 'medium', PAL.sub, { maxLines: 1, minScale: 0.75 })], 5)] : []),
       mkSpacer(5),
-      mkRow([mkIcon('leaf.arrow.circlepath', C.term, 10), mkText(upcomingTerms[0] || '', 9, 'medium', C.term, { maxLines: 1, minScale: 0.75 })], 5)
+      mkRow([mkIcon('shield.lefthalf.filled', PAL.gold, 10), mkText(chongshaInfo, 9, 'medium', PAL.muted, { maxLines: 1, minScale: 0.75 })], 5),
+      mkSpacer(4),
+      mkRow([mkIcon('leaf.arrow.circlepath', PAL.term, 10), mkText(upcomingTerms[0] || '', 9, 'medium', PAL.term, { maxLines: 1, minScale: 0.75 })], 5)
     ];
     return {
       type: 'widget',
       padding: 0,
       url: 'calshow://',
-      children: [makeBackground(smallContent, 11, 18)]
+      children: [wrapPanel(smallContent, 11)]
     };
   }
-  const mediumConfig = { fz: 11, icz: 12, lw: 49, maxW: 50, headerFz: 14, topIconFz: 10, gap: 5 };
-  const largeConfig = { fz: 13, icz: 14, lw: 57, maxW: 39, headerFz: 16, topIconFz: 11, gap: 7 };
+  const mediumConfig = { fz: 11, icz: 12, lw: 49, maxW: 50, headerFz: 14, topIconFz: 10, gap: 5, rowPad: [2, 7, 2, 7], rowR: 13 };
+  const largeConfig = { fz: 13, icz: 14, lw: 57, maxW: 39, headerFz: 16, topIconFz: 11, gap: 6, rowPad: [5, 9, 5, 9], rowR: 15 };
   const config = isLarge ? largeConfig : mediumConfig;
   const buildRows = createRowFactory(config);
   const yiJiRows = [
-    ...buildRows(rawYi, 'checkmark.circle.fill', C.yi, '宜'),
-    ...buildRows(rawJi, 'xmark.circle.fill', C.ji, '忌'),
-    ...buildRows(`${chongshaInfo}  |  运势: ${starStr}`, 'shield.lefthalf.filled', C.gold, '冲煞'),
-    ...buildRows((isLarge ? upcomingTermsLarge : upcomingTerms).join('，'), 'leaf.arrow.circlepath', C.term, '节气', C.term)
+    ...buildRows(rawYi, 'checkmark.circle.fill', PAL.yi, '宜', PAL.sub, 'yi'),
+    ...buildRows(rawJi, 'xmark.circle.fill', PAL.ji, '忌', PAL.sub, 'ji'),
+    ...buildRows(`${chongshaInfo}  |  运势: ${starStr}`, 'shield.lefthalf.filled', PAL.gold, '冲煞', PAL.sub, 'gold'),
+    ...buildRows((isLarge ? upcomingTermsLarge : upcomingTerms).join('，'), 'leaf.arrow.circlepath', PAL.term, '节气', PAL.term, 'term')
   ];
+  const lunarLine = `${obj.gz}(${obj.ani})年 ${obj.cn} ${shichenStr}${obj.term ? ` · 今日${obj.term}` : ''}`;
   const content = [
     mkRow([
-      mkIcon('calendar', C.main, isLarge ? 17 : 15),
-      mkText(`${Y}年${M}月${D}日 星期${WEEK}`, config.headerFz, 'heavy', C.main, { maxLines: 1, minScale: 0.65 }),
+      mkIcon('calendar', PAL.main, isLarge ? 17 : 15, LIQUID ? TXT_SHADOW : {}),
+      mkText(`${Y}年${M}月${D}日 星期${WEEK}`, config.headerFz, 'heavy', PAL.main, { maxLines: 1, minScale: 0.65, ...TXT_SHADOW }),
       mkSpacer(),
-      mkRow([
-        ...(teachingWeekStr ? [mkIcon('book.closed', C.muted, config.topIconFz), mkText(teachingWeekStr, config.topIconFz, 'bold', C.muted), mkText('·', config.topIconFz, 'bold', C.divider, { padding: [0, 2] })] : []),
-        mkIcon(topIcon, C.gold, config.topIconFz + 1),
-        mkText(topText, config.topIconFz, 'bold', C.muted, { maxLines: 1, minScale: 0.8 })
-      ], isLarge ? 4 : 3)
+      glassBadge([
+        ...(teachingWeekStr ? [mkIcon('book.closed', PAL.muted, config.topIconFz), mkText(teachingWeekStr, config.topIconFz, 'bold', PAL.muted), mkText('·', config.topIconFz, 'bold', PAL.divider, { padding: [0, 2] })] : []),
+        mkIcon(topIcon, PAL.gold, config.topIconFz + 1),
+        mkText(topText, config.topIconFz, 'bold', PAL.muted, { maxLines: 1, minScale: 0.8 })
+      ])
     ], 5),
-    mkSpacer(isLarge ? 10 : 5),
-    { type: 'stack', direction: 'column', alignItems: 'start', gap: config.gap, children: [
-      mkText(`${obj.gz}(${obj.ani})年 ${obj.cn} ${shichenStr}${obj.term ? ` · 今日${obj.term}` : ''}`, isLarge ? 13 : 12, 'bold', C.gold),
-      ...yiJiRows
-    ] },
+    // 大号·液态：面板顶部高光带 + 金色农历玻璃条；中号高度紧张，保持紧凑
+    ...(LIQUID && isLarge ? [mkSpacer(5), specular, mkSpacer(6)] : [mkSpacer(isLarge ? 10 : 5)]),
+    ...(LIQUID && isLarge
+      ? [chip([mkText(lunarLine, 13, 'bold', PAL.gold, { maxLines: 1, minScale: 0.85, ...TXT_SHADOW })], 'gold', { padding: [4, 9, 4, 9], borderRadius: 15 })]
+      : [mkText(lunarLine, isLarge ? 13 : 12, 'bold', PAL.gold, { ...TXT_SHADOW })]),
+    mkSpacer(isLarge ? 8 : 5),
+    { type: 'stack', direction: 'column', alignItems: 'start', gap: config.gap, children: yiJiRows },
     mkSpacer()
   ];
   return {
     type: 'widget',
     padding: 0,
     url: 'calshow://',
-    children: [makeBackground(content, isLarge ? 13 : 10, isLarge ? 20 : 18)]
+    children: [wrapPanel(content, isLarge ? 13 : 10)]
   };
 }

@@ -1,9 +1,14 @@
 /**
- * 油价小组件（Hark 仪表盘版）
+ * 油价小组件（Hark 仪表盘版 · 透明液态玻璃）
  * 基于 jnlaoshu/MySelf GasPrice.js 改版：数据接口不变，界面与功能重做
  *
  * 新增 / 优化：
- *  • 与「订阅流量 v2」「中国移动仪表盘版」统一的深色渐变 + 玻璃卡片风格
+ *  • 透明液态玻璃（liquid，默认）：面板四层透明材质叠加
+ *    ——斜向淡彩底 → 斜向高光 → 顶部径向光晕 → 1px 边缘描光；
+ *    油价卡为按燃料语义着色的内嵌玻璃（92#金 / 95#珊瑚 / 98#蓝 / 柴油绿），
+ *    常用油号以燃料色描边突出；全部材质颜色随系统深浅色自适应，文字带极淡投影
+ *  • 小号 / 中号仅做「材质替换」：内边距、间距、卡片高度与原版完全一致，零增高
+ *  • 大号在面板顶部加一道高光带（specular），模拟光线掠过玻璃上缘
  *  • 调价倒计时进度条（上次调价 → 下次调价）
  *  • 加满一箱要多少钱，以及本轮调价让一箱多花 / 少花多少
  *  • 请求失败时显示上次成功的缓存数据，不再整块报错
@@ -19,7 +24,7 @@
  *  MY_FUEL   常加的油号：92 / 95 / 98 / 柴油（默认 92）
  *  TANK_L    油箱容量，升（默认 50）
  *  TITLE     标题（默认「<城市>油价」）
- *  STYLE     背景样式：glass / classic（默认 glass）
+ *  STYLE     背景样式：liquid（默认，透明液态玻璃）/ glass（旧版极简玻璃）/ classic（经典纯色）
  */
 const BASE = 'https://cx.sinopecsales.com/yjkqiantai';
 const QYJ_BASE = 'http://m.qiyoujiage.com';
@@ -247,24 +252,58 @@ const FUELS = [
   { id: '98', label: '98号', key: 'p98', hex: '#64A8FF' },
   { id: '柴油', label: '柴油', key: 'diesel', hex: '#30D158' },
 ];
+// ---------- 液态玻璃材质参数（STYLE=liquid 时生效） ----------
+const G = {
+  // 面板：斜向淡彩底（深色偏冷蓝、浅色偏白），整体压低透明度避免叠层发灰
+  panelTint: { light: 'rgba(255, 255, 255, 0.38)', dark: 'rgba(26, 28, 36, 0.46)' },
+  panelTint2: { light: 'rgba(255, 255, 255, 0.20)', dark: 'rgba(12, 13, 18, 0.36)' },
+  sheen: 'rgba(255, 255, 255, 0.10)', // 斜向高光（两态通用）
+  bloom: { light: 'rgba(255, 255, 255, 0.32)', dark: 'rgba(255, 255, 255, 0.11)' }, // 顶部光晕
+  rim: { light: 'rgba(255, 255, 255, 0.55)', dark: 'rgba(255, 255, 255, 0.18)' }, // 边缘描光
+  chipTop: { light: 'rgba(255, 255, 255, 0.44)', dark: 'rgba(255, 255, 255, 0.10)' }, // 玻璃面受光
+  chipBottom: { light: 'rgba(255, 255, 255, 0.26)', dark: 'rgba(255, 255, 255, 0.05)' }, // 玻璃面背光
+  chipBorder: { light: 'rgba(255, 255, 255, 0.62)', dark: 'rgba(255, 255, 255, 0.14)' },
+  cardBorder: { light: 'rgba(255, 255, 255, 0.45)', dark: 'rgba(255, 255, 255, 0.12)' }, // 油价卡描边
+  chipShadow: { light: 'rgba(0, 0, 0, 0.10)', dark: 'rgba(0, 0, 0, 0.30)' }
+};
+// 面板圆角与顶部光晕半径（贴合 Widget 容器圆角）
+const PANEL_CFG = {
+  small: { r: 20, bloom: 120 },
+  medium: { r: 24, bloom: 190 },
+  large: { r: 24, bloom: 250 }
+};
+const sizeOf = family => {
+  const f = String(family || '').toLowerCase();
+  return f.includes('small') ? 'small' : f.includes('large') ? 'large' : 'medium';
+};
+let LIQUID = true;   // getState 内按 STYLE 赋值（默认液态玻璃）
+let PAL = C;         // 液态模式文本色（玻璃之上略提亮，保证可读性）
+let TXT_SHADOW = {}; // 液态模式极淡文字投影：让文字从透明材质里"浮"出来
+// 燃料色为固定亮色（两态通用），转 rgba 用于语义着色
+const rgbOf = hex => {
+  const h = String(hex || '').replace('#', '');
+  return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)).join(', ');
+};
+const tintRGB = (hex, a) => `rgba(${rgbOf(hex)}, ${a})`;
 function bg(style = 'glass') {
-  if (style === 'glass') {
+  if (style === 'classic') {
     return {
       type: 'linear',
       colors: [
-        { light: '#00000000', dark: '#00000000' },
-        { light: '#00000000', dark: '#00000000' }
+        { light: '#F2F2F7', dark: '#000000' },
+        { light: '#F2F2F7', dark: '#1C1C1E' }
       ],
       stops: [0, 1],
       startPoint: { x: 0, y: 0 },
       endPoint: { x: 1, y: 1 }
     };
   }
+  // glass / liquid：透明（液态玻璃由面板材质自行呈现）
   return {
     type: 'linear',
     colors: [
-      { light: '#F2F2F7', dark: '#000000' },
-      { light: '#F2F2F7', dark: '#1C1C1E' }
+      { light: '#00000000', dark: '#00000000' },
+      { light: '#00000000', dark: '#00000000' }
     ],
     stops: [0, 1],
     startPoint: { x: 0, y: 0 },
@@ -287,12 +326,36 @@ function sparkLine(arr, color, w, h) {
   return svgUri(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${w} ${h}'><polygon points='${area}' fill='${color}' fill-opacity='0.18'/><polyline points='${pts.join(' ')}' fill='none' stroke='${color}' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>`);
 }
 function T(text, size, color, weight = 'regular', extra = {}) {
-  return { type: 'text', text: String(text ?? ''), font: { size, weight }, textColor: color || C.text, maxLines: 1, minScale: 0.7, ...extra };
+  return { type: 'text', text: String(text ?? ''), font: { size, weight }, textColor: color || PAL.text, maxLines: 1, minScale: 0.7, ...(LIQUID && !extra.noShadow ? TXT_SHADOW : {}), ...extra };
 }
-function icon(name, color, size = 12) { return { type: 'image', src: `sf-symbol:${name}`, width: size, height: size, color }; }
-// iOS 26 液态玻璃适配：widget 背景保持透明，系统自动套 Liquid Glass 材质；
-// 卡片不再叠加厚重半透明白底（避免双层玻璃发灰），仅保留淡描边提供层次
+function icon(name, color, size = 12, extra = {}) { return { type: 'image', src: `sf-symbol:${name}`, width: size, height: size, color, ...extra }; }
+// 玻璃卡：液态→中性玻璃面（受光渐变 + 发丝描边 + 淡影）；
+// glass→旧版细描边透明面（系统自行套 Liquid Glass）；classic→素容器
 function glass(children, extra = {}) {
+  if (LIQUID) {
+    return {
+      type: 'stack',
+      direction: 'column',
+      alignItems: 'start',
+      gap: 4,
+      padding: 10,
+      borderRadius: 14,
+      backgroundGradient: {
+        type: 'linear',
+        colors: [G.chipTop, G.chipBottom],
+        stops: [0, 1],
+        startPoint: { x: 0, y: 0 },
+        endPoint: { x: 0.3, y: 1 }
+      },
+      borderWidth: 1,
+      borderColor: G.chipBorder,
+      shadowColor: G.chipShadow,
+      shadowRadius: 5,
+      shadowOffset: { x: 0, y: 2 },
+      children,
+      ...extra
+    };
+  }
   return {
     type: 'stack',
     direction: 'column',
@@ -309,7 +372,7 @@ function glass(children, extra = {}) {
 }
 function row(children, extra = {}) { return { type: 'stack', direction: 'row', alignItems: 'center', gap: 4, children, ...extra }; }
 function fmtDelta(off) {
-  if (off == null || !Number.isFinite(off) || off === 0) return { text: '持平', color: C.dim };
+  if (off == null || !Number.isFinite(off) || off === 0) return { text: '持平', color: PAL.dim };
   return { text: `${off > 0 ? '▲' : '▼'}${Math.abs(off).toFixed(2)}`, color: off > 0 ? C.up : C.down };
 }
 // ---------------------------------------------------------------------------
@@ -317,7 +380,13 @@ function fmtDelta(off) {
 // ---------------------------------------------------------------------------
 async function getState(ctx) {
   const env = ctx.env || {};
-  const style = getEnv(env, ['STYLE'], 'glass').toLowerCase() === 'classic' ? 'classic' : 'glass';
+  const styleRaw = getEnv(env, ['STYLE'], 'liquid').toLowerCase();
+  const style = styleRaw === 'classic' ? 'classic' : styleRaw === 'glass' ? 'glass' : 'liquid';
+  LIQUID = style === 'liquid';
+  PAL = LIQUID ? { ...C, dim: { light: '#3C3C43CC', dark: '#EBEBF5CC' } } : C;
+  TXT_SHADOW = LIQUID
+    ? { shadowColor: { light: 'rgba(0, 0, 0, 0.14)', dark: 'rgba(0, 0, 0, 0.35)' }, shadowRadius: 3, shadowOffset: { x: 0, y: 1 } }
+    : {};
   const provinceCode = normalizeProvince(getEnv(env, ['PROVINCE', 'PROVINCE_ID', 'province'], '33'));
   const cityName = getEnv(env, ['CITY', 'city'], PROVINCES[provinceCode] || '台州');
   const rawArea = getEnv(env, ['AREA', 'AREA_INDEX', 'area'], '');
@@ -358,7 +427,7 @@ async function getState(ctx) {
         if (pr && !pr.none && !pr.flat) state.pred = { up: pr.up, minV: pr.minV, maxV: pr.maxV };
         else state.pred = pr && pr.flat ? { flat: true } : null;
         if (pr && pr.none) {}
-        else if (pr && pr.flat) trend = { label: '预测', text: '搁浅 / 不调整', color: C.dim };
+        else if (pr && pr.flat) trend = { label: '预测', text: '搁浅 / 不调整', color: PAL.dim };
         else if (pr) {
           const r = pr.minV === pr.maxV ? pr.minV.toFixed(2) : `${pr.minV.toFixed(2)}-${pr.maxV.toFixed(2)}`;
           trend = { label: '预测', text: `${pr.up ? '↑' : '↓'} ${r} 元/升`, color: pr.up ? C.up : C.down };
@@ -382,10 +451,10 @@ function tankInfo(S) {
 // ---------------------------------------------------------------------------
 function header(S, size = 13) {
   return row([
-    icon('fuelpump.fill', C.gold, size - 1),
-    T(S.title, size, C.text, 'semibold', { minScale: 1 }),
+    icon('fuelpump.fill', C.gold, size - 1, LIQUID ? TXT_SHADOW : {}),
+    T(S.title, size, PAL.text, 'semibold', { minScale: 1 }),
     { type: 'spacer' },
-    T(`${S.error ? '缓存 · ' : ''}更新 ${S.state ? fmtTs(S.state.updatedAt) : '--'}`, 10, S.error ? C.gold : C.dim, 'regular', { minScale: 1 }),
+    T(`${S.error ? '缓存 · ' : ''}更新 ${S.state ? fmtTs(S.state.updatedAt) : '--'}`, 10, S.error ? C.gold : PAL.dim, 'regular', { minScale: 1 }),
   ]);
 }
 function fmtTs(ts) { const d = new Date(ts); return `${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`; }
@@ -394,115 +463,217 @@ function priceCard(S, fu, o) {
   const d = fmtDelta(f && f.offset);
   const mine = fu.id === S.my.id;
   const line = o.spark && f ? sparkLine(f.series, fu.hex, 90, 24) : null;
-  return glass([
+  const children = [
     row([
       { type: 'stack', width: 5, height: 5, borderRadius: 3, backgroundColor: fu.hex, children: [] },
       T(fu.label, o.label, fu.hex, 'semibold', { minScale: 1 }),
-      ...(mine ? [T('常用', 8, C.dim, 'medium', { minScale: 1 })] : []),
+      ...(mine ? [T('常用', 8, PAL.dim, 'medium', { minScale: 1 })] : []),
     ], { gap: 3 }),
-    T(f && Number.isFinite(f.price) ? f.price.toFixed(2) : '--', o.price, C.text, 'bold', { minScale: 0.8 }),
+    T(f && Number.isFinite(f.price) ? f.price.toFixed(2) : '--', o.price, PAL.text, 'bold', { minScale: 0.8 }),
     T(d.text, o.delta, d.color, 'semibold', { minScale: 1 }),
     ...(line ? [{ type: 'image', src: line, width: o.sparkW, height: o.sparkH }] : []),
-  ], { flex: 1, alignItems: 'center', gap: o.gap || 2, padding: o.pad || [8, 4], borderRadius: 10, backgroundColor: '#00000000', borderColor: mine ? C.glassBorder : { light: 'rgba(255,255,255,0.10)', dark: 'rgba(255,255,255,0.05)' }, ...(o.height ? { height: o.height } : {}) });
+  ];
+  if (LIQUID) {
+    // 液态：燃料语义着色玻璃卡（顶部着色较重、底部渐隐，模拟液体玻璃的染色与受光）；
+    // 常用油号以燃料色描边突出。内边距/间距/卡高与旧版完全一致，仅替换材质
+    return {
+      type: 'stack',
+      direction: 'column',
+      alignItems: 'center',
+      gap: o.gap || 2,
+      padding: o.pad || [8, 4],
+      borderRadius: o.radius || 12,
+      flex: 1,
+      backgroundGradient: {
+        type: 'linear',
+        colors: [tintRGB(fu.hex, 0.15), tintRGB(fu.hex, 0.045)],
+        stops: [0, 1],
+        startPoint: { x: 0, y: 0 },
+        endPoint: { x: 0.3, y: 1 }
+      },
+      borderWidth: 1,
+      borderColor: mine ? tintRGB(fu.hex, 0.5) : G.cardBorder,
+      shadowColor: G.chipShadow,
+      shadowRadius: 4,
+      shadowOffset: { x: 0, y: 2 },
+      children,
+      ...(o.height ? { height: o.height } : {})
+    };
+  }
+  return glass(children, { flex: 1, alignItems: 'center', gap: o.gap || 2, padding: o.pad || [8, 4], borderRadius: 10, backgroundColor: '#00000000', borderColor: mine ? C.glassBorder : { light: 'rgba(255,255,255,0.10)', dark: 'rgba(255,255,255,0.05)' }, ...(o.height ? { height: o.height } : {}) });
 }
 function countdownRow(S, barW, short) {
   const w = S.win;
   const c = w ? (w.urgent ? C.up : C.gold) : C.dim;
   return row([
     icon('clock.fill', c, 10),
-    T(w ? `下轮 ${short ? w.shortDate : w.dateStr}` : '下轮调价 待公布', 10, C.text, 'semibold', { minScale: 1 }),
+    T(w ? `下轮 ${short ? w.shortDate : w.dateStr}` : '下轮调价 待公布', 10, PAL.text, 'semibold', { minScale: 1 }),
     ...(w ? [{ type: 'image', src: barSvg(w.progress, c, barW, 5), width: barW, height: 5 }, T(`${w.countdown}后`, 10, c, 'semibold', { minScale: 1 })] : []),
   ], { gap: 5 });
 }
 function tankRow(S, preferPred) {
   const tk = tankInfo(S);
-  if (!tk) return T('', 10, C.dim);
+  if (!tk) return T('', 10, PAL.dim);
   const pr = S.state && S.state.pred;
   if (preferPred && pr && !pr.flat) {
     const lo = (pr.minV * S.tank).toFixed(1), hi = (pr.maxV * S.tank).toFixed(1);
     return row([
       icon('drop.fill', S.my.hex, 10),
-      T(`${S.my.label}加满 ${S.tank}L ¥${tk.full.toFixed(1)}`, 10, C.text, 'medium', { minScale: 1 }),
+      T(`${S.my.label}加满 ${S.tank}L ¥${tk.full.toFixed(1)}`, 10, PAL.text, 'medium', { minScale: 1 }),
       T(`· 下轮预计${pr.up ? '多花' : '省'} ¥${lo === hi ? lo : lo + '-' + hi}`, 10, pr.up ? C.up : C.down, 'medium', { minScale: 0.8 }),
     ]);
   }
   const diff = tk.diff ? `${tk.diff > 0 ? '多花' : '省'} ¥${Math.abs(tk.diff).toFixed(1)}` : '与上次持平';
   return row([
     icon('drop.fill', S.my.hex, 10),
-    T(`${S.my.label}加满 ${S.tank}L ¥${tk.full.toFixed(1)}`, 10, C.text, 'medium', { minScale: 1 }),
-    T(`· 本轮${diff}`, 10, tk.diff > 0 ? C.up : tk.diff < 0 ? C.down : C.dim, 'medium', { minScale: 0.8 }),
+    T(`${S.my.label}加满 ${S.tank}L ¥${tk.full.toFixed(1)}`, 10, PAL.text, 'medium', { minScale: 1 }),
+    T(`· 本轮${diff}`, 10, tk.diff > 0 ? C.up : tk.diff < 0 ? C.down : PAL.dim, 'medium', { minScale: 0.8 }),
   ]);
 }
 function trendRow(S, short) {
-  if (!S.trend) return T('', 10, C.dim);
-  return row([T(S.trend.label === '预测' ? '下轮预测' : '较上次', 10, C.dim, 'medium', { minScale: 1 }), T(short ? S.trend.text.replace(' 元/升', '').replace(' ', '') : S.trend.text, 10, S.trend.color, 'bold', { minScale: 1 })], { gap: 3 });
+  if (!S.trend) return T('', 10, PAL.dim);
+  return row([T(S.trend.label === '预测' ? '下轮预测' : '较上次', 10, PAL.dim, 'medium', { minScale: 1 }), T(short ? S.trend.text.replace(' 元/升', '').replace(' ', '') : S.trend.text, 10, S.trend.color, 'bold', { minScale: 1 })], { gap: 3 });
 }
 function refreshAfter(S) {
   const mins = S.win && S.win.urgent ? 30 : 180;
   return new Date(Date.now() + mins * 60000).toISOString();
 }
-function errorWidget(S) {
-  return {
-    type: 'widget', padding: 14, gap: 6, backgroundGradient: bg(S.style),
-    children: [header(S), { type: 'spacer' }, icon('exclamationmark.triangle.fill', C.gold, 20), T('油价加载失败', 14, C.text, 'semibold'), T(S.error || '', 10, C.dim, 'regular', { maxLines: 3 }), { type: 'spacer' }],
+// 面板顶部高光带：模拟光线掠过玻璃上缘（大号液态）
+const specular = {
+  type: 'stack',
+  direction: 'row',
+  height: 1.5,
+  children: [],
+  backgroundGradient: {
+    type: 'linear',
+    colors: ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.40)', 'rgba(255, 255, 255, 0.06)', 'rgba(255, 255, 255, 0)'],
+    stops: [0, 0.3, 0.55, 1],
+    startPoint: { x: 0, y: 0 },
+    endPoint: { x: 1, y: 0 }
+  }
+};
+// 四层面板：斜向淡彩底 → 斜向高光 → 顶部径向光晕 → 1px 边缘描光（rim 内承载内容与内边距）
+function glassPanel(children, padding, gap, size) {
+  const cfg = PANEL_CFG[size] || PANEL_CFG.medium;
+  const layer = (grad, child) => ({
+    type: 'stack',
+    direction: 'column',
+    alignItems: 'start',
+    flex: 1,
+    borderRadius: cfg.r,
+    ...(grad ? { backgroundGradient: grad } : {}),
+    children: [child]
+  });
+  const rim = {
+    type: 'stack',
+    direction: 'column',
+    alignItems: 'start',
+    flex: 1,
+    gap,
+    borderRadius: cfg.r,
+    borderWidth: 1,
+    borderColor: G.rim,
+    padding,
+    children
   };
+  return layer({
+    type: 'linear',
+    colors: [G.panelTint, G.panelTint2],
+    stops: [0, 1],
+    startPoint: { x: 0.1, y: 0 },
+    endPoint: { x: 0.9, y: 1 }
+  }, layer({
+    type: 'linear',
+    colors: [G.sheen, 'rgba(255, 255, 255, 0)'],
+    stops: [0, 0.65],
+    startPoint: { x: 0, y: 0 },
+    endPoint: { x: 1, y: 1 }
+  }, layer({
+    type: 'radial',
+    colors: [G.bloom, 'rgba(255, 255, 255, 0)'],
+    stops: [0, 1],
+    center: { x: 0.5, y: 0 },
+    startRadius: 0,
+    endRadius: cfg.bloom
+  }, rim)));
+}
+// 组件根：液态→四层面板（padding/gap 与旧版一致，零增高）；
+// classic→纯色底；glass→透明底（均保持旧版行为）
+function root(S, children, padding, gap, size) {
+  if (LIQUID) {
+    return {
+      type: 'widget', padding: 0, refreshAfter: refreshAfter(S), url: BASE,
+      children: [glassPanel(children, padding, gap, size)]
+    };
+  }
+  return {
+    type: 'widget', padding, gap, backgroundGradient: bg(S.style), refreshAfter: refreshAfter(S), url: BASE,
+    children
+  };
+}
+function errorWidget(S, family) {
+  const content = [
+    header(S),
+    { type: 'spacer' },
+    icon('exclamationmark.triangle.fill', C.gold, 20, LIQUID ? TXT_SHADOW : {}),
+    T('油价加载失败', 14, PAL.text, 'semibold'),
+    T(S.error || '', 10, PAL.dim, 'regular', { maxLines: 3 }),
+    { type: 'spacer' }
+  ];
+  if (LIQUID) return root(S, content, 14, 6, sizeOf(family));
+  return { type: 'widget', padding: 14, gap: 6, backgroundGradient: bg(S.style), children: content };
 }
 function buildSmall(S) {
-  const o = { label: 10, price: 15, delta: 9, pad: [5, 3], gap: 1 };
-  return {
-    type: 'widget', padding: 11, gap: 6, backgroundGradient: bg(S.style), refreshAfter: refreshAfter(S), url: BASE,
-    children: [
-      row([icon('fuelpump.fill', C.gold, 11), T(S.title, 12, C.text, 'semibold', { minScale: 1 }), { type: 'spacer' }, T(S.state ? fmtTs(S.state.updatedAt).slice(6) : '', 9, C.dim, 'regular', { minScale: 1 })]),
-      { type: 'stack', direction: 'column', gap: 5, flex: 1, children: [
-        row(FUELS.slice(0, 2).map(f => priceCard(S, f, o)), { gap: 5, flex: 1 }),
-        row(FUELS.slice(2).map(f => priceCard(S, f, o)), { gap: 5, flex: 1 }),
-      ] },
-      row([icon('clock.fill', S.win && S.win.urgent ? C.up : C.gold, 9), T(S.win ? `${S.win.shortDate} 调价 · ${S.win.countdown}后` : '下轮调价 待公布', 9, S.win && S.win.urgent ? C.up : C.dim, 'semibold', { minScale: 0.8 })], { gap: 3 }),
-    ],
-  };
+  const o = { label: 10, price: 15, delta: 9, pad: [5, 3], gap: 1, radius: 10 };
+  const children = [
+    row([icon('fuelpump.fill', C.gold, 11, LIQUID ? TXT_SHADOW : {}), T(S.title, 12, PAL.text, 'semibold', { minScale: 1 }), { type: 'spacer' }, T(S.state ? fmtTs(S.state.updatedAt).slice(6) : '', 9, PAL.dim, 'regular', { minScale: 1 })]),
+    { type: 'stack', direction: 'column', gap: 5, flex: 1, children: [
+      row(FUELS.slice(0, 2).map(f => priceCard(S, f, o)), { gap: 5, flex: 1 }),
+      row(FUELS.slice(2).map(f => priceCard(S, f, o)), { gap: 5, flex: 1 }),
+    ] },
+    row([icon('clock.fill', S.win && S.win.urgent ? C.up : C.gold, 9), T(S.win ? `${S.win.shortDate} 调价 · ${S.win.countdown}后` : '下轮调价 待公布', 9, S.win && S.win.urgent ? C.up : PAL.dim, 'semibold', { minScale: 0.8 })], { gap: 3 }),
+  ];
+  return root(S, children, 11, 6, 'small');
 }
 function buildMedium(S) {
-  const o = { label: 10, price: 19, delta: 10, pad: [7, 4], gap: 2, height: 66 };
-  return {
-    type: 'widget', padding: [10, 11], gap: 6, backgroundGradient: bg(S.style), refreshAfter: refreshAfter(S), url: BASE,
-    children: [
-      header(S),
-      row(FUELS.map(f => priceCard(S, f, o)), { gap: 6 }),
-      glass([
-        row([countdownRow(S, 40, true), { type: 'spacer' }, trendRow(S, true)]),
-        tankRow(S, true),
-      ], { gap: 4, padding: [6, 9], borderRadius: 12 }),
-    ],
-  };
+  const o = { label: 10, price: 19, delta: 10, pad: [7, 4], gap: 2, height: 66, radius: 12 };
+  const children = [
+    header(S),
+    row(FUELS.map(f => priceCard(S, f, o)), { gap: 6 }),
+    glass([
+      row([countdownRow(S, 40, true), { type: 'spacer' }, trendRow(S, true)]),
+      tankRow(S, true),
+    ], { gap: 4, padding: [6, 9], borderRadius: 12 }),
+  ];
+  return root(S, children, [10, 11], 6, 'medium');
 }
 function buildLarge(S) {
-  const o = { label: 11, price: 21, delta: 10, spark: true, sparkW: 80, sparkH: 16, pad: [5, 6], gap: 2, height: 88 };
+  const o = { label: 11, price: 21, delta: 10, spark: true, sparkW: 80, sparkH: 16, pad: [5, 6], gap: 2, height: 88, radius: 14 };
   const tk = FUELS.map(fu => {
     const f = S.state.fuels[fu.key];
-    return { type: 'stack', direction: 'column', alignItems: 'center', gap: 1, flex: 1, children: [T(fu.label, 9, fu.hex, 'semibold', { minScale: 1 }), T(f && Number.isFinite(f.price) ? `¥${(f.price * S.tank).toFixed(0)}` : '--', 12, C.text, 'bold', { minScale: 0.8 })] };
+    return { type: 'stack', direction: 'column', alignItems: 'center', gap: 1, flex: 1, children: [T(fu.label, 9, fu.hex, 'semibold', { minScale: 1 }), T(f && Number.isFinite(f.price) ? `¥${(f.price * S.tank).toFixed(0)}` : '--', 12, PAL.text, 'bold', { minScale: 0.8 })] };
   });
   const t = tankInfo(S), pr = S.state.pred;
   const parts = [];
-  if (t) parts.push(T(t.diff ? `本轮${t.diff > 0 ? '多花' : '省'} ¥${Math.abs(t.diff).toFixed(1)}` : '本轮持平', 10, t.diff > 0 ? C.up : t.diff < 0 ? C.down : C.dim, 'medium', { minScale: 1 }));
+  if (t) parts.push(T(t.diff ? `本轮${t.diff > 0 ? '多花' : '省'} ¥${Math.abs(t.diff).toFixed(1)}` : '本轮持平', 10, t.diff > 0 ? C.up : t.diff < 0 ? C.down : PAL.dim, 'medium', { minScale: 1 }));
   if (pr && !pr.flat) {
     const lo = (pr.minV * S.tank).toFixed(1), hi = (pr.maxV * S.tank).toFixed(1);
-    parts.push(T('·', 10, C.dim), T(`下轮预计${pr.up ? '多花' : '省'} ¥${lo === hi ? lo : lo + '-' + hi}`, 10, pr.up ? C.up : C.down, 'medium', { minScale: 1 }));
+    parts.push(T('·', 10, PAL.dim), T(`下轮预计${pr.up ? '多花' : '省'} ¥${lo === hi ? lo : lo + '-' + hi}`, 10, pr.up ? C.up : C.down, 'medium', { minScale: 1 }));
   }
-  return {
-    type: 'widget', padding: 14, gap: 8, backgroundGradient: bg(S.style), refreshAfter: refreshAfter(S), url: BASE,
-    children: [
-      header(S, 14),
-      row(FUELS.slice(0, 2).map(f => priceCard(S, f, o)), { gap: 8 }),
-      row(FUELS.slice(2).map(f => priceCard(S, f, o)), { gap: 8 }),
-      glass([
-        row([countdownRow(S, 90), { type: 'spacer' }]),
-        row([trendRow(S), { type: 'spacer' }, icon('drop.fill', S.my.hex, 9), T(`加满 ${S.tank}L`, 10, C.dim, 'medium', { minScale: 1 })]),
-        row(tk, { gap: 4 }),
-        row([icon('drop.fill', S.my.hex, 9), T(`${S.my.label}`, 10, C.text, 'medium', { minScale: 1 }), ...parts, { type: 'spacer' }], { gap: 3 }),
-      ], { gap: 5, padding: [8, 12], borderRadius: 14 }),
-      { type: 'spacer' },
-    ],
-  };
+  const children = [
+    header(S, 14),
+    ...(LIQUID ? [specular] : []),
+    row(FUELS.slice(0, 2).map(f => priceCard(S, f, o)), { gap: 8 }),
+    row(FUELS.slice(2).map(f => priceCard(S, f, o)), { gap: 8 }),
+    glass([
+      row([countdownRow(S, 90), { type: 'spacer' }]),
+      row([trendRow(S), { type: 'spacer' }, icon('drop.fill', S.my.hex, 9), T(`加满 ${S.tank}L`, 10, PAL.dim, 'medium', { minScale: 1 })]),
+      row(tk, { gap: 4 }),
+      row([icon('drop.fill', S.my.hex, 9), T(`${S.my.label}`, 10, PAL.text, 'medium', { minScale: 1 }), ...parts, { type: 'spacer' }], { gap: 3 }),
+    ], { gap: 5, padding: [8, 12], borderRadius: 14 }),
+    { type: 'spacer' },
+  ];
+  return root(S, children, 14, 8, 'large');
 }
 function buildLock(S, family) {
   const f = S.state.fuels[S.my.key];
@@ -510,27 +681,27 @@ function buildLock(S, family) {
   const d = fmtDelta(f && f.offset);
   const when = S.win ? `${S.win.countdown}后调价` : '调价待公布';
   if (family === 'accessoryInline') {
-    return { type: 'widget', children: [T(`⛽ ${S.my.label} ${price} ${d.text} · ${when}`, 12, C.text, 'medium')] };
+    return { type: 'widget', children: [T(`⛽ ${S.my.label} ${price} ${d.text} · ${when}`, 12, PAL.text, 'medium', { noShadow: true })] };
   }
   if (family === 'accessoryCircular') {
     return {
       type: 'widget', padding: 4, gap: 0, children: [
-        { type: 'spacer' }, icon('fuelpump.fill', C.text, 12), T(price, 13, C.text, 'bold', { minScale: 0.6 }), T(S.my.label, 8, C.dim, 'medium'), { type: 'spacer' },
+        { type: 'spacer' }, icon('fuelpump.fill', PAL.text, 12), T(price, 13, PAL.text, 'bold', { minScale: 0.6, noShadow: true }), T(S.my.label, 8, PAL.dim, 'medium', { noShadow: true }), { type: 'spacer' },
       ],
     };
   }
   return {
     type: 'widget', gap: 2, children: [
-      row([icon('fuelpump.fill', C.text, 11), T(S.title, 11, C.text, 'semibold')]),
-      T(FUELS.map(fu => { const x = S.state.fuels[fu.key]; return `${fu.label.replace('号', '')} ${x && Number.isFinite(x.price) ? x.price.toFixed(2) : '--'}`; }).slice(0, 3).join('  '), 11, C.text, 'medium'),
-      T(S.win ? `${S.win.dateStr} 调价 · ${S.win.countdown}后` : '下轮调价 待公布', 10, C.dim, 'medium'),
+      row([icon('fuelpump.fill', PAL.text, 11), T(S.title, 11, PAL.text, 'semibold', { noShadow: true })]),
+      T(FUELS.map(fu => { const x = S.state.fuels[fu.key]; return `${fu.label.replace('号', '')} ${x && Number.isFinite(x.price) ? x.price.toFixed(2) : '--'}`; }).slice(0, 3).join('  '), 11, PAL.text, 'medium', { noShadow: true }),
+      T(S.win ? `${S.win.dateStr} 调价 · ${S.win.countdown}后` : '下轮调价 待公布', 10, PAL.dim, 'medium', { noShadow: true }),
     ],
   };
 }
 export default async function (ctx) {
   const S = await getState(ctx);
   const family = ctx.widgetFamily || 'systemMedium';
-  if (!S.state) return errorWidget(S);
+  if (!S.state) return errorWidget(S, family);
   if (family.startsWith('accessory')) return buildLock(S, family);
   if (family === 'systemSmall') return buildSmall(S);
   if (family === 'systemLarge' || family === 'systemExtraLarge') return buildLarge(S);

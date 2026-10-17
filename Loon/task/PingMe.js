@@ -45,7 +45,7 @@ const SECRET = '0fOiukQq7jXZV2GRi9LGlO';
 const MAX_VIDEO = 5;
 const VIDEO_DELAY = 8000;
 const ACCOUNT_GAP = 3500;
-const MAX_RATE_RETRY = 2;      // 单个视频被服务端限流后的最大重试次数
+const MAX_RATE_RETRY = 1;      // 单个视频被服务端限流后的最大重试次数
 const VIDEO_BACKOFF = 30000;   // 被限流后的退避等待（毫秒），遵循服务端"请稍后再试"的提示
 
 const IOS_VERSIONS = ['17.5.1','17.6.1','17.4.1','17.2.1','16.7.8','17.6','17.3.1','18.0.1','17.1.2','16.6.1'];

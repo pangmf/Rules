@@ -23,7 +23,7 @@ env_schema:
   STYLE:
     name: 显示风格
     description: |
-      - liquid:  透明液态玻璃）/ glass（旧版极简玻璃）/ classic（经典纯色
+      - liquid:  透明液态玻璃
       - glass:   旧版极简玻璃
       - classic: 经典纯色背景
     default_value: 'liquid'

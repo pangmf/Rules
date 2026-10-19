@@ -3,5 +3,5 @@ hostname = *.yangkeduo.com, *.pinduoduo.com
 skip-server-cert-verify = true
 
 [Script]
-http-request ^https?://[^/]*(yangkeduo|pinduoduo)\.com/ script-path=...pdd-capture.js, requires-body=true, tag=拼多多抓取, enabled=true
-#cron "30 8 * * *" script-path=...pdd-signin.js, tag=拼多多签到, enabled=true
+http-request ^https?://[^/]*(yangkeduo|pinduoduo)\.com/ script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/pdd-capture.js, requires-body=true, tag=拼多多抓取, enabled=true
+#cron "30 8 * * *" script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/pdd-signin.js, tag=拼多多签到, enabled=true

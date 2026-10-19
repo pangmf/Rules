@@ -1,0 +1,7 @@
+[MITM]
+hostname = *.yangkeduo.com, *.pinduoduo.com
+skip-server-cert-verify = true
+
+[Script]
+http-request ^https?://[^/]*(yangkeduo|pinduoduo)\.com/ script-path=...pdd-capture.js, requires-body=true, tag=拼多多抓取, enabled=true
+#cron "30 8 * * *" script-path=...pdd-signin.js, tag=拼多多签到, enabled=true

@@ -478,7 +478,7 @@ rules:
       update_interval: 2592000
   - rule_set:
       match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/TikTok/TikTok.list
-      policy: Tiktok
+      policy: TikTok
       update_interval: 2592000
   - rule_set:
       match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Netflix/Netflix.list

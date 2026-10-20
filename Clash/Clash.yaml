@@ -388,7 +388,7 @@ proxy-groups:
 
   - name: "韩国节点"
     type: url-test
-     use: [手动选择]
+    use: [手动选择]
     filter: '(?i)(🇰🇷|KR|ICN|SEL|Korea|Seoul|韩国|韓國)'
     url: http://www.gstatic.com/generate_204
     interval: 3600

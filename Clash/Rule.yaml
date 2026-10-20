@@ -9,24 +9,15 @@
 #    Android  Clash Meta for Android / FlClash
 #    Windows  Clash Verge / Clash Verge Rev / Mihomo Party
 #
-#  【使用前必读】
-#  1. 本配置的节点全部来自原文件里的 4 个 external 订阅，
-#     已转为 proxy-providers。若某个订阅在日志里报解析失败，
-#     说明该链接返回的不是 Clash 格式（Egern 支持多格式自动识别，
-#     Clash 只认 Clash 格式），需要用订阅转换后再填。
-#  2. 原配置的 scriptings（签到脚本）、mitm、modules（Lpx 模块）
-#     属于 Surge/Egern 专有能力，Clash 无法承载，已移除。
-#  3. Egern 的 smart 策略组在 Clash 中对应 url-test（延迟自动择优），
-#     语义最接近，但不是完全等价。
 ####################################################################
 
 # ==================== 基础设置 ====================
-mixed-port: 7890              # 原 http_port 3080 / socks_port 3090，此处统一为通用混合端口
-allow-lan: false              # 原 allow_external_connections: false
+mixed-port: 7890             
+allow-lan: false              
 bind-address: "*"
 mode: rule
 log-level: info
-ipv6: false                   # 原 ipv6: false
+ipv6: true                  
 external-controller: 127.0.0.1:9090
 secret: ""
 unified-delay: true
@@ -431,6 +422,12 @@ proxy-groups:
 # 原配置引用的是 blackmatrix7 的 Loon 版 .list，此处替换为同源 Clash 版 .yaml，
 # 规则内容一致，只是格式适配 Clash。
 rule-providers:
+  lan:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml"
+    path: ./ruleset/lan.yaml
+    interval: 2592000
   ads:
     type: http
     behavior: classical
@@ -455,30 +452,11 @@ rule-providers:
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WeChat/WeChat.yaml"
     path: ./ruleset/wechat.yaml
     interval: 2592000
-  # 原 AI.list（pangmf/Loon 版）无 Clash 版本，改用 blackmatrix7 的四个 AI 规则集等效替代
-  ai_openai:
+  ai:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"
-    path: ./ruleset/ai_openai.yaml
-    interval: 2592000
-  ai_claude:
-    type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Claude/Claude.yaml"
-    path: ./ruleset/ai_claude.yaml
-    interval: 2592000
-  ai_gemini:
-    type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml"
-    path: ./ruleset/ai_gemini.yaml
-    interval: 2592000
-  ai_copilot:
-    type: http
-    behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.yaml"
-    path: ./ruleset/ai_copilot.yaml
+    url: "https://ddgksf2013.top/filter/Ai.yaml"
+    path: ./ruleset/ai.yaml
     interval: 2592000
   # 原文引自 ddgksf2013/Filter，为纯 Loon 文本列表，用 text 格式加载
   apple_intelligence:
@@ -555,12 +533,6 @@ rule-providers:
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMax/ChinaMax_Classical.yaml"
     path: ./ruleset/china_max.yaml
     interval: 2592000
-  lan:
-    type: http
-    behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml"
-    path: ./ruleset/lan.yaml
-    interval: 2592000
 
 # ==================== 分流规则 ====================
 # 顺序忠实还原原配置：广告 → Apple → 微信 → AI → 苹果智能 → 媒体 → 支付 → 全球 → 国内
@@ -585,13 +557,7 @@ rules:
   - RULE-SET,apple,Apple,no-resolve
   - RULE-SET,apple_domain,Apple,no-resolve
   - RULE-SET,wechat,DIRECT,no-resolve
-
-  # AI（原一条 AI.list，拆为四条规则集，目标组一致）
-  - RULE-SET,ai_openai,AI,no-resolve
-  - RULE-SET,ai_claude,AI,no-resolve
-  - RULE-SET,ai_gemini,AI,no-resolve
-  - RULE-SET,ai_copilot,AI,no-resolve
-
+  - RULE-SET,ai,AI,no-resolve
   - RULE-SET,apple_intelligence,AppleAI,no-resolve
   - RULE-SET,tiktok,TikTok,no-resolve
   - RULE-SET,netflix,Netflix,no-resolve
@@ -608,41 +574,9 @@ rules:
 
   # 国内
   - RULE-SET,china_max,DIRECT,no-resolve
-  # 原 ChinaASN.list（ASN 规则集）在 Clash 规则库中无对应文件，
-  # 由下面的 GEOIP,CN 覆盖同等作用
   - GEOIP,CN,DIRECT
 
   # 默认策略，原 default: Final
   - MATCH,Final
 
-####################################################################
-#  转换对照表
-#
-#  Egern                          Clash
-#  -----------------------------  -----------------------------------
-#  http_port / socks_port         mixed-port 7890
-#  allow_external_connections     allow-lan
-#  ipv6                           ipv6
-#  dns.bootstrap/upstreams        dns.nameserver / fallback / proxy-server-nameserver
-#  dns.forward(按规则集分 DNS)    fallback-filter.domain（近似，无法按规则集）
-#  proxies（空）                  proxy-providers（4 条订阅）
-#  select 策略组                  type: select
-#  auto_test 策略组               type: url-test
-#  smart 策略组                   type: url-test（最接近，非等价）
-#  fallback 策略组                type: fallback
-#  load_balance 策略组            type: load-balance
-#  external 策略组                proxy-providers + use
-#  policies + flatten             use: [provider] + filter
-#  rule_set(.list)                rule-providers（改用 Clash 版 .yaml）
-#  geoip: CN                      GEOIP,CN
-#  default                        MATCH
-#
-#  【无法转换、已丢弃的部分】
-#  scriptings   —— 定时签到脚本，Clash 无脚本引擎（可用外部定时任务代替）
-#  mitm         —— HTTPS 解密，Clash 不支持（Surge/Egern 专有）
-#  modules      —— Lpx 插件（去广告、小组件等），Clash 不支持
-#  vif_only / compat_route / vif_excluded_routes / vif_hairpin_addresses
-#               —— 虚拟网卡细节参数，由各客户端自行管理
-#  bypass_tunnel_proxy / include_all_networks 等 —— 同上
-#  auto_update  —— 客户端自带配置更新机制
 ####################################################################

@@ -453,6 +453,10 @@ policy_groups:
 rules:
   # 规则集
   - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Lan/Lan.list
+      policy: DIRECT
+      update_interval: 2592000
+  - rule_set:
       match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Advertising/Advertising.list
       policy: ADs
       update_interval: 2592000
@@ -528,10 +532,6 @@ rules:
       match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/ChinaASN/ChinaASN.list
       policy: DIRECT
       update_interval: 2592000
-  - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Lan/Lan.list
-      policy: DIRECT
-      update_interval: 2592000
   # 地理位置规则
   - geoip:
       # 匹配的地理位置
@@ -559,6 +559,20 @@ scriptings:
       # 超时时间
       timeout: 30
       # 脚本禁用
+      disabled: true
+  - schedule:
+      name: WeTalk签到
+      cron: 20 8,20 * * *
+      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/WeTalk.js
+      update_interval: 0
+      timeout: 120
+      disabled: true
+  - schedule:
+      name: PingMe签到
+      cron: 30 8,20 * * *
+      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe.js
+      update_interval: 0
+      timeout: 120
       disabled: true
   - schedule:
       name: WPS每日签到
@@ -609,20 +623,7 @@ scriptings:
       update_interval: 0
       timeout: 30
       disabled: true
-  - schedule:
-      name: WeTalk签到
-      cron: 20 8,20 * * *
-      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/WeTalk.js
-      update_interval: 0
-      timeout: 120
-      disabled: true
-  - schedule:
-      name: PingMe签到
-      cron: 30 8,20 * * *
-      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe.js
-      update_interval: 0
-      timeout: 120
-      disabled: true
+
 
 # MITM 配置
 mitm:
@@ -654,6 +655,12 @@ modules:
     update_interval: 0
     enabled: false
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Cookie.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-cookie/paperclip-cookie.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-checkin/paperclip-checkin.lpx
     update_interval: 0
     enabled: true
   - url: https://reven.jsforbaby.workers.dev/reven/iTunes.lpx
@@ -726,6 +733,9 @@ modules:
       HideMyLifeServices: 'true'
     update_interval: 0
     enabled: true
+  - url: https://loon.103516.xyz/Plugin/Amap.lpx
+    update_interval: 0
+    enabled: true
   - url: https://loon.103516.xyz/Plugin/YouTube_CN.lpx
     update_interval: 0
     enabled: true
@@ -775,9 +785,6 @@ modules:
     update_interval: 0
     enabled: true
   - url: https://kelee.one/Tool/Loon/Lpx/FleaMarket_remove_ads.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/Amap_remove_ads.lpx
     update_interval: 0
     enabled: true
   - url: https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/release/loon/plugin/bilibili.lpx

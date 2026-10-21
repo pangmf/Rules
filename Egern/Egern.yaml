@@ -666,17 +666,13 @@ modules:
   - url: https://reven.jsforbaby.workers.dev/reven/iTunes.lpx
     update_interval: 0
     enabled: true
-  - url: https://raw.githubusercontent.com/app2smile/rules/master/plugin/spotify.plugin
+  - url: https://loon.103516.xyz/Plugin/Spotify_CN.lpx
     update_interval: 0
     enabled: true
-    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Spotify.png
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/dbss.lpx
     update_interval: 0
     enabled: true
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CamScanner.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/mgtv.lpx
     update_interval: 0
     enabled: true
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CADReader.lpx
@@ -790,7 +786,7 @@ modules:
   - url: https://raw.githubusercontent.com/kokoryh/Sparkle/refs/heads/master/release/loon/plugin/bilibili.lpx
     update_interval: 0
     enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/MangoTV_remove_ads.lpx
+  - url: https://loon.103516.xyz/Plugin/MangoTV.lpx
     update_interval: 0
     enabled: true
   - url: https://loon.103516.xyz/Plugin/LoonGallery.lpx

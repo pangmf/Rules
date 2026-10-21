@@ -42,7 +42,7 @@ $done({}) / $done()、$request           →  与原版一致，未改动
 const scriptName = 'PingMe';
 const storeKey = 'pingme_accounts_v1';
 const SECRET = '0fOiukQq7jXZV2GRi9LGlO';
-const MAX_VIDEO = 5;
+const MAX_VIDEO = 3;
 const VIDEO_DELAY = 8000;
 const ACCOUNT_GAP = 3500;
 const MAX_RATE_RETRY = 1;      // 单个视频被服务端限流后的最大重试次数

@@ -675,9 +675,6 @@ modules:
   - url: https://loon.103516.xyz/Plugin/Spotify_CN.lpx
     update_interval: 0
     enabled: true
-  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/dbss.lpx
-    update_interval: 0
-    enabled: true
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CamScanner.lpx
     update_interval: 0
     enabled: true

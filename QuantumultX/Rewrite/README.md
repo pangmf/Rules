@@ -15,7 +15,7 @@
 | `wps.lpx` | `wps.conf` | 1 | 抓 Cookie + 注释掉的定时签到 |
 | `PingMe&WeTalk.lpx` | `PingMe&WeTalk.conf` | 2 | 两个 App 抓包 + 注释掉的 cron |
 | `Google-Redirect.lpx` | `Google-Redirect.conf` | 18 | 各区域域名 302 到 google.com |
-| `Cookie.lpx` | `Cookie.conf` | 0（9 条注释） | 合集，上游默认全关，见下方说明 |
+| `Cookie.lpx` | `Cookie.conf` | 9  | 合集 |
 | — | `All-In-One.conf` | 26 | 上面 8 个文件的合并版，含 45 个 MITM 域名 |
 
 ## 语法映射
@@ -50,13 +50,6 @@
 
 > 定时任务（cron）无法放进远程重写资源，必须写进主配置的 `[task_local]` 段。相关行已在各文件中以注释形式给出，取消注释并移到主配置即可。
 
-## 需要你留意的三处差异
-
-1. **`Cookie.conf` 默认全关**。上游用 `[Argument]` 定义了 9 个开关且全是 `false`，QX 没有开关机制，所以 9 条规则全部以 `#` 注释保留。按需取消注释即可，**不建议全开**——那会对 9 个 App 同时解密流量。
-
-2. **上游 WeTalk 规则有 bug**。`Cookie.lpx` 里 WeTalk 那条的 `script-path` 填成了图标 png 地址（`...AppIcon-WeTalk...png`），明显是复制粘贴错误。转换时已按 `PingMe&WeTalk.lpx` 修正为 `Loon/task/WeTalk.js`。
-
-3. **QX 无 `timeout` / `img-url` / `tag`**。Loon 的 `timeout=60`、`img-url=...`、`tag=...` 在 QX 重写行里没有等价字段，已丢弃（不影响功能，只影响 Loon 里的图标和超时显示）。
 
 ## 验证结果
 

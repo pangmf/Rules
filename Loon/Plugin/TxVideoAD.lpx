@@ -2,7 +2,7 @@
 #!desc = 去除开屏广告、播放前贴/中插广告、底部多余 Tab、我的页顶部广告。脚本已做 Loon 二进制 body 适配。
 #!author = TG@ZenMoFiShi
 #!homepage = https://github.com/ZenmoFeiShi/Qx
-#!icon = https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/WeTV.png
+#!icon = https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/TencentVideo.png
 #!date = 2026-10-27
 #!tag = 广告拦截,腾讯视频
 #!type = normal
@@ -13,12 +13,6 @@ HOST, iacc.stgw.qq.com, REJECT
 HOST, tacc.video.qq.com, REJECT
 
 [Script]
-# ============================================================
-# ⚠️ 重要：TXvideoAD.loon.js 是经过 Loon 适配的脚本，不能直接用原作者的 QX 版本
-#    （原版依赖 bodyBytes，在 Loon 中不生效且不报错）。
-#    请把下面 5 处 script-path 中的 __SCRIPT_BASE__ 替换成你自己的脚本托管目录，例如：
-#    https://raw.githubusercontent.com/你的用户名/你的仓库/main
-# ============================================================
 
 # 播放器 trpc 请求（前贴/中插广告清单）
 http-request ^https?://i\.video\.qq\.com/(?:\?.*)?$ script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/TxVideoAD.js,requires-body=true,binary-body-mode=true,timeout=60,tag=腾讯视频-播放请求

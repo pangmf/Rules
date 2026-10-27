@@ -21,19 +21,19 @@ HOST, tacc.video.qq.com, REJECT
 # ============================================================
 
 # 播放器 trpc 请求（前贴/中插广告清单）
-http-request ^https?://i\.video\.qq\.com/(?:\?.*)?$ script-path=__SCRIPT_BASE__/TxvideoAD.loon.js,requires-body=true,binary-body-mode=true,timeout=60,tag=腾讯视频-播放请求
+http-request ^https?://i\.video\.qq\.com/(?:\?.*)?$ script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/TxVideoAD.js,requires-body=true,binary-body-mode=true,timeout=60,tag=腾讯视频-播放请求
 
 # 播放器 trpc 响应
-http-response ^https?://i\.video\.qq\.com/(?:\?.*)?$ script-path=__SCRIPT_BASE__/TxvideoAD.loon.js,requires-body=true,binary-body-mode=true,timeout=60,tag=腾讯视频-播放响应
+http-response ^https?://i\.video\.qq\.com/(?:\?.*)?$ script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/TxVideoAD.js,requires-body=true,binary-body-mode=true,timeout=60,tag=腾讯视频-播放响应
 
 # 开屏广告
-http-response ^https?://iacc\.qq\.com/(?:\?.*)?$ script-path=__SCRIPT_BASE__/TxvideoAD.loon.js,requires-body=true,binary-body-mode=true,timeout=60,tag=腾讯视频-开屏广告
+http-response ^https?://iacc\.qq\.com/(?:\?.*)?$ script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/TxVideoAD.js,requires-body=true,binary-body-mode=true,timeout=60,tag=腾讯视频-开屏广告
 
 # 底部 Tab 远程配置
-http-response ^https?://config\.ab\.qq\.com/tab/GetTabRemoteConfig(?:\?.*)?$ script-path=__SCRIPT_BASE__/TxvideoAD.loon.js,requires-body=true,binary-body-mode=true,timeout=60,tag=腾讯视频-Tab配置
+http-response ^https?://config\.ab\.qq\.com/tab/GetTabRemoteConfig(?:\?.*)?$ script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/TxVideoAD.js,requires-body=true,binary-body-mode=true,timeout=60,tag=腾讯视频-Tab配置
 
 # 灰度开关（JSON 文本，无需二进制模式）
-http-response ^https://rdelivery\.qq\.com/v1/sdkconfig/get(?:\?.*)?$ script-path=__SCRIPT_BASE__/TxvideoAD.loon.js,requires-body=true,binary-body-mode=false,timeout=60,tag=腾讯视频-灰度开关
+http-response ^https://rdelivery\.qq\.com/v1/sdkconfig/get(?:\?.*)?$ script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/TxVideoAD.js,requires-body=true,binary-body-mode=false,timeout=60,tag=腾讯视频-灰度开关
 
 [Mitm]
 hostname = i.video.qq.com, iacc.qq.com, config.ab.qq.com, rdelivery.qq.com

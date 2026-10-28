@@ -1,0 +1,42 @@
+#!name=签到合集 · 极氪 / PingMe / WeTalk
+#!desc=三个签到脚本合成一个插件：极氪、PingMe、WeTalk 各一个开关。打开「统一通知」后各脚本不再单独弹通知，每天 09:40 只发一条汇总（成功数 / 需重抓 / 失败 + 各自余额与奖励）。Cookie / Token 用插件自带的抓取规则：开着 MITM 打开一次对应 App 点一下即可。
+#!author=整合版（脚本原作者：m20104600、pangmf、怎么肥事、ZenMoFeiShi & yaowuliu）
+#!loon_version = 3.5.1(983)
+#!tag=签到
+#
+# ══════════════════════════════════════════════════════════════════════
+# 用法
+#   1. Loon → 配置 → 插件 → + → 粘贴生成出来的「签到合集.lpx」的链接。
+#   2. 首次使用：开 MITM → 打开极氪 / PingMe / WeTalk 各点一下（自动抓 Cookie）。
+#   3. 到点自动跑；想立刻看汇总，Loon → 脚本 → 「签到汇总·手动运行」。
+#
+# 注意
+#   * 如果主配置里已经有这三个 App 的抓包/签到规则，装本插件后请把旧规则删掉，
+#     否则同一条签到会跑两遍、抓包会弹两条通知。
+#   * 极氪默认「快跑」模式（约 10~25 秒，只领一轮）。想一次领干净，把 09:00
+#     那条的参数改成 "MODE=all&POLL=1" 并把 timeout 提到 600。
+#   * PingMe / WeTalk 每个视频间隔 8 秒、账号间隔 3.5 秒，超时必须留 600。
+# ══════════════════════════════════════════════════════════════════════
+
+[Argument]
+merge = switch,true,tag=【统一通知】每天 21:00 汇总,desc=打开后三个脚本不再单独弹通知，09:40 发一条汇总；关闭则各自通知
+#mergepm = switch,false,tag=【统一通知】每晚 21:00 再汇总一次,desc=可选。晚间场（20:20 / 20:30）跑完后再发一条，仅在「统一通知」打开时有意义
+zeekr = switch,true,tag=【极氪】签到 + 领取
+pingme = switch,true,tag=【PingMe】签到 + 视频奖励
+wetalk = switch,true,tag=【WeTalk】签到 + 视频奖励
+
+[Script]
+# ① 签到汇总（三个脚本都跑完之后）
+cron "0 21 * * *" then script("https://raw.githubusercontent.com/USER/REPO/main/loon-checkin/summary.js", {${zeekr}, ${pingme}, ${wetalk}}) with tag="签到汇总", timeout=60, enable=${merge}
+#cron "0 21 * * *" then script("https://raw.githubusercontent.com/USER/REPO/main/loon-checkin/summary.js", {${zeekr}, ${pingme}, ${wetalk}}) with tag="签到汇总·晚间", timeout=60, enable=${mergepm}
+# 手动自检：Loon → 脚本 → 选中这一条手动运行，随时发一条汇总
+generic then script("https://raw.githubusercontent.com/USER/REPO/main/loon-checkin/summary.js", {${zeekr}, ${pingme}, ${wetalk}}) with tag="签到汇总·手动运行", timeout=60
+
+# ② 三个签到任务
+cron "40 20 * * *" then script("https://raw.githubusercontent.com/m20104600/zeekr-checkin/main/dist/zeekr.js", {${merge}}) with tag="极氪签到", img_url="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/43/a2/ab/43a2ab42-0f91-3ecc-dee7-90d54bf26b1f/ZeekrAppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.png", timeout=300, enable=${zeekr}
+cron "30 8,20 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe.js", {${merge}}) with tag="PingMe签到", img_url="https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png", timeout=600, enable=${pingme}
+cron "20 8,20 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/WeTalk.js", {${merge}}) with tag="WeTalk签到", img_url="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/45/e6/49/45e64994-7147-60c8-6e7a-9c35f15afd20/AppIcon-WeTalk-1x_U007emarketing-0-5-0-sRGB-85-220-0.png/512x512bb.png", timeout=600, enable=${wetalk}
+
+
+[Mitm]
+hostname = api-gw-toc.zeekrlife.com, api.pingmeapp.net, api.wetalkapp.com

@@ -1,7 +1,8 @@
-#!name=Google 跳转修正版
-#!desc=修正原插件的两个致命点：1) 阻断 QUIC，避免 Google 走 HTTP/3 导致重写规则完全不触发；2) 只保留 google.cn，避免与 Google 自身的区域跳转互踢形成循环
-#!author=local-fix
-#!homepage=https://github.com/pangmf/Rules
+#!name=Google 重定向
+#!desc=将Google各地区域名自动重定向至Google主站，并保留完整搜索参数
+#!author=pangmf
+#!homepage=https://github.com/pangmf/rules
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Google.png
 
 [Rule]
 # Google 全站优先 HTTP/3(QUIC/UDP 443)，而 MITM 只能解 TCP 443，所以必须把 QUIC 掐掉强制回退 TCP。

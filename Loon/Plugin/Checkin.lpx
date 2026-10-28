@@ -1,6 +1,7 @@
 #!name=签到合集 · 极氪 / PingMe / WeTalk
 #!desc=三个签到脚本合成一个插件：极氪、PingMe、WeTalk 各一个开关。打开「统一通知」后各脚本不再单独弹通知，每天 09:40 只发一条汇总（成功数 / 需重抓 / 失败 + 各自余额与奖励）。Cookie / Token 用插件自带的抓取规则：开着 MITM 打开一次对应 App 点一下即可。
 #!author=整合版（脚本原作者：m20104600、pangmf、怎么肥事、ZenMoFeiShi & yaowuliu）
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Notifyman.png
 #!loon_version = 3.5.1(983)
 #!tag=签到
 #

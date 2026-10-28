@@ -33,7 +33,7 @@ cron "0 21 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/re
 generic then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/summary.js", {${zeekr}, ${pingme}, ${wetalk}}) with tag="签到汇总·手动运行", timeout=60
 
 # ② 三个签到任务
-cron "40 20 * * *" then script("https://raw.githubusercontent.com/m20104600/zeekr-checkin/main/dist/zeekr.js", {${merge}}) with tag="极氪签到", img_url="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/43/a2/ab/43a2ab42-0f91-3ecc-dee7-90d54bf26b1f/ZeekrAppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.png", MODE=all&POLL=1, timeout=600, enable=${zeekr}
+cron "40 20 * * *" then script("https://raw.githubusercontent.com/m20104600/zeekr-checkin/main/dist/zeekr.js", {${merge}}) with tag="极氪签到", img_url="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/43/a2/ab/43a2ab42-0f91-3ecc-dee7-90d54bf26b1f/ZeekrAppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.png", timeout=600, enable=${zeekr}
 cron "30 8,20 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe.js", {${merge}}) with tag="PingMe签到", img_url="https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png", timeout=600, enable=${pingme}
 cron "20 8,20 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/WeTalk.js", {${merge}}) with tag="WeTalk签到", img_url="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/45/e6/49/45e64994-7147-60c8-6e7a-9c35f15afd20/AppIcon-WeTalk-1x_U007emarketing-0-5-0-sRGB-85-220-0.png/512x512bb.png", timeout=600, enable=${wetalk}
 

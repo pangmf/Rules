@@ -22,5 +22,9 @@ http-response ^https?://bootrealtime\.uve\.weibo\.com(?:/v3/ad/realtime)(?=[?#]|
 # ---------- 开屏广告：Lua 接口 ----------
 http-response ^https?://wbapp\.uve\.weibo\.com(?:/wbapplua/wbpullad\.lua)(?=[?#]|$) script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/weibo_json.js,requires-body=true,timeout=60,tag=微博-开屏Lua
 
+# --- 以下两条对应 QX 的 echo 类规则，Loon 暂不原生支持，按需手动启用 ---
+# http-request ^https://api\.weibo\.cn/__qx_weibo_settings__/(?:api/config)?(?=[?#]|$) script-path=https://ddgksf2013.top/scripts/weibo_json.js, requires-body=false, timeout=60, tag=微博净化-设置读取
+# http-request ^https://api\.weibo\.cn/__qx_weibo_settings__/api/(?:save|reset)(?=[?#]|$) script-path=https://ddgksf2013.top/scripts/weibo_json.js, requires-body=false, timeout=60, tag=微博净化-设置写入
+
 [Mitm]
 hostname = api.weibo.cn, bootpreload.uve.weibo.com, bootrealtime.uve.weibo.com, wbapp.uve.weibo.com

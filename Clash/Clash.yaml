@@ -146,7 +146,7 @@ proxy-providers:
 
   夜煞云:
     type: http
-    url: "https://api.wcc.best/sub?target=clash&url=https%3A%2F%2F45.137.180.216%2FL%3FZG93bmxvYWRDb25maWcuanMvOTE1ZjY4OGNkODY3Mjg3M2RkNzBhMmNiNjUyNTI3NDQ%2FdGltZXN0YW1wPTEyMjY5&insert=false&emoji=true&list=false&udp=true&tfo=false&scv=true&fdn=false&sort=false&new_name=true"
+    url: "https://45.137.180.216/L?ZG93bmxvYWRDb25maWcuanMvOTE1ZjY4OGNkODY3Mjg3M2RkNzBhMmNiNjUyNTI3NDQ/dGltZXN0YW1wPTEyMjY5"
     path: ./providers/yesha.yaml
     interval: 2592000
     health-check:

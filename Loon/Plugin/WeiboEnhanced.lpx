@@ -7,20 +7,21 @@
 #!tag = 广告拦截,微博
 #!type = normal
 
+
 [Script]
+# ---------- 微博主接口：信息流 / 搜索 / 个人页 / 评论 / 签到 ----------
 # 若 GitHub raw 访问不畅，可把 script-path 换成 jsDelivr：
 # https://cdn.jsdelivr.net/gh/ddgksf2013/Scripts@master/weibo_json.js
-# ---------- 微博主接口：信息流 / 搜索 / 个人页 / 评论 / 签到 ----------
-^https?://api\.weibo\.cn(?:/2/statuses/container_timeline_hot|/2/guest/container_timeline_hot|/2/statuses/container_timeline_unread|/2/statuses/container_timeline|/2/live/media_homelist|/2/remind/hometab_dot|/2/remind/unread_count|/2/statuses/container_detail|/2/statuses/container_detail_comment|/2/comments/build_comments|/2/search/finder|/2/search/container_timeline|/2/search/container_discover|/2/!/was/finder/searchbarchange|/2/cardlist|/2/searchall|/2/profile/me|/2/profile/container_timeline|/2/video/flow_stream|/2/video/flow_stream_cache|/2/push/daily|/2/push/active|/2/guest/push_active|/2/groups/allgroups/v2|/2/client/abserver_list|/2/checkin/show|/2/video/remind_info|/2/video/home_channels)(?=[?#]|$) script-path=https://ddgksf2013.top/scripts/weibo_json.js, requires-body=true, timeout=60, tag=微博净化-微博接口
+http-response ^https?://api\.weibo\.cn(?:/2/statuses/container_timeline_hot|/2/guest/container_timeline_hot|/2/statuses/container_timeline_unread|/2/statuses/container_timeline|/2/live/media_homelist|/2/remind/hometab_dot|/2/remind/unread_count|/2/statuses/container_detail|/2/statuses/container_detail_comment|/2/comments/build_comments|/2/search/finder|/2/search/container_timeline|/2/search/container_discover|/2/!/was/finder/searchbarchange|/2/cardlist|/2/searchall|/2/profile/me|/2/profile/container_timeline|/2/video/flow_stream|/2/video/flow_stream_cache|/2/push/daily|/2/push/active|/2/guest/push_active|/2/groups/allgroups/v2|/2/client/abserver_list|/2/checkin/show|/2/video/remind_info|/2/video/home_channels)(?=[?#]|$) script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/weibo_json.js,requires-body=true,timeout=60,tag=微博-主接口
 
 # ---------- 开屏广告：预加载 ----------
-^https?://bootpreload\.uve\.weibo\.com(?:/v2/ad/preload)(?=[?#]|$) script-path=https://ddgksf2013.top/scripts/weibo_json.js, requires-body=true, timeout=60, tag=微博净化-开屏预加载
+http-response ^https?://bootpreload\.uve\.weibo\.com(?:/v2/ad/preload)(?=[?#]|$) script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/weibo_json.js,requires-body=true,timeout=60,tag=微博-开屏预加载
 
 # ---------- 开屏广告：实时 ----------
-^https?://bootrealtime\.uve\.weibo\.com(?:/v3/ad/realtime)(?=[?#]|$) script-path=https://ddgksf2013.top/scripts/weibo_json.js, requires-body=true, timeout=60, tag=微博净化-开屏实时
+http-response ^https?://bootrealtime\.uve\.weibo\.com(?:/v3/ad/realtime)(?=[?#]|$) script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/weibo_json.js,requires-body=true,timeout=60,tag=微博-开屏实时
 
 # ---------- 开屏广告：Lua 接口 ----------
-^https?://wbapp\.uve\.weibo\.com(?:/wbapplua/wbpullad\.lua)(?=[?#]|$) script-path=https://ddgksf2013.top/scripts/weibo_json.js, requires-body=true, timeout=60, tag=微博净化-开屏素材
+http-response ^https?://wbapp\.uve\.weibo\.com(?:/wbapplua/wbpullad\.lua)(?=[?#]|$) script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/weibo_json.js,requires-body=true,timeout=60,tag=微博-开屏Lua
 
 # --- 以下两条对应 QX 的 echo 类规则，Loon 暂不原生支持，按需手动启用 ---
 # http-request ^https://api\.weibo\.cn/__qx_weibo_settings__/(?:api/config)?(?=[?#]|$) script-path=https://ddgksf2013.top/scripts/weibo_json.js, requires-body=false, timeout=60, tag=微博净化-设置读取
@@ -28,4 +29,3 @@
 
 [Mitm]
 hostname = api.weibo.cn, bootpreload.uve.weibo.com, bootrealtime.uve.weibo.com, wbapp.uve.weibo.com
-

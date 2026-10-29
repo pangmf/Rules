@@ -146,7 +146,7 @@ proxy-providers:
 
   夜煞云:
     type: http
-    url: "https://45.137.180.216/L?ZG93bmxvYWRDb25maWcuanMvOTE1ZjY4OGNkODY3Mjg3M2RkNzBhMmNiNjUyNTI3NDQ/dGltZXN0YW1wPTEyMjY5"
+    url: "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/ysyjd.yaml"
     path: ./providers/yesha.yaml
     interval: 2592000
     health-check:

@@ -1,39 +1,3 @@
-/* ==== Loon 适配层（由 build.py 自动注入，勿手改） ==== */
-(function () {
-  var QX = typeof $prefs !== "undefined";        // Quantumult X 分支保留原逻辑
-  var LOON = !QX;
-  function sliceBuf(u) {
-    if (!u) return null;
-    var t = Object.prototype.toString.call(u);
-    if (t === "[object ArrayBuffer]") return new Uint8Array(u.slice(0));
-    if (ArrayBuffer.isView(u)) {
-      return new Uint8Array(Uint8Array.prototype.slice.call(u));
-    }
-    return null;
-  }
-  if (LOON && typeof $request !== "undefined" && $request) {
-    if (typeof $request.bodyBytes === "undefined" && typeof $request.body !== "undefined") {
-      $request.bodyBytes = sliceBuf($request.body);
-    }
-  }
-  if (LOON && typeof $response !== "undefined" && $response) {
-    if (typeof $response.bodyBytes === "undefined" && typeof $response.body !== "undefined") {
-      $response.bodyBytes = sliceBuf($response.body);
-    }
-  }
-  if (LOON && typeof $done === "function") {
-    var _done = $done;
-    globalThis.$done = function (arg) {
-      if (arg && typeof arg === "object" && arg.bodyBytes) {
-        var u = sliceBuf(arg.bodyBytes);
-        if (u) return _done({ body: u });
-      }
-      return _done(arg);
-    };
-  }
-})();
-/* ==== 适配层结束 ==== */
-
 (() => {
   const TAB_DROP_KEYS = ["smallvideo_entrance", "goods_entrance"];
   const TAB_DROP_TITLES = ["短剧", "好物"];
@@ -115,6 +79,19 @@
     return null;
   }
   function toBuf(u) { return u.buffer.slice(u.byteOffset, u.byteOffset + u.byteLength); }
+  // ---- Loon 适配层：校验输出 body 与 Content-Encoding 是否一致 ----
+  function fixEnc(u8) {
+    try {
+      if (!u8 || !u8.length) return u8;
+      const h = (typeof $response !== "undefined" && $response && $response.headers) || {};
+      const enc = String(h["Content-Encoding"] || h["content-encoding"] || "").toLowerCase();
+      if (enc.indexOf("gzip") < 0) return u8;
+      if (u8[0] === 0x1f && u8[1] === 0x8b) return u8;
+      return gzip(u8);
+    } catch (e) {
+      return u8;
+    }
+  }
 
   const LB = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258];
   const LE = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0];
@@ -771,25 +748,27 @@
     const isResp = typeof $response !== "undefined" && $response !== null;
     try {
       if (!isResp) {
-        const b = host === "i.video.qq.com" ? toU8($request.bodyBytes) : null;
+        const b = host === "i.video.qq.com" ? toU8($request.body) : null;
         const r = b && b.length ? onTrpcRequest(b) : null;
-        $done(r ? { bodyBytes: toBuf(r) } : {});
+        $done(r ? { body: r } : {});
         return;
       }
       if (host === "rdelivery.qq.com") {
-        const s = typeof $response.body === "string" ? $response.body : "";
+        let s = "";
+        if (typeof $response.body === "string") s = $response.body;
+        else if ($response.body && $response.body.length) s = text(toU8($response.body), 0, $response.body.length);
         const o = /"tab_gray"\s*:\s*true/.test(s) ? s.replace(/("tab_gray"\s*:\s*)true/, "$1false") : null;
         $done(o ? { body: o } : {});
         return;
       }
-      const b = toU8($response.bodyBytes);
+      const b = toU8($response.body);
       let r = null;
       if (b && b.length) {
         if (host === "i.video.qq.com") r = onTrpcResponse(b);
         else if (host === "iacc.qq.com") r = onJce(b);
         else if (host === "config.ab.qq.com" && url.split("?")[0].endsWith("/tab/GetTabRemoteConfig")) r = onAbConfig(b);
       }
-      $done(r ? { bodyBytes: toBuf(r) } : {});
+      $done(r ? { body: fixEnc(r) } : {});
     } catch (e) {
       console.log("txvideo-ad-clean: " + e);
       $done({});

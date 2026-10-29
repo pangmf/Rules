@@ -62,31 +62,65 @@ function mergeEnabled() {
 }
 
 function bjDay(t) {
-  return new Date(Number(t) + 8 * 3600 * 1000).toISOString().slice(0, 10);
+  return new Date(Number(t || 0) + 8 * 3600 * 1000).toISOString().slice(0, 10);
 }
 
-function recordStatus(s, msg) {
-  msg = String(msg == null ? '' : msg).replace(/\s+/g, ' ').trim().slice(0, 100);
-  if (s === 'fail' && /过期|重新登录|未登录|请登录|登录失效|token\s*(失效|过期|无效)/i.test(msg)) s = 'cookie';
+/* ── 播报口径 ──────────────────────────────────────────────
+ * 只有「没抓到 Cookie / Cookie 失效」算失败；其余（限流、视频失败、超时…）
+ * 一律不报错，只报余额变化：当天第一场记下余额，之后每场报
+ * 「首次余额 → 本次余额（±N Coins）」。详细结果只写日志。
+ * ────────────────────────────────────────────────────────── */
+
+function fmtCoin(n) {
+  return String(Math.round(Number(n) * 100) / 100);
+}
+
+// 各账号的「签到前余额」与「结束时余额」分别求和（多账号累加）
+function pickBalances(text) {
+  const blocks = String(text || '').split('\n———\n');
+  let start = 0, end = 0, hasStart = false, hasEnd = false;
+  blocks.forEach(function (b) {
+    let m = b.match(/💰 余额：(-?[\d.]+)/);
+    if (m) { start += parseFloat(m[1]) || 0; hasStart = true; }
+    m = b.match(/💰 最新余额：(-?[\d.]+)/) || b.match(/💰 余额：(-?[\d.]+)/);
+    if (m) { end += parseFloat(m[1]) || 0; hasEnd = true; }
+  });
+  return {
+    start: hasStart ? Math.round(start * 100) / 100 : null,
+    end: hasEnd ? Math.round(end * 100) / 100 : null,
+  };
+}
+
+function isAuthIssue(text) {
+  return /登录|login|token\s*(失效|过期|无效)|未授权|unauthorized|账号不存在|已被注销/i.test(String(text || ''));
+}
+
+function saveStatus(s, msg, base, bt) {
+  const rec = { s: s, msg: String(msg == null ? '' : msg).replace(/\s+/g, ' ').trim().slice(0, 100), t: Date.now() };
+  if (typeof base === 'number') { rec.base = base; rec.bt = bt || Date.now(); }
+  try { $persistentStore.write(JSON.stringify(rec), MERGE_STATUS_KEY); } catch (e) {}
+  return { s: s, msg: rec.msg };
+}
+
+function reportResult(text) {
+  const bal = pickBalances(text);
+  const cur = bal.end;
+  if (cur === null) {
+    // 拿不到余额：只有登录态真的失效才算失败，其他情况不吭声
+    if (isAuthIssue(text)) return saveStatus('fail', 'Cookie 已失效');
+    return { s: 'skip', msg: '本次未取到余额' };
+  }
+  // 当天第一场记下「签到前余额」做基准，之后每场报基准 → 本次结束余额的变化
+  const first = bal.start === null ? cur : bal.start;
   let old = null;
   try { old = JSON.parse($persistentStore.read(MERGE_STATUS_KEY) || 'null'); } catch (e) {}
-  // 同一天已有带余额的成功记录时，后面没余额的结果不覆盖它（晚间场不冲掉早间场）
-  if (s === 'ok' && old && old.s === 'ok' && bjDay(old.t) === bjDay(Date.now())
-      && String(old.msg).indexOf('余额') >= 0 && String(msg).indexOf('余额') < 0) return;
-  try { $persistentStore.write(JSON.stringify({ s: s, msg: msg, t: Date.now() }), MERGE_STATUS_KEY); } catch (e) {}
-}
-
-function summarizeAccounts(total, text) {
-  const blocks = String(text || '').split('\n———\n');
-  let coins = 0, hasCoins = false, bad = 0;
-  blocks.forEach(function (b) {
-    const m = b.match(/最新余额：([\d.]+)/);
-    if (m) { coins += parseFloat(m[1]) || 0; hasCoins = true; }
-    if (/❌|⚠️ 签到：|⚠️ 查询：/.test(b)) bad++;
-  });
-  let msg = total + ' 个账号';
-  if (hasCoins) msg += ' · 余额 ' + (Math.round(coins * 100) / 100) + ' Coins';
-  return { msg: msg, bad: bad };
+  if (old && typeof old.base === 'number' && bjDay(old.t) === bjDay(Date.now())) {
+    const delta = Math.round((cur - old.base) * 100) / 100;
+    return saveStatus('ok',
+      '余额 ' + fmtCoin(old.base) + ' → ' + fmtCoin(cur) + '（' + (delta >= 0 ? '+' : '') + fmtCoin(delta) + ' Coins）',
+      old.base, old.bt);
+  }
+  return saveStatus('ok', '余额 ' + fmtCoin(first) + ' Coins', first, Date.now());
 }
 const SECRET = '0fOiukQq7jXZV2GRi9LGlO';
 const MAX_VIDEO = 3;
@@ -488,8 +522,8 @@ if (typeof $request !== 'undefined' && $request) {
   const store = loadStore();
   const ids = store.order.filter(id => store.accounts[id]);
   if (!ids.length) {
-    recordStatus('none', '未抓取账号');
-    notify('⚠️ 未抓到任何账号', '请先打开 PingMe 触发抓包');
+    saveStatus('fail', '未获取 Cookie');
+    notify('⚠️ 未获取 Cookie', '请打开 ' + scriptName + ' 抓包后再试');
     $done();
   } else {
     const total = ids.length;
@@ -512,14 +546,14 @@ if (typeof $request !== 'undefined' && $request) {
         saveStore(freshStore);
         if (removed.length) extra = `\n———\n🗑 已移除注销账号：${removed.join('、')}（剩余${freshStore.order.length}个）`;
       }
-      const brief = summarizeAccounts(total, results.join('\n———\n'));
-      recordStatus(brief.bad ? 'fail' : 'ok',
-        brief.bad ? brief.msg + ' · ' + brief.bad + ' 个异常' : brief.msg);
-      notify(`🎉 全部完成 (${total}个账号)`, results.join('\n———\n') + extra);
+      const text = results.join('\n———\n') + extra;
+      console.log(text); // 详细结果只留日志，通知里只报余额变化
+      const brief = reportResult(text);
+      if (brief.s === 'ok') notify('🎉 签到完成', brief.msg);
+      else if (brief.s === 'fail') notify('⚠️ ' + brief.msg, '请打开 ' + scriptName + ' 抓包后再试');
       $done();
     }).catch(err => {
-      recordStatus('fail', '执行异常：' + (err && (err.error || err.message) || err));
-      notify('❌ 任务异常', results.join('\n———\n') + '\n' + (err.error || String(err)));
+      console.log('任务异常：' + ((err && (err.error || err.message)) || err));
       $done();
     });
   }

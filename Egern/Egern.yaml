@@ -698,14 +698,13 @@ modules:
   - url: https://github.com/Biliverse/ADBlock/releases/latest/download/BiliBili.ADBlock.plugin
     update_interval: 0
     enabled: true
-  - url: http://script.hub/file/_start_/https://ddgksf2013.top/rewrite/StartUpAds.conf/_end_/StartUpAds.sgmodule?type=qx-rewrite&n=%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F2.0%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%B7%B2%E6%8A%93%E5%8C%85400%E4%BD%99%E5%BA%94%E7%94%A8%E5%8E%BB%E5%BC%80%E5%B1%8F&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
-    update_interval: 604800
-    enabled: true
-    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppStore-02.png
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/WeiboEnhanced.lpx
     update_interval: 0
     enabled: true
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/MeiTuanAD.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://loon.103516.xyz/Plugin/ColorfulCloudsWeatherPro.lpx
     update_interval: 0
     enabled: true
   - url: https://loon.103516.xyz/Plugin/CoolApk.lpx
@@ -781,9 +780,6 @@ modules:
   - url: https://loon.103516.xyz/Plugin/Goofish.lpx
     update_interval: 0
     enabled: true
-  - url: https://loon.103516.xyz/Plugin/Bilibili.lpx
-    update_interval: 0
-    enabled: true
   - url: https://loon.103516.xyz/Plugin/IQIYI.lpx
     update_interval: 0
     enabled: true
@@ -796,6 +792,10 @@ modules:
   - url: https://loon.103516.xyz/Plugin/MangoTV.lpx
     update_interval: 0
     enabled: true
+  - url: http://script.hub/file/_start_/https://ddgksf2013.top/rewrite/StartUpAds.conf/_end_/StartUpAds.sgmodule?type=qx-rewrite&n=%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F2.0%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%B7%B2%E6%8A%93%E5%8C%85400%E4%BD%99%E5%BA%94%E7%94%A8%E5%8E%BB%E5%BC%80%E5%B1%8F&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
+    update_interval: 604800
+    enabled: true
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppStore-02.png
   - url: https://loon.103516.xyz/Plugin/LoonGallery.lpx
     update_interval: 0
     enabled: true

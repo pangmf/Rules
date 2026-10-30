@@ -653,16 +653,16 @@ modules:
     enabled: true
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Cookie.lpx
     update_interval: 0
-    enabled: true
+    enabled: false
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Checkin.lpx
     update_interval: 0
-    enabled: true
+    enabled: false
   - url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-cookie/paperclip-cookie.lpx
     update_interval: 0
-    enabled: true
+    enabled: false
   - url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-checkin/paperclip-checkin.lpx
     update_interval: 0
-    enabled: true
+    enabled: false
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Google-Redirect.lpx
     update_interval: 0
     enabled: true

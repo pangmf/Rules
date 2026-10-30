@@ -1,54 +1,66 @@
 /*
- * CoolApkAds.js — 酷安去广告（重写版）
+ * CoolApk Ads Cleaner  —  response-body 脚本（Loon / QuantumultX / Surge / Egern 通用）
  *
- * 用途：替换 ddgksf2013/coolapk.js V1.0.12 里"按硬编码 entityId 删开屏广告"的脆弱逻辑。
- * 类型：script-response-body（Loon / QuantumultX / Surge 通用）
- * 覆盖：开屏(main/init)、首页(indexV8)、列表(dataList、page/dataList)、回复(replyList)、详情(detail)
+ * 版本：2.0
+ * 覆盖：开屏(main/init)、首页(indexV8)、列表(main/dataList、page/dataList)、
+ *       评论(feed/replyList)、详情(feed/detail)、我的页卡片(account/loadConfig)、搜索热词
  *
- * 设计原则：
- *   1. 不再依赖"某几个固定 entityId"——酷安每换一次广告素材，entityId 就变，硬编码必然失效。
- *   2. 改为按 entityTemplate / 广告标记字段 / 已知模板名单识别，命中即删。
- *   3. 只删明确的广告实体，宁可漏杀不误杀正文。
- *   4. DEBUG 打开后会把 main/init 的 data 结构打到日志，方便回传真实字段再精调。
+ * 识别策略（三层，命中任一即删）：
+ *   1. 模板名：entityTemplate / entityType / cardType 驼峰拆分后按词匹配 ad|sponsor|promotion|splash
+ *   2. 广告标记字段：adId / ad_id / isAd / hasAd / adInfo / adData / sponsorInfo 有值
+ *   3. 历史黑名单：原脚本 / egern 模块里那些写死的 entityId
+ *
+ * 与原脚本的区别：
+ *   - 不再"只认几个固定 ID"，酷安换素材后依然生效（这是开屏失效的主因）
+ *   - 任何字段缺失都不会抛异常；一旦抛异常 $done 不执行，整个响应会原样放行
+ *   - 无广告时 $done({}) 原样放行，不做无意义的重新序列化
  */
 
-const DEBUG = false;        // 调参时改成 true，在 Loon/QX 的脚本日志里看输出
-const STRICT = true;        // true：模板名里带 ad/sponsor/splash 等词就删；false：只按白名单+标记字段删
+const DEBUG = false;   // true：在脚本日志里打印 main/init 的结构，便于回传真实字段
 
-// 历史脚本里出现过的广告实体 ID（保留，作为额外兜底）
-const LEGACY_AD_IDS = [945, 6390, 24455, 36839, 8639, 29349, 33006, 32557];
+// ---------- 配置 ----------
 
-// 已知广告模板名（小写比对）
-const AD_TPL_WORDS = [
-    'sponsorcard', 'iconbuttongridcard', 'iconlargescrollcard',
-    'adcard', 'adcontainer', 'adbanner', 'bannerad',
-    'splashad', 'splashcard', 'splashscreen', 'splashscreenad',
-    'promotioncard', 'advertisementcard', 'adfeedcard'
-];
+// 历史黑名单 entityId（原 coolapk.js + egern 模块里出现过的全部）
+const ID_BLACKLIST = {
+    'main/init': [944, 945, 1635, 24455, 36839],                  // 1635 = "关注" 卡片
+    'indexV8': [32557, 29349, 28621],
+    'page/dataList': [36104, 24309, 12889, 21063, 35730, 35846,
+        28374, 28375, 27332, 20090, 28773, 29343, 21106],
+    'account/loadConfig': [1001, 1003, 1004, 1005]
+};
 
-// 模板名里出现这些"独立词"也判为广告（先转小写再匹配，避免 /i 作用下 [^a-z] 误排除大写字母）
+// main/init 里 .data[].entities 需要剔除的
+const INIT_ENTITY_IDS = [1635, 2261, 1633, 413, 417, 1754, 1966, 2274, 1170, 1175, 1190, 2258];
+
+// 标题黑名单
+const TITLE_BLACKLIST = {
+    'main/init': ['关注'],
+    'indexV8': ['值得买', '红包'],
+    'main/dataList': ['精选配件'],
+    'page/dataList': ['话题热议'],
+    'page/dataList.entity': ['睡个好觉需要什么？']
+};
+
+// 广告模板名：驼峰拆分后按"独立词"匹配，feedCard / apkCard / padCard 不会误伤
 const AD_TPL_RE = /(^|[^a-z])(ad|ads|advert|advertisement|advertising|sponsor|sponsored|promotion|splash)([^a-z]|$)/;
 
-// 这些字段有值即视为广告实体
-const AD_FLAG_KEYS = [
-    'adId', 'ad_id', 'isAd', 'is_ad', 'hasAd', 'has_ad',
-    'adInfo', 'ad_info', 'adData', 'ad_data',
-    'sponsorInfo', 'sponsor_info'
-];
+// 广告标记字段，有值即广告
+const AD_FLAG_KEYS = ['adId', 'ad_id', 'isAd', 'is_ad', 'hasAd', 'has_ad',
+    'adInfo', 'ad_info', 'adData', 'ad_data', 'sponsorInfo', 'sponsor_info'];
 
-// 标题里出现这些词且带模板名时判为广告（刻意收窄，避免误删讨论广告的帖子）
-const AD_TITLE_RE = /(品牌广告|广告位|商务推广|广告投放)/;
+// ---------- 工具 ----------
 
-function isBlank(v) {
+function blank(v) {
     return v === undefined || v === null || v === false || v === 0 || v === '' || v === '0' || v === 'false';
 }
 
-// splashScreenCard -> "splash screen card"，再小写，这样按词匹配才准
+// splashScreenCard -> "splash screen card"
 function splitCamel(s) {
     return String(s).replace(/([a-z0-9])([A-Z])/g, '$1 $2').toLowerCase();
 }
 
-function templatesOf(o) {    const keys = ['entityTemplate', 'entityType', 'cardType', 'card_type', 'template', 'templateName', 'typename'];
+function templatesOf(o) {
+    const keys = ['entityTemplate', 'entityType', 'cardType', 'card_type', 'template', 'templateName', 'typename'];
     const out = [];
     for (let i = 0; i < keys.length; i++) {
         const v = o[keys[i]];
@@ -60,94 +72,186 @@ function templatesOf(o) {    const keys = ['entityTemplate', 'entityType', 'card
 function isAdEntity(o) {
     if (!o || typeof o !== 'object' || Array.isArray(o)) return false;
 
-    const id = Number(o.entityId);
-    if (!isNaN(id) && LEGACY_AD_IDS.indexOf(id) !== -1) return true;
-
     const tpls = templatesOf(o);
     for (let i = 0; i < tpls.length; i++) {
-        const low = tpls[i].toLowerCase();
-        if (AD_TPL_WORDS.indexOf(low) !== -1) return true;
-        if (STRICT && AD_TPL_RE.test(splitCamel(tpls[i]))) return true;
+        if (AD_TPL_RE.test(splitCamel(tpls[i]))) return true;
     }
-
     for (let i = 0; i < AD_FLAG_KEYS.length; i++) {
-        if (!isBlank(o[AD_FLAG_KEYS[i]])) return true;
+        if (!blank(o[AD_FLAG_KEYS[i]])) return true;
     }
-
-    if (typeof o.title === 'string' && tpls.length && AD_TITLE_RE.test(o.title)) return true;
-
     return false;
 }
 
-// 列表页额外按标题黑名单过滤（沿用原脚本对"流量/精选配件"推广位的处理）
-const LIST_TITLE_BLACKLIST = /流量|精选配件/;
+function inList(arr, v) {
+    return Array.isArray(arr) && arr.indexOf(v) !== -1;
+}
 
-// 通用：过滤 data 数组里的广告实体
-function filterDataList(json, titleBlacklist) {
+function hitId(o, ids) {
+    const n = Number(o.entityId);
+    return !isNaN(n) && inList(ids, n);
+}
+
+function hitTitle(o, words) {
+    if (!Array.isArray(words) || typeof o.title !== 'string') return false;
+    for (let i = 0; i < words.length; i++) {
+        if (words[i] && o.title.indexOf(words[i]) !== -1) return true;
+    }
+    return false;
+}
+
+// 数组型 data 的统一过滤
+function filterArray(json, ids, titles, opts) {
     if (!json || !Array.isArray(json.data)) return 0;
+    const keepNoId = !!(opts && opts.keepNoId);   // true：无 id 的条目视为广告
     const before = json.data.length;
     json.data = json.data.filter(function (o) {
+        if (!o || typeof o !== 'object') return true;
+        if (hitId(o, ids)) return false;
+        if (hitTitle(o, titles)) return false;
         if (isAdEntity(o)) return false;
-        if (titleBlacklist && o && typeof o.title === 'string' && titleBlacklist.test(o.title)) return false;
+        if (keepNoId && blank(o.id) && blank(o.replyId)) return false;
         return true;
     });
     return before - json.data.length;
 }
 
-// 详情页：清空推广字段、过滤无 id 的推广行
-function cleanDetail(json) {
+// ---------- 各接口处理 ----------
+
+function handleInit(json) {
+    let n = filterArray(json, ID_BLACKLIST['main/init'], TITLE_BLACKLIST['main/init']);
+
+    // data 也可能是对象，内部再嵌若干数组
+    const data = json && json.data;
+    if (data && !Array.isArray(data) && typeof data === 'object') {
+        Object.keys(data).forEach(function (k) {
+            if (Array.isArray(data[k]) && data[k].length && typeof data[k][0] === 'object') {
+                n += filterArray({ data: data[k] }, ID_BLACKLIST['main/init'], TITLE_BLACKLIST['main/init']);
+            }
+        });
+    }
+
+    // 清理每个卡片的 entities
+    (Array.isArray(data) ? data : []).forEach(function (card) {
+        if (!card || !Array.isArray(card.entities)) return;
+        const before = card.entities.length;
+        card.entities = card.entities.filter(function (e) {
+            if (!e || typeof e !== 'object') return true;
+            if (hitId(e, INIT_ENTITY_IDS)) return false;
+            if (e.title === '关注') return false;
+            return !isAdEntity(e);
+        });
+        n += before - card.entities.length;
+    });
+    return n;
+}
+
+function handlePageDataList(json) {
+    if (!json || !Array.isArray(json.data)) return 0;
+    const before = json.data.length;
+    const ids = ID_BLACKLIST['page/dataList'];
+    json.data = json.data.filter(function (o) {
+        if (!o || typeof o !== 'object') return true;
+        if (hitId(o, ids)) return false;
+        if (hitTitle(o, TITLE_BLACKLIST['page/dataList'])) return false;
+        return !isAdEntity(o);
+    });
+    let n = before - json.data.length;
+
+    // 再清一层 entities（原版只按标题过滤，这里连广告实体一起清）
+    json.data.forEach(function (o) {
+        if (!o || !Array.isArray(o.entities)) return;
+        const b = o.entities.length;
+        o.entities = o.entities.filter(function (e) {
+            if (!e || typeof e !== 'object') return true;
+            if (hitTitle(e, TITLE_BLACKLIST['page/dataList.entity'])) return false;
+            return !isAdEntity(e);
+        });
+        n += b - o.entities.length;
+    });
+    return n;
+}
+
+function handleDetail(json) {
     const data = json && json.data;
     if (!data || typeof data !== 'object' || Array.isArray(data)) return 0;
     let n = 0;
 
-    const dropKeys = ['detailSponsorCard', 'detail_sponsor_card', 'sponsorCard', 'include_goods', 'include_goods_ids'];
-    for (let i = 0; i < dropKeys.length; i++) {
-        const k = dropKeys[i];
+    ['detailSponsorCard', 'include_goods', 'include_goods_ids', 'sponsorCard'].forEach(function (k) {
         const v = data[k];
-        if (v === undefined || v === null) continue;
+        if (v === undefined || v === null) return;
         if (typeof v === 'string') {
-            if (v) { n += 1; data[k] = ''; }
+            if (v) { data[k] = ''; n += 1; }
         } else {
             const len = Array.isArray(v) ? v.length : Object.keys(v).length;
-            if (len) { n += len; data[k] = []; }
+            if (len) { data[k] = []; n += len; }
         }
-    }
+    });
 
-    const rowKeys = ['topReplyRows', 'hotReplyRows', 'replyRows'];
-    for (let i = 0; i < rowKeys.length; i++) {
-        const k = rowKeys[i];
-        if (!Array.isArray(data[k]) || !data[k].length) continue;
+    ['hotReplyRows', 'topReplyRows'].forEach(function (k) {
+        if (!Array.isArray(data[k])) return;
         const before = data[k].length;
-        data[k] = data[k].filter(function (o) { return o && (o.id || o.replyId); });
+        data[k] = data[k].filter(function (r) { return r && !blank(r.id); });
         n += before - data[k].length;
-    }
+    });
     return n;
 }
 
-// 回复列表：广告行没有 id，直接按 id 留存
-function cleanReplyList(json) {
+function handleAccountConfig(json) {
     if (!json || !Array.isArray(json.data)) return 0;
+    const ids = ID_BLACKLIST['account/loadConfig'];
     const before = json.data.length;
-    json.data = json.data.filter(function (o) { return o && (o.id || o.replyId); });
-    return before - json.data.length;
+    json.data = json.data.filter(function (o) {
+        if (!o || typeof o !== 'object') return true;
+        if (o.entityType === 'textLink') return false;
+        if (hitId(o, ids)) return false;
+        return !isAdEntity(o);
+    });
+    let n = before - json.data.length;
+
+    json.data.forEach(function (o) {
+        if (!o || !Array.isArray(o.entities)) return;
+        const b = o.entities.length;
+        o.entities = o.entities.filter(function (e) {
+            if (!e || typeof e !== 'object') return true;
+            if (e.entityType === 'textLink') return false;
+            return !isAdEntity(e);
+        });
+        n += b - o.entities.length;
+    });
+    return n;
 }
 
-function dumpMainInit(json) {
+// 搜索热词：把各热词数组清空（等价于原版的 respond {}）
+function handleHotSearch(json) {
+    const data = json && json.data;
+    if (!data || typeof data !== 'object') return 0;
+    let n = 0;
+    Object.keys(data).forEach(function (k) {
+        const v = data[k];
+        if (!Array.isArray(v) || !v.length) return;
+        n += v.length;
+        data[k] = [];
+    });
+    return n;
+}
+
+function dump(label, json) {
     const list = (json && json.data) || [];
     if (!Array.isArray(list)) {
-        console.log('[CoolApkAds] main/init data 不是数组，实际类型: ' + typeof list);
+        console.log('[CoolApk] ' + label + ' data 不是数组，实际类型: ' + typeof list);
         return;
     }
-    console.log('[CoolApkAds] main/init data 共 ' + list.length + ' 项：');
+    console.log('[CoolApk] ' + label + ' 共 ' + list.length + ' 项：');
     list.forEach(function (o, i) {
         if (!o || typeof o !== 'object') { console.log('  #' + i + ' = ' + String(o)); return; }
-        console.log('  #' + i +
-            ' entityId=' + o.entityId +
+        console.log('  #' + i + ' entityId=' + o.entityId +
             ' entityTemplate=' + o.entityTemplate +
             ' entityType=' + o.entityType +
             ' title=' + (typeof o.title === 'string' ? o.title.slice(0, 40) : o.title));
     });
 }
+
+// ---------- 入口 ----------
 
 (function () {
     const url = ($request && $request.url) || '';
@@ -163,23 +267,34 @@ function dumpMainInit(json) {
     }
 
     let removed = 0;
-
-    if (url.indexOf('main/init') !== -1) {
-        if (DEBUG) dumpMainInit(json);
-        removed = filterDataList(json);
-    } else if (url.indexOf('indexV8') !== -1) {
-        removed = filterDataList(json);
-    } else if (url.indexOf('dataList') !== -1) {
-        removed = filterDataList(json, LIST_TITLE_BLACKLIST);
-    } else if (url.indexOf('replyList') !== -1) {
-        removed = cleanReplyList(json);
-    } else if (url.indexOf('detail') !== -1) {
-        removed = cleanDetail(json);
-    } else {
+    try {
+        if (url.indexOf('main/init') !== -1) {
+            if (DEBUG) dump('main/init', json);
+            removed = handleInit(json);
+        } else if (url.indexOf('indexV8') !== -1) {
+            removed = filterArray(json, ID_BLACKLIST['indexV8'], TITLE_BLACKLIST['indexV8']);
+        } else if (url.indexOf('page/dataList') !== -1) {
+            removed = handlePageDataList(json);
+        } else if (url.indexOf('dataList') !== -1) {
+            removed = filterArray(json, [], TITLE_BLACKLIST['main/dataList']);
+        } else if (url.indexOf('replyList') !== -1) {
+            removed = filterArray(json, [], [], { keepNoId: true });
+        } else if (url.indexOf('feed/detail') !== -1) {
+            removed = handleDetail(json);
+        } else if (url.indexOf('loadConfig') !== -1) {
+            removed = handleAccountConfig(json);
+        } else if (url.indexOf('hotSearch') !== -1) {
+            removed = handleHotSearch(json);
+        } else {
+            return $done({});
+        }
+    } catch (e) {
+        // 绝不让异常吃掉 $done：出问题时原样放行，宁可漏杀也不改坏响应
+        console.log('[CoolApk] 处理异常: ' + e.message);
         return $done({});
     }
 
-    if (DEBUG) console.log('[CoolApkAds] ' + url.split('?')[0] + ' 移除 ' + removed + ' 项');
+    if (DEBUG) console.log('[CoolApk] ' + url.split('?')[0] + ' 移除 ' + removed + ' 项');
 
     if (removed > 0) {
         $done({ body: JSON.stringify(json) });

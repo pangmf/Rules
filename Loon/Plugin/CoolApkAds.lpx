@@ -1,5 +1,6 @@
 #!name=酷安去广告
-#!desc=去除酷安开屏/首页/列表/评论/详情页广告
+#!desc=去掉开屏/首页/列表/评论/详情/我的页广告与推广卡片，并净化搜索热词
+#!openUrl=https://apps.apple.com/app/id1422581869
 #!author=pangmf
 #!homepage=https://github.com/pangmf/rules
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/CoolApk.png
@@ -7,15 +8,29 @@
 #!date=2026-10-30
 
 [Script]
-http-response ^https?:\/\/api\.coolapk\.com\/v6\/(main\/(init|indexV8)|dataList|feed\/(replyList|detail)|page\/dataList) script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CoolApkAds.js, requires-body=1, max-size=0, timeout=10, tag=酷安去广告
+http-response ^https?:\/\/api\.coolapk\.com\/v6\/main\/init script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CoolApkAds.js, requires-body=1, max-size=10485760, timeout=10, tag=酷安-开屏/首页初始化
+http-response ^https?:\/\/api\.coolapk\.com\/v6\/main\/indexV8 script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CoolApkAds.js, requires-body=1, max-size=10485760, timeout=10, tag=酷安-首页信息流
+http-response ^https?:\/\/api\.coolapk\.com\/v6\/main\/dataList script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CoolApkAds.js, requires-body=1, max-size=10485760, timeout=10, tag=酷安-列表
+http-response ^https?:\/\/api\.coolapk\.com\/v6\/page\/dataList script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CoolApkAds.js, requires-body=1, max-size=10485760, timeout=10, tag=酷安-页面列表
+http-response ^https?:\/\/api\.coolapk\.com\/v6\/feed\/replyList script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CoolApkAds.js, requires-body=1, max-size=10485760, timeout=10, tag=酷安-评论
+http-response ^https?:\/\/api\.coolapk\.com\/v6\/feed\/detail script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CoolApkAds.js, requires-body=1, max-size=10485760, timeout=10, tag=酷安-详情
+http-response ^https?:\/\/api\.coolapk\.com\/v6\/account\/loadConfig\?key=my_page_card_config script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CoolApkAds.js, requires-body=1, max-size=10485760, timeout=10, tag=酷安-我的页卡片
+http-response ^https?:\/\/api\.coolapk\.com\/v6\/search\?.*type=hotSearch script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CoolApkAds.js, requires-body=1, max-size=10485760, timeout=10, tag=酷安-搜索热词
+
+# 链接重定向：coolapk.com/link?url=xxx 直接 302 到真实地址
+http-request ^https?:\/\/www\.coolapk\.com\/link script-path=https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/CoolApkRedirect.js, timeout=10, tag=酷安-链接重定向
 
 [Rewrite]
-^https?:\/\/api\.coolapk\.com\/v6\/search\?.*type=hotSearch url reject-200
 
 [MITM]
-hostname = api.coolapk.com
+hostname = api.coolapk.com, www.coolapk.com
 
-# 说明：
-# 1) script-path 若写相对路径，请把 CoolApkAds.js 放到 Loon 的 Scripts 目录；
-#    也可以换成你自己的远程直链。
-# 2) 本插件只接管 api.coolapk.com，需在 Loon 中开启 MITM 并信任证书，否则不会命中。
+# ============================================================
+# 部署说明
+#
+# 1) 把 CoolApkAds.js、CoolApkRedirect.js 放到 Loon 的 Scripts 目录；
+#    也可以把 script-path 换成你自己的远程直链（例如 jsDelivr / GitHub raw）。
+# 2) 必须开启 MITM，并在系统里信任 Loon 的根证书，否则规则不会命中。
+# 3) 若仍无效，把 CoolApkAds.js 顶部 DEBUG 改成 true，
+#    冷启动酷安后在 Loon「脚本日志」里看 [CoolApk] 开头的输出。
+# ============================================================

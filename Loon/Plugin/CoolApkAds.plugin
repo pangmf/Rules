@@ -1,0 +1,21 @@
+#!name=酷安去广告（修复版）
+#!desc=去除酷安开屏/首页/列表/评论/详情页广告；按模板与广告字段识别，不再依赖固定的 entityId
+#!author=WorkBuddy
+#!homepage=
+#!icon=
+#!tag=去广告
+#!date=2026-10-30
+
+[Script]
+http-response ^https?:\/\/api\.coolapk\.com\/v6\/(main\/(init|indexV8)|dataList|feed\/(replyList|detail)|page\/dataList) script-path=CoolApkAds.js, requires-body=1, max-size=0, timeout=10, tag=酷安去广告
+
+[Rewrite]
+^https?:\/\/api\.coolapk\.com\/v6\/search\?.*type=hotSearch url reject-200
+
+[MITM]
+hostname = api.coolapk.com
+
+# 说明：
+# 1) script-path 若写相对路径，请把 CoolApkAds.js 放到 Loon 的 Scripts 目录；
+#    也可以换成你自己的远程直链。
+# 2) 本插件只接管 api.coolapk.com，需在 Loon 中开启 MITM 并信任证书，否则不会命中。

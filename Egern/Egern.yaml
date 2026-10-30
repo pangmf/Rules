@@ -651,10 +651,10 @@ modules:
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Egern/Module/Oil_Widget.yaml
     update_interval: 0
     enabled: true
-  - url: https://raw.githubusercontent.com/ios151/wloc/refs/heads/main/modules/wloc.lpx
-    update_interval: 0
-    enabled: false
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Cookie.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Checkin.lpx
     update_interval: 0
     enabled: true
   - url: https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-cookie/paperclip-cookie.lpx
@@ -666,10 +666,21 @@ modules:
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Google-Redirect.lpx
     update_interval: 0
     enabled: true
+  - url: https://github.com/NSRingo/WeatherKit/releases/latest/download/iRingo.WeatherKit.lpx
+    update_interval: 0
+    enabled: true
   - url: https://loon.103516.xyz/Plugin/iTunes.lpx
+    compat_arguments:
+      iTunes-chxm1023: 'true'
+      iTunes-ddgksf2013: 'false'
+      iTunes-Guding88: 'false'
     update_interval: 0
     enabled: true
   - url: https://loon.103516.xyz/Plugin/RevenueCat.lpx
+    compat_arguments:
+      RevenueCat-chxm1023: 'true'
+      RevenueCat-Guding88: 'false'
+      RevenueCat-ddgksf2013: 'false'
     update_interval: 0
     enabled: true
   - url: https://loon.103516.xyz/Plugin/Spotify_CN.lpx
@@ -681,10 +692,22 @@ modules:
   - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/CADReader.lpx
     update_interval: 0
     enabled: true
+  - url: https://github.com/Biliverse/Enhanced/releases/latest/download/Biliverse.Enhanced.plugin
+    update_interval: 0
+    enabled: true
+  - url: https://github.com/Biliverse/ADBlock/releases/latest/download/BiliBili.ADBlock.plugin
+    update_interval: 0
+    enabled: true
   - url: http://script.hub/file/_start_/https://ddgksf2013.top/rewrite/StartUpAds.conf/_end_/StartUpAds.sgmodule?type=qx-rewrite&n=%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F2.0%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%B7%B2%E6%8A%93%E5%8C%85400%E4%BD%99%E5%BA%94%E7%94%A8%E5%8E%BB%E5%BC%80%E5%B1%8F&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
     update_interval: 604800
     enabled: true
     icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppStore-02.png
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/WeiboEnhanced.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/MeiTuanAD.lpx
+    update_interval: 0
+    enabled: true
   - url: https://loon.103516.xyz/Plugin/CoolApk.lpx
     update_interval: 0
     enabled: true
@@ -767,34 +790,13 @@ modules:
   - url: https://loon.103516.xyz/Plugin/YoukuVideo.lpx
     update_interval: 0
     enabled: true
-  - url: https://loon.103516.xyz/Plugin/TencentVideo.lpx
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/TxVideoAD.lpx
     update_interval: 0
     enabled: true
   - url: https://loon.103516.xyz/Plugin/MangoTV.lpx
     update_interval: 0
     enabled: true
   - url: https://loon.103516.xyz/Plugin/LoonGallery.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx
-    update_interval: 0
-    enabled: false
-  - url: https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/XiaChuFang_remove_ads.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/XiaomiSpeaker_remove_ads.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/DragonRead_remove_ads.lpx
-    update_interval: 0
-    enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/BaiduSearchWebpage_remove_ads.lpx
     update_interval: 0
     enabled: true
   - url: https://ddgksf2013.top/module/ScriptHub.Egern.sgmodule

@@ -1,6 +1,6 @@
 #!name = 腾讯视频净化
-#!desc = 去除开屏广告、播放前贴/中插广告、底部多余 Tab、我的页顶部广告。转换自 TG@ZenMoFiShi
-#!author = TG@ZenMoFiShi
+#!desc = 去除开屏广告、播放前贴/中插广告、底部多余 Tab、我的页顶部广告。转自 TG@ZenMoFiShi
+#!author = @ZenMoFiShi
 #!homepage = https://github.com/ZenmoFeiShi/Qx
 #!icon = https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/TencentVideo.png
 #!date = 2026-10-27

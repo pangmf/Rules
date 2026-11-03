@@ -1,0 +1,31 @@
+#!name=XCamera 广告净化（今日水印相机）
+#!desc=今日水印专业版全局关广告开关。转换自 TG@ZenMoFiShi
+#!author=ZenMoFiShi（原始 QX 版）
+#!icon=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/icon.png
+#!system=ios
+
+[Rule]
+# ===== 广告与埋点拦截 =====
+URL-REGEX,^https?:\/\/(?:api|da|tk|adx)\.anythinktech\.com\/,REJECT
+URL-REGEX,^https?:\/\/api\.toponadss\.com\/,REJECT
+URL-REGEX,^https?:\/\/mobads(?:-logs)?\.baidu\.com\/,REJECT
+URL-REGEX,^https?:\/\/mobads-pre-config\.(?:bj|cdn)\.bcebos\.com\/,REJECT
+URL-REGEX,^https?:\/\/open\.e\.kuaishou\.(?:com|cn)\/,REJECT
+URL-REGEX,^https?:\/\/stage2\.chelaile\.net\.cn\/sdk,REJECT
+URL-REGEX,^https?:\/\/ad\.xhey\.top\/next\/(?:app\/adx\/|promote\/operation\/appstart\/adx\/|ad\/event\/track\/).*,REJECT
+URL-REGEX,^https?:\/\/39\.108\.85\.131\/next\/(?:ios\/config\/cache|promote\/operation\/config\/get\/cache)(?:\?.*)?$,REJECT
+URL-REGEX,^https?:\/\/sdk\.1rtb\.net\/sdk\/(?:config\/v2a|req_ad)(?:\?.*)?$,REJECT
+URL-REGEX,^https?:\/\/adx-strategy-api-cn\.statisticslinks\.com\/sdk\/pl_strategy(?:\?.*)?$,REJECT
+URL-REGEX,^https?:\/\/adx-micro\.statisticslinks\.com\/http_bid(?:\?.*)?$,REJECT
+URL-REGEX,^https?:\/\/da\.statisticslinks\.com\/v1\/open\/da(?:\?.*)?$,REJECT
+URL-REGEX,^https?:\/\/tk\.statisticslinks\.com\/v2\/open\/a_tk(?:\?.*)?$,REJECT
+URL-REGEX,^https?:\/\/sdkquic\.e\.qq\.com\/launch(?:\?.*)?$,REJECT
+URL-REGEX,^https?:\/\/als\.baidu\.com\/clog\/glog(?:\?.*)?$,REJECT
+
+[Rewrite]
+# ===== 响应改写脚本（QX script-response-body 等价）=====
+http-response ^https?:\/\/abtest-tx-beijing-01\.saas\.sensorsdata\.cn\/api\/v2\/abtest\/online\/results\?project-key=(?:0E6053C30A799D63EFA48959776B2EE2EDC81359|EE39C73914ED208E6EBE24A7333CAF5C3FE2E89D) requires-body=true, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/xhey-ad-clean.js, timeout=30, tag=XCamera 全局关广告开关
+http-response ^https?:\/\/jt-sdk-ios\.oss-cn-beijing\.aliyuncs\.com\/iOSConfig\.txt(?:\?.*)?$ requires-body=true, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/xhey-ad-clean.js, timeout=30, tag=XCamera 剪同款配置净化
+
+[MITM]
+hostname = %APPEND% abtest-tx-beijing-01.saas.sensorsdata.cn, jt-sdk-ios.oss-cn-beijing.aliyuncs.com

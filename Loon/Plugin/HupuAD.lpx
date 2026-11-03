@@ -1,5 +1,5 @@
 #!name=虎扑
-#!desc=虎扑去开屏广告
+#!desc=关闭虎扑所有广告
 #!author=pangmf
 #!homepage=https://github.com/pangmf/rules
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/HUPU-01.png
@@ -9,7 +9,7 @@
 DOMAIN-SUFFIX,goblin.hupu.com,DIRECT
 
 [Rewrite]
-response if ${url} ~= /^https?:\/\/goblin\.hupu\.com\/\d+\/[\d.]+\/interfaceAd\/getOther/ then response.body.mock("json", {"ad_code":-41,"show_type":0,"ads":[]}, 200)
+response if ${url} ~= /^https?://goblin.hupu.com/\d+/[\d.]+/interfaceAd/getOther// then response.body.mock(”json“, {”ad_code“:-41,”show_type“:0,”ads“:[]}, 200)
 
-[MITM]
+[Mitm] 
 hostname = goblin.hupu.com

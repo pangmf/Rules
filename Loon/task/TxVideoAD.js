@@ -1,7 +1,146 @@
+// Txvideoad.js —— Loon 适配版
+// 原脚本：https://raw.githubusercontent.com/ZenmoFeiShi/Qx/refs/heads/main/Txvideoad.js （31,776 B，QX 版）
+// 依据：Loon 官方文档 https://nsloon.app/en/docs/Script
+//   · binary-body-mode=true 时 $request.body / $response.body 为 Uint8Array（非 ArrayBuffer）
+//   · 回写方式 $done({ body }) / $done({ response: { body } })
+//   · Loon 不存在 bodyBytes 字段
+//
+// 为什么必须适配（均经实测，非推断）：
+//   原脚本在 4 处直读 $request.bodyBytes / $response.bodyBytes，并以
+//   $done({ bodyBytes: ArrayBuffer }) 回写；rdelivery 分支还判 typeof $response.body === "string"。
+//   在 Loon 桩下以合法样本实测：给 bodyBytes 才能改写，只给 body（ArrayBuffer / Uint8Array / string）
+//   一律 $done({}) 静默放行 —— 即原脚本在 Loon 上"能跑但完全不生效"。
+//   Script Hub 的 script-converter.js 同样不处理 bodyBytes（该词仅出现在其 Env 的 QX
+//   $task.fetch 分支），所以"用 Script Hub 转一下"对这份脚本无效。
+//
+// 本适配层不改原脚本任何业务逻辑，只做三件事：
+//   1. 进入时把 Loon 的 body（Uint8Array / ArrayBuffer / string）镜像成 bodyBytes；
+//   2. rdelivery 这类需要字符串的路由，把文本 body 镜像成字符串；
+//   3. 拦截 $done，把 { bodyBytes } 翻译成 Loon 的 { body }，并清理与已解压内容冲突的头。
+(function () {
+  "use strict";
+
+  // 与解压后内容必然冲突的响应头（原脚本输出的是已解压明文，保留这些头会导致客户端二次解码失败）
+  var DROP_HEADERS = ["content-encoding", "content-length", "transfer-encoding"];
+
+  function toBytes(v) {
+    if (v === undefined || v === null) return null;
+    if (typeof v === "string") {
+      var n = v.length, a = new Uint8Array(n);
+      for (var i = 0; i < n; i++) a[i] = v.charCodeAt(i) & 0xff;
+      return a;
+    }
+    if (ArrayBuffer.isView(v)) return new Uint8Array(v.buffer, v.byteOffset, v.byteLength);
+    if (Object.prototype.toString.call(v) === "[object ArrayBuffer]") return new Uint8Array(v);
+    return null;
+  }
+
+  // 转为 Loon 认的 Uint8Array（官方文档：body 为 String 或 Uint8Array）
+  function toLoonBody(v) {
+    var b = toBytes(v);
+    if (!b) return null;
+    // 拷贝出独立 buffer，避免与原视图共享
+    var out = new Uint8Array(b.length);
+    out.set(b);
+    return out;
+  }
+
+  function stripHeaders(h) {
+    if (!h || typeof h !== "object") return h;
+    for (var k in h) {
+      if (Object.prototype.hasOwnProperty.call(h, k) && DROP_HEADERS.indexOf(String(k).toLowerCase()) >= 0) {
+        try { delete h[k]; } catch (e) {}
+      }
+    }
+    return h;
+  }
+
+  var rawDone = $done;
+  var finished = false;
+
+  function done(result) {
+    if (finished) return;
+    finished = true;
+    if (!result || typeof result !== "object") return rawDone({});
+
+    // 原脚本的改写结果
+    if (result.bodyBytes !== undefined) {
+      var nb = toLoonBody(result.bodyBytes);
+      if (!nb) return rawDone({});
+      var patch = { body: nb };
+      // 只有在能拿到原头时才清理，避免误删
+      var origHeaders =
+        typeof $response !== "undefined" && $response && $response.headers
+          ? $response.headers
+          : typeof $request !== "undefined" && $request && $request.headers
+          ? $request.headers
+          : null;
+      if (origHeaders) {
+        var copy = {};
+        for (var k in origHeaders) {
+          if (!Object.prototype.hasOwnProperty.call(origHeaders, k)) continue;
+          if (DROP_HEADERS.indexOf(String(k).toLowerCase()) >= 0) continue;
+          copy[k] = origHeaders[k];
+        }
+        patch.headers = copy;
+      }
+      return rawDone(patch);
+    }
+
+    // 纯文本改写（rdelivery）：原样透传
+    if (typeof result.body === "string") {
+      return rawDone({ body: result.body });
+    }
+    if (typeof result.body !== "undefined") {
+      var b2 = toLoonBody(result.body);
+      return rawDone(b2 ? { body: b2 } : {});
+    }
+    return rawDone({});
+  }
+
+  // 镜像请求体
+  if (typeof $request !== "undefined" && $request && $request.bodyBytes === undefined) {
+    var rb = toBytes($request.body);
+    if (rb) $request.bodyBytes = rb.buffer.slice(rb.byteOffset, rb.byteOffset + rb.byteLength);
+  }
+
+  // 镜像响应体
+  if (typeof $response !== "undefined" && $response && $response.bodyBytes === undefined) {
+    var pb = toBytes($response.body);
+    if (pb) $response.bodyBytes = pb.buffer.slice(pb.byteOffset, pb.byteOffset + pb.byteLength);
+  }
+
+  // rdelivery 分支要求 typeof $response.body === "string"；Loon 二进制模式下给的是 Uint8Array，
+  // 这里把可打印文本镜像成字符串供其读取（原始字节仍在 bodyBytes 中）。
+  var TEXT_HOSTS = { "rdelivery.qq.com": 1 };
+  if (
+    typeof $response !== "undefined" && $response &&
+    typeof $response.body !== "string" &&
+    typeof $request !== "undefined" && $request
+  ) {
+    var h = (String($request.url || "").split("/")[2] || "").split(":")[0];
+    if (TEXT_HOSTS[h]) {
+      var tb = toBytes($response.body);
+      if (tb && tb.length) {
+        var s = "", ok = true;
+        for (var j = 0; j < tb.length; j++) {
+          var c = tb[j];
+          if (c === 0) { ok = false; break; }
+          s += String.fromCharCode(c);
+        }
+        if (ok) $response.body = s;
+      }
+    }
+  }
+
+  $done = done;
+
+  // ===== 以下为原始脚本，未作任何修改 =====
+  // ---- 以下为原始脚本（未作任何修改）----
 (() => {
-  const TAB_DROP_KEYS = ["smallvideo_entrance", "goods_entrance"];
-  const TAB_DROP_TITLES = ["短剧", "好物"];
-  const TAB_CUT_WHITELIST = "0;2;4";
+  const TAB_DROP_KEYS = ["smallvideo_entrance", "goods_entrance", "vip_entrance"];
+  const TAB_DROP_TITLES = ["短剧", "好物", "会员专区"];
+  const TAB_CUT_WHITELIST = "0;4";
   const AD_ANY = ["AdResponseInfo", "InnerAdPromotionEventList", "InnerAdCommonPromotionEventActivityList", "LoadingConfig", "PreloadResourceInfo", "AdFeedInfo"];
   const DROP_MODULES = ["user_center_more_function"];
   const AD_MODULE_IDS = ["outerPaster"];
@@ -79,19 +218,6 @@
     return null;
   }
   function toBuf(u) { return u.buffer.slice(u.byteOffset, u.byteOffset + u.byteLength); }
-  // ---- Loon 适配层：校验输出 body 与 Content-Encoding 是否一致 ----
-  function fixEnc(u8) {
-    try {
-      if (!u8 || !u8.length) return u8;
-      const h = (typeof $response !== "undefined" && $response && $response.headers) || {};
-      const enc = String(h["Content-Encoding"] || h["content-encoding"] || "").toLowerCase();
-      if (enc.indexOf("gzip") < 0) return u8;
-      if (u8[0] === 0x1f && u8[1] === 0x8b) return u8;
-      return gzip(u8);
-    } catch (e) {
-      return u8;
-    }
-  }
 
   const LB = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258];
   const LE = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0];
@@ -477,6 +603,23 @@
     if (!fr) return null;
     const hd = parse(u8, fr.hs, fr.he), fn = hd && hd.find(x => x.f === 7 && x.w === 2);
     const func = fn ? ascii(u8, fn.vs, fn.e) : null;
+    if (func && /\/getNaviPage$/.test(func) && find(u8, utf8("page_id"), fr.he, u8.length) >= 0 && find(u8, utf8("bottom"), fr.he, u8.length) >= 0) {
+      const key = utf8("data_identifier"), kp = find(u8, key, fr.he, u8.length);
+      if (kp >= 0) {
+        const out = u8.slice();
+        let p = kp + key.length;
+        while (p < out.length && (out[p] < 48 || out[p] > 57)) p++;
+        const s = p;
+        while (p < out.length && out[p] >= 48 && out[p] <= 57) p++;
+        if (p > s) {
+          const id = utf8(("0000000000000000000" + Date.now()).slice(-(p - s)));
+          if (id.length === p - s) {
+            out.set(id, s);
+            return gz ? gzip(out) : out;
+          }
+        }
+      }
+    }
     if (!func || BLOCK_FUNCS.indexOf(func) < 0) return null;
     const nb = utf8(func.slice(func.lastIndexOf("/") + 1)), out = u8.slice();
     for (let p = fr.hs; (p = find(out, nb, p, fr.he)) >= 0; p += nb.length) out[p] = out[p] === 0x58 ? 0x59 : 0x58;
@@ -748,31 +891,30 @@
     const isResp = typeof $response !== "undefined" && $response !== null;
     try {
       if (!isResp) {
-        const b = host === "i.video.qq.com" ? toU8($request.body) : null;
+        const b = host === "i.video.qq.com" ? toU8($request.bodyBytes) : null;
         const r = b && b.length ? onTrpcRequest(b) : null;
-        $done(r ? { body: r } : {});
+        $done(r ? { bodyBytes: toBuf(r) } : {});
         return;
       }
       if (host === "rdelivery.qq.com") {
-        let s = "";
-        if (typeof $response.body === "string") s = $response.body;
-        else if ($response.body && $response.body.length) s = text(toU8($response.body), 0, $response.body.length);
+        const s = typeof $response.body === "string" ? $response.body : "";
         const o = /"tab_gray"\s*:\s*true/.test(s) ? s.replace(/("tab_gray"\s*:\s*)true/, "$1false") : null;
         $done(o ? { body: o } : {});
         return;
       }
-      const b = toU8($response.body);
+      const b = toU8($response.bodyBytes);
       let r = null;
       if (b && b.length) {
         if (host === "i.video.qq.com") r = onTrpcResponse(b);
         else if (host === "iacc.qq.com") r = onJce(b);
         else if (host === "config.ab.qq.com" && url.split("?")[0].endsWith("/tab/GetTabRemoteConfig")) r = onAbConfig(b);
       }
-      $done(r ? { body: fixEnc(r) } : {});
+      $done(r ? { bodyBytes: toBuf(r) } : {});
     } catch (e) {
       console.log("txvideo-ad-clean: " + e);
       $done({});
     }
   }
   main();
+})();
 })();

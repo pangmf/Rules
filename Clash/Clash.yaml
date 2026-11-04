@@ -282,7 +282,7 @@ proxy-groups:
       - "其他节点"
     icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Netflix.png
 
-  - name: "GlobalMedia"
+  - name: "YouTube"
     type: select
     proxies:
       - "香港节点"
@@ -293,7 +293,7 @@ proxy-groups:
       - "新加坡节点"
       - "欧洲节点"
       - "其他节点"
-    icon: https://raw.githubusercontent.com/Orz-3/mini/refs/heads/master/Color/Streaming.png
+    icon: https://raw.githubusercontent.com/Orz-3/mini/refs/heads/master/Color/YouTube.png
 
   - name: "AsianMedia"
     type: select
@@ -454,19 +454,18 @@ rule-providers:
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/WeChat/WeChat.yaml"
     path: ./ruleset/wechat.yaml
     interval: 2592000
-  ai:
-    type: http
-    behavior: classical
-    url: "https://ddgksf2013.top/filter/Ai.yaml"
-    path: ./ruleset/ai.yaml
-    interval: 2592000
-  # 原文引自 ddgksf2013/Filter，为纯 Loon 文本列表，用 text 格式加载
   apple_intelligence:
     type: http
     behavior: classical
     format: text
     url: "https://raw.githubusercontent.com/ddgksf2013/Filter/refs/heads/master/AppleIntelligence.list"
     path: ./ruleset/apple_intelligence.list
+    interval: 2592000
+  ai:
+    type: http
+    behavior: classical
+    url: "https://magicrule.pages.dev/data/_shared/artifacts/GlobalAI_classical_53616f647b807ae2.yaml"
+    path: ./ruleset/ai.yaml
     interval: 2592000
   tiktok:
     type: http
@@ -492,11 +491,17 @@ rule-providers:
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Spotify/Spotify.yaml"
     path: ./ruleset/spotify.yaml
     interval: 2592000
-  global_media:
+  youtube:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/GlobalMedia/GlobalMedia.yaml"
-    path: ./ruleset/global_media.yaml
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/YouTube/YouTube.yaml"
+    path: ./ruleset/youtube.yaml
+    interval: 2592000
+  youtube:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/YouTubeMusic/YouTubeMusic.yaml"
+    path: ./ruleset/youtubemusic.yaml
     interval: 2592000
   asian_media:
     type: http
@@ -537,7 +542,7 @@ rule-providers:
     interval: 2592000
 
 # ==================== 分流规则 ====================
-# 顺序忠实还原原配置：广告 → Apple → 微信 → AI → 苹果智能 → 媒体 → 支付 → 全球 → 国内
+# 顺序忠实还原原配置：广告 → 微信 → Apple → 苹果智能 → AI → 媒体 → 支付 → 全球 → 国内
 # 唯一调整：局域网规则提到最前。原配置里 LAN 在 ChinaMax 之后，
 # 私有网段会先落到 MATCH,Final 走代理，导致局域网设备无法访问。
 rules:
@@ -548,16 +553,16 @@ rules:
 
   # 原配置 rules 顺序
   - RULE-SET,ads,ADs,no-resolve
+  - RULE-SET,wechat,DIRECT,no-resolve
   - RULE-SET,apple,Apple,no-resolve
   - RULE-SET,apple_domain,Apple,no-resolve
-  - RULE-SET,wechat,DIRECT,no-resolve
-  - RULE-SET,ai,AI,no-resolve
   - RULE-SET,apple_intelligence,AppleAI,no-resolve
+  - RULE-SET,ai,AI,no-resolve
   - RULE-SET,tiktok,TikTok,no-resolve
   - RULE-SET,netflix,Netflix,no-resolve
   - RULE-SET,google_voice,GoogleVoice,no-resolve
   - RULE-SET,spotify,Spotify,no-resolve
-  - RULE-SET,global_media,GlobalMedia,no-resolve
+  - RULE-SET,youtube,YouTube,no-resolve
   - RULE-SET,asian_media,AsianMedia,no-resolve
   - RULE-SET,paypal,PayPal,no-resolve
 
@@ -570,7 +575,7 @@ rules:
   - RULE-SET,china_max,DIRECT,no-resolve
   - GEOIP,CN,DIRECT
 
-  # 默认策略，原 default: Final
+  # 默认策略
   - MATCH,Final
 
 ####################################################################

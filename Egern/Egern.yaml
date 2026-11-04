@@ -477,6 +477,7 @@ rules:
       policy: AppleAI
       update_interval: 2592000
   - rule_set:
+      name: AI
       match: https://magicrule.pages.dev/data/_shared/artifacts/GlobalAI_rules_4490d57f658179f9.list
       policy: AI
       update_interval: 2592000

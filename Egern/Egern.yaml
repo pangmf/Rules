@@ -760,7 +760,7 @@ modules:
   - url: https://loon.103516.xyz/Plugin/Amap.lpx
     update_interval: 0
     enabled: true
-  - url: https://loon.103516.xyz/Plugin/YouTube_CN.lpx
+  - url: https://raw.githubusercontent.com/devchristian1337/loon-plugins/refs/heads/main/Plugins/YouTube.lpx
     update_interval: 0
     enabled: true
   - url: https://loon.103516.xyz/Plugin/ZhiHu.lpx

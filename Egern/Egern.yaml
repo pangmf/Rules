@@ -4,7 +4,7 @@ auto_update:
   interval: -1
 
 # 是否启用 IPv6。默认值是 false
-ipv6: false
+ipv6: true
 
 # HTTP 代理端口号。默认值是 3080
 http_port: 3080
@@ -31,10 +31,10 @@ asn_db_url: https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
 proxy_latency_test_url: http://www.gstatic.com/generate_204
 
 # 自定义的直连延迟测试 URL。默认值是空
-direct_latency_test_url: http://www.aliyun.com
+direct_latency_test_url: http://www.aliyun.com/generate_204
 
 # 自定义的udp延迟测试 URL。默认值是空
-udp_latency_test_url: google.com@8.8.8.8
+# udp_latency_test_url: google.com@8.8.8.8
 
 # 虚拟网络接口不使用默认的路由，由多个较小的路由切分用于解决某些问题。比如 HomeKit 的摄像头无法使用的问题。默认值是 false
 compat_route: false

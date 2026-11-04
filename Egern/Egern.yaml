@@ -822,13 +822,7 @@ modules:
   - url: https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx
     update_interval: 0
     enabled: true
-  - url: https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx
-    update_interval: 0
-    enabled: true
   - url: https://ddgksf2013.top/module/ScriptHub.Egern.sgmodule
     update_interval: 0
     enabled: true
     icon: https://iili.io/B40FK21.png
-  - url: https://raw.githubusercontent.com/Moli-X/Tool/X/Loon/Plugin/Kelee/Script-Hub.plugin
-    update_interval: 0
-    enabled: true

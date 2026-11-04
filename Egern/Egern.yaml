@@ -207,7 +207,7 @@ policy_groups:
     - 其他节点
     latency_test_url: http://www.gstatic.com/generate_204
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
- - select:
+- select:
     name: AppleAI
     policies:
     - DIRECT

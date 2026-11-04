@@ -6,6 +6,10 @@ auto_update:
 # 是否启用 IPv6。默认值是 false
 ipv6: true
 
+# 全局阻断 QUIC，强制走 TCP。默认值是 false
+# 不阻断的话 App 走 QUIC 会绕过 MITM，需要解密响应的模块对它们等于失效
+block_quic: true
+
 # HTTP 代理端口号。默认值是 3080
 http_port: 3080
 
@@ -31,7 +35,7 @@ asn_db_url: https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
 proxy_latency_test_url: http://www.gstatic.com/generate_204
 
 # 自定义的直连延迟测试 URL。默认值是空
-direct_latency_test_url: http://www.aliyun.com/generate_204
+direct_latency_test_url: http://connect.rom.miui.com/generate_204
 
 # 自定义的udp延迟测试 URL。默认值是空
 # udp_latency_test_url: google.com@8.8.8.8
@@ -425,7 +429,7 @@ policy_groups:
     type: select
     urls:
     - https://162.19.79.201/s/e7e47a5f81fdd9be8648cc986703f40a
-    filter: ^(?!.*(HA1)).*[A-Z]A.*$
+    # filter: ^(?!.*(HA1)).*[A-Z]A.*$
     hidden: true
 - external:
     name: Kitty
@@ -543,6 +547,7 @@ rules:
       match: CN
       # 使用的策略
       policy: DIRECT
+      no_resolve: true
   # 默认策略
   - default:
       # 使用的策略
@@ -635,7 +640,7 @@ mitm:
   # 是否启用
   enabled: true
   # CA 证书文件路径
-  ca_p12: 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
+  ca_p12: ''
   # CA 证书密码
   ca_passphrase: ''
   # mitm 的主机名列表
@@ -813,8 +818,11 @@ modules:
   - url: http://script.hub/file/_start_/https://ddgksf2013.top/rewrite/StartUpAds.conf/_end_/StartUpAds.sgmodule?type=qx-rewrite&n=%E5%A2%A8%E9%B1%BC%E5%8E%BB%E5%BC%80%E5%B1%8F2.0%E5%8E%BB%E5%B9%BF%E5%91%8A%40ddgksf2013+%E5%B7%B2%E6%8A%93%E5%8C%85400%E4%BD%99%E5%BA%94%E7%94%A8%E5%8E%BB%E5%BC%80%E5%B1%8F&headers=User-Agent:surge&del=true&jqEnabled=true&target=surge-module&category=ddgksf2013
     update_interval: 604800
     enabled: true
-    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppStore-02.png
-  - url: https://loon.103516.xyz/Plugin/LoonGallery.lpx
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppStore-02.  - url: https://loon.103516.xyz/Plugin/LoonGallery.lpx
+  - url: https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx
+    update_interval: 0
+    enabled: true
+  - url: https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx
     update_interval: 0
     enabled: true
   - url: https://ddgksf2013.top/module/ScriptHub.Egern.sgmodule

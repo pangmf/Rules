@@ -798,7 +798,7 @@ modules:
   - url: https://loon.103516.xyz/Plugin/Goofish.lpx
     update_interval: 0
     enabled: true
-  - url: https://loon.103516.xyz/Plugin/IQIYI.lpx
+  - url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/IQIYI.lpx
     update_interval: 0
     enabled: true
   - url: https://loon.103516.xyz/Plugin/YoukuVideo.lpx

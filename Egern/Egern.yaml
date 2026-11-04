@@ -295,7 +295,7 @@ policy_groups:
     latency_test_url: http://www.gstatic.com/generate_204
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
 - select:
-    name: GlobalMedia
+    name: YouTube
     policies:
     - 香港节点
     - 台湾节点
@@ -306,7 +306,7 @@ policy_groups:
     - 欧洲节点
     - 其他节点
     latency_test_url: http://www.gstatic.com/generate_204
-    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Streaming.png
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/YouTube.png
 - select:
     name: AsianMedia
     policies:
@@ -497,8 +497,12 @@ rules:
       policy: Spotify
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/GlobalMedia/GlobalMedia.list
-      policy: GlobalMedia
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/YouTube/YouTube.list
+      policy: YouTube
+      update_interval: 2592000
+  - rule_set:
+      match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/YouTubeMusic/YouTubeMusic.list
+      policy: YouTube
       update_interval: 2592000
   - rule_set:
       match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/AsianMedia/AsianMedia.list

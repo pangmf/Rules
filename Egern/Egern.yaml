@@ -636,9 +636,9 @@ mitm:
   # mitm 的主机名列表
   hostnames:
     includes:  
-    - *.beacon.qq.com
-    - *.gdt.qq.com
-    - *.l.qq.com
+    - '*.beacon.qq.com'
+    - '*.gdt.qq.com'
+    - '*.l.qq.com'
     - ad*.sina.com
     - ad*.sina.com.cn
     - app.58.com

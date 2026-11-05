@@ -580,12 +580,12 @@ rules:
 
 ####################################################################
 #定时脚本Coookie获取合集
-https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Cookie.lpx, enabled=false
-https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Checkin.lpx, enabled=false
-https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-cookie/paperclip-cookie.lpx, enabled=false
-https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-checkin/paperclip-checkin.lpx, enabled=false
+https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Cookie.lpx
+https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Checkin.lpx
+https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-cookie/paperclip-cookie.lpx
+https://raw.githubusercontent.com/MaYIHEI/paperclip/refs/heads/main/loon/paperclip-checkin/paperclip-checkin.lpx
 #其他工具类
-https://raw.githubusercontent.com/ios151/Rewrite/refs/heads/main/dev-loopback/modules/dev-loopback.lpx, enabled=false
+https://raw.githubusercontent.com/ios151/Rewrite/refs/heads/main/dev-loopback/modules/dev-loopback.lpx
 https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Plugin/Google-Redirect.lpx
 https://github.com/NSRingo/WeatherKit/releases/latest/download/iRingo.WeatherKit.lpx
 https://loon.103516.xyz/Plugin/StreamingMedia.lpx

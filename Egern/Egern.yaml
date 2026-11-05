@@ -573,14 +573,14 @@ scriptings:
   - schedule:
       name: WeTalk签到
       cron: 20 8,20 * * *
-      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/WeTalk.js
+      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Script/WeTalk.js
       update_interval: 0
       timeout: 120
       disabled: true
   - schedule:
       name: PingMe签到
       cron: 30 8,20 * * *
-      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/task/PingMe.js
+      script_url: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Script/PingMe.js
       update_interval: 0
       timeout: 120
       disabled: true

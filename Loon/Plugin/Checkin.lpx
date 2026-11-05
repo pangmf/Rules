@@ -1,6 +1,6 @@
 #!name=自用 · 签到合集
-#!desc=三个签到脚本合成一个插件：极氪、PingMe、WeTalk 各一个开关。打开「统一通知」后各脚本不再单独弹通知，每天 21:00 只发一条汇总（成功数 / 需重抓 / 失败 + 各自余额与奖励）。
-#!author=整合版（脚本原作者：m20104600、pangmf、怎么肥事、ZenMoFeiShi & yaowuliu）
+#!desc=三个签到脚本合成一个插件：极氪、PingMe、WeTalk 各一个开关。打开「统一通知」后各脚本不再单独弹通知，每天只发汇总（成功数 / 需重抓 / 失败 + 各自余额与奖励）。
+#!author=整合版（脚本原作者：m20104600、怎么肥事、ZenMoFeiShi & yaowuliu）
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Notifyman.png
 #!loon_version = 3.5.1(983)
 #!tag=签到
@@ -20,21 +20,21 @@
 # ══════════════════════════════════════════════════════════════════════
 
 [Argument]
-merge = switch,true,tag=【统一通知】每天 21:00 汇总,desc=打开后三个脚本不再单独弹通知，21:00 发一条汇总；关闭则各自通知
-#mergepm = switch,false,tag=【统一通知】每晚 21:00 再汇总一次,desc=可选。晚间场（20:20 / 20:30）跑完后再发一条，仅在「统一通知」打开时有意义
+merge = switch,true,tag=【统一通知】每天 11:30 汇总,desc=打开后三个脚本不再单独弹通知，11:30 发一条汇总；关闭则各自通知
+mergepm = switch,false,tag=【统一通知】每晚 21:00 再汇总一次,desc=可选。晚间场跑完后再发一条，仅在「统一通知」打开时有意义
 zeekr = switch,true,tag=【极氪】签到 + 领取
 pingme = switch,true,tag=【PingMe】签到 + 视频奖励
 wetalk = switch,true,tag=【WeTalk】签到 + 视频奖励
 
 [Script]
 # ① 签到汇总（三个脚本都跑完之后）
-cron "0 21 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Scritp/summary.js", {${zeekr}, ${pingme}, ${wetalk}}) with tag="签到汇总", timeout=60, enable=${merge}
-#cron "0 21 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Scritp/summary.js", {${zeekr}, ${pingme}, ${wetalk}}) with tag="签到汇总·晚间", timeout=60, enable=${mergepm}
+cron "30 11 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Scritp/summary.js", {${zeekr}, ${pingme}, ${wetalk}}) with tag="签到汇总", timeout=60, enable=${merge}
+cron "0 21 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Scritp/summary.js", {${zeekr}, ${pingme}, ${wetalk}}) with tag="签到汇总·晚间", timeout=60, enable=${mergepm}
 # 手动自检：Loon → 脚本 → 选中这一条手动运行，随时发一条汇总
 generic then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Scritp/summary.js", {${zeekr}, ${pingme}, ${wetalk}}) with tag="签到汇总·手动运行", timeout=60
 
 # ② 三个签到任务
-cron "40 20 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Scritp/zeekr.js", {${merge}}) with tag="极氪签到", img_url="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/43/a2/ab/43a2ab42-0f91-3ecc-dee7-90d54bf26b1f/ZeekrAppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.png", timeout=600, enable=${zeekr}
+cron "40 10,20 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Scritp/zeekr.js", {${merge}}) with tag="极氪签到", img_url="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/43/a2/ab/43a2ab42-0f91-3ecc-dee7-90d54bf26b1f/ZeekrAppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.png", timeout=600, enable=${zeekr}
 cron "30 8,20 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Scritp/pingme.js", {${merge}}) with tag="PingMe签到", img_url="https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/PingMe.png", timeout=600, enable=${pingme}
 cron "20 8,20 * * *" then script("https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/Scritp/wetalk.js", {${merge}}) with tag="WeTalk签到", img_url="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/45/e6/49/45e64994-7147-60c8-6e7a-9c35f15afd20/AppIcon-WeTalk-1x_U007emarketing-0-5-0-sRGB-85-220-0.png/512x512bb.png", timeout=600, enable=${wetalk}
 

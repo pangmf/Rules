@@ -130,7 +130,7 @@ dns:
       value: GLOBAL-DNS
       disabled: false
   - proxy_rule_set:
-      match: https://magicrule.pages.dev/data/_shared/artifacts/GlobalAI_rules_4490d57f658179f9.list
+      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/AI.list
       value: GLOBAL-DNS
       update_interval: 2592000
       disabled: false
@@ -482,7 +482,7 @@ rules:
       update_interval: 2592000
   - rule_set:
       name: AI
-      match: https://magicrule.pages.dev/data/_shared/artifacts/GlobalAI_rules_4490d57f658179f9.list
+      match: https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/AI.list
       policy: AI
       update_interval: 2592000
   - rule_set:

@@ -464,7 +464,7 @@ rule-providers:
   ai:
     type: http
     behavior: classical
-    url: "https://magicrule.pages.dev/data/_shared/artifacts/GlobalAI_classical_53616f647b807ae2.yaml"
+    url: "https://ddgksf2013.top/filter/Ai.yaml"
     path: ./ruleset/ai.yaml
     interval: 2592000
   tiktok:

@@ -114,8 +114,8 @@ proxy-providers:
     url: "https://162.19.79.201/s/e7e47a5f81fdd9be8648cc986703f40a"
     path: ./providers/crosswall.yaml
     interval: 86400
-    filter: '.*[A-Z]A.*'
-    exclude-filter: '(?i)(HA1)'
+    # filter: '.*[A-Z]A.*'
+    # exclude-filter: '(?i)(HA1)'
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
@@ -146,7 +146,7 @@ proxy-providers:
 
   夜煞云:
     type: http
-    url: "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/ysyjd.yaml"
+    url: "https://45.137.180.216/L?ZG93bmxvYWRDb25maWcuanMvOTE1ZjY4OGNkODY3Mjg3M2RkNzBhMmNiNjUyNTI3NDQ/dGltZXN0YW1wPTEyMjY5"
     path: ./providers/yesha.yaml
     interval: 2592000
     health-check:

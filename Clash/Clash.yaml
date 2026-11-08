@@ -193,19 +193,6 @@ proxy-groups:
       - "其他节点"
     icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Apple.png
 
-  - name: "AI"
-    type: select
-    proxies:
-      - "香港节点"
-      - "台湾节点"
-      - "日本节点"
-      - "韩国节点"
-      - "美国节点"
-      - "新加坡节点"
-      - "欧洲节点"
-      - "其他节点"
-    icon: https://raw.githubusercontent.com/fmz200/wool_scripts/refs/heads/main/icons/apps/ChatGPT4.png
-
   - name: "AppleAI"
     type: select
     proxies:
@@ -219,6 +206,19 @@ proxy-groups:
       - "欧洲节点"
       - "其他节点"
     icon: https://raw.githubusercontent.com/fmz200/wool_scripts/refs/heads/main/icons/apps/Apple_GameCenter.png
+
+  - name: "AI"
+    type: select
+    proxies:
+      - "香港节点"
+      - "台湾节点"
+      - "日本节点"
+      - "韩国节点"
+      - "美国节点"
+      - "新加坡节点"
+      - "欧洲节点"
+      - "其他节点"
+    icon: https://raw.githubusercontent.com/fmz200/wool_scripts/refs/heads/main/icons/apps/ChatGPT4.png
 
   - name: "GoogleVoice"
     type: select

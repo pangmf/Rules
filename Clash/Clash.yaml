@@ -76,15 +76,15 @@ dns:
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
-  nameserver:                 # 原 DIRECT-DNS
-    - 223.5.5.5
-    - 119.29.29.29
     - 180.76.76.76
+    - 2400:da00::6666
+  nameserver:                 # 原 DIRECT-DNS
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
   proxy-server-nameserver:    # 原 PROXY-DNS，解析机场节点域名
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
+    - https://cloudflare-dns.com/dns-query
   fallback:                   # 原 GLOBAL-DNS
     - https://1.1.1.1/dns-query
     - https://dns.google/dns-query

@@ -1,13 +1,12 @@
 ####################################################################
 #  Clash 通用配置（iOS / Android / Windows 客户端通用，Mihomo 内核）
 #
-#  订阅链接：https://github.com/pangmf/Rules/blob/master/Egern/Egern.yaml
-#  转换说明：Egern 配置 → Clash 配置的逐项映射，见文末「转换对照表」
+#  订阅链接：https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Clash/Clash.yaml
 #
 #  适用客户端：
 #    iOS      Clash / ClashX Pro / Stash（Mihomo 模式）/ Shadowrocket（需转）
 #    Android  Clash Meta for Android / FlClash
-#    Windows  Clash Verge / Clash Verge Rev / Mihomo Party
+#    Windows  Clash Verge / Clash Verge Rev / Mihomo Party / FlClash
 #
 ####################################################################
 

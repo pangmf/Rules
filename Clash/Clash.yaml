@@ -497,7 +497,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/YouTube/YouTube.yaml"
     path: ./ruleset/youtube.yaml
     interval: 2592000
-  youtube:
+  youtubemusic:
     type: http
     behavior: classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/YouTubeMusic/YouTubeMusic.yaml"
@@ -563,6 +563,7 @@ rules:
   - RULE-SET,google_voice,GoogleVoice,no-resolve
   - RULE-SET,spotify,Spotify,no-resolve
   - RULE-SET,youtube,YouTube,no-resolve
+  - RULE-SET,youtubemusic,YouTube,no-resolve
   - RULE-SET,asian_media,AsianMedia,no-resolve
   - RULE-SET,paypal,PayPal,no-resolve
 

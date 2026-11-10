@@ -206,20 +206,6 @@ policy_groups:
     latency_test_url: http://www.gstatic.com/generate_204
     icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Global.png
 - select:
-    name: Apple
-    policies:
-    - DIRECT
-    - 香港节点
-    - 台湾节点
-    - 日本节点
-    - 韩国节点
-    - 美国节点
-    - 新加坡节点
-    - 欧洲节点
-    - 其他节点
-    latency_test_url: http://www.gstatic.com/generate_204
-    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
-- select:
     name: AppleAI
     policies:
     - DIRECT
@@ -233,6 +219,20 @@ policy_groups:
     - 其他节点
     latency_test_url: http://www.gstatic.com/generate_204
     icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Apple_GameCenter.png
+- select:
+    name: Apple
+    policies:
+    - DIRECT
+    - 香港节点
+    - 台湾节点
+    - 日本节点
+    - 韩国节点
+    - 美国节点
+    - 新加坡节点
+    - 欧洲节点
+    - 其他节点
+    latency_test_url: http://www.gstatic.com/generate_204
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
 - select:
     name: AI
     policies:
@@ -473,6 +473,10 @@ rules:
       policy: ADs
       update_interval: 2592000
   - rule_set:
+      match: https://raw.githubusercontent.com/ddgksf2013/Filter/refs/heads/master/AppleIntelligence.list
+      policy: AppleAI
+      update_interval: 2592000     
+  - rule_set:
       match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Apple/Apple.list
       policy: Apple
       update_interval: 2592000
@@ -483,10 +487,6 @@ rules:
   - rule_set:
       match: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/WeChat/WeChat.list
       policy: DIRECT
-      update_interval: 2592000
-  - rule_set:
-      match: https://raw.githubusercontent.com/ddgksf2013/Filter/refs/heads/master/AppleIntelligence.list
-      policy: AppleAI
       update_interval: 2592000
   - rule_set:
       name: AI

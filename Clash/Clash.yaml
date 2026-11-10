@@ -179,20 +179,6 @@ proxy-groups:
       - DIRECT
     icon: https://raw.githubusercontent.com/Orz-3/mini/refs/heads/master/Color/Global.png
 
-  - name: "Apple"
-    type: select
-    proxies:
-      - DIRECT
-      - "香港节点"
-      - "台湾节点"
-      - "日本节点"
-      - "韩国节点"
-      - "美国节点"
-      - "新加坡节点"
-      - "欧洲节点"
-      - "其他节点"
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Apple.png
-
   - name: "AppleAI"
     type: select
     proxies:
@@ -206,6 +192,20 @@ proxy-groups:
       - "欧洲节点"
       - "其他节点"
     icon: https://raw.githubusercontent.com/fmz200/wool_scripts/refs/heads/main/icons/apps/Apple_GameCenter.png
+
+  - name: "Apple"
+    type: select
+    proxies:
+      - DIRECT
+      - "香港节点"
+      - "台湾节点"
+      - "日本节点"
+      - "韩国节点"
+      - "美国节点"
+      - "新加坡节点"
+      - "欧洲节点"
+      - "其他节点"
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Apple.png
 
   - name: "AI"
     type: select
@@ -435,6 +435,13 @@ rule-providers:
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Advertising/Advertising.yaml"
     path: ./ruleset/ads.yaml
     interval: 2592000
+  apple_intelligence:
+    type: http
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/ddgksf2013/Filter/refs/heads/master/AppleIntelligence.list"
+    path: ./ruleset/apple_intelligence.list
+    interval: 2592000
   apple:
     type: http
     behavior: classical
@@ -452,13 +459,6 @@ rule-providers:
     behavior: classical
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/WeChat/WeChat.yaml"
     path: ./ruleset/wechat.yaml
-    interval: 2592000
-  apple_intelligence:
-    type: http
-    behavior: classical
-    format: text
-    url: "https://raw.githubusercontent.com/ddgksf2013/Filter/refs/heads/master/AppleIntelligence.list"
-    path: ./ruleset/apple_intelligence.list
     interval: 2592000
   ai:
     type: http

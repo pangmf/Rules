@@ -130,7 +130,7 @@
       "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.xiaoban.js"
     },
     {
-      "id": "forward.quanpan.js",
+      "id": "forward.quanpan.rex",
       "title": "猫 · 全盘搜索",
       "description": "全盘影视搜索，支持夸克、百度、UC、115、123、移动、天翼、迅雷网盘及外挂字幕。",
       "requiredVersion": "0.0.1",

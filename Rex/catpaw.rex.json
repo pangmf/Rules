@@ -1,0 +1,178 @@
+{
+  "title": "𝓒𝓪𝓽𝓟𝓪𝔀",
+  "description": "（重打包版）",
+  "icon": "https://img.20110827.xyz/logos/catpaw-collection-lightning-rex-v3-400.jpg",
+  "widgets": [
+    {
+      "id": "catpaw.drive.accounts",
+      "title": "猫 · 通用配置",
+      "description": "共享网盘配置。光鸭、移动、天翼、迅雷用于全盘搜索和 TG，默认关闭。搜索“保存账号”生效。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "balge",
+      "url": "./repacked/catpaw.drive.accounts.rex"
+    },
+    {
+      "id": "catpaw.muou",
+      "title": "猫 · 木偶",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.muou.rex"
+    },
+    {
+      "id": "catpaw.huajuan",
+      "title": "猫 · 花卷",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.huajuan.rex"
+    },
+    {
+      "id": "catpaw.zhizhen",
+      "title": "猫 · 至臻",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.zhizhen.rex"
+    },
+    {
+      "id": "catpaw.woniu",
+      "title": "猫 · 蜗牛",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "Operit",
+      "url": "./repacked/catpaw.woniu.rex"
+    },
+    {
+      "id": "catpaw.tgsou",
+      "title": "猫 · TG搜",
+      "description": "搜索 Telegram 影视资源，支持网盘播放。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.tgsou.rex"
+    },
+    {
+      "id": "catpaw.tg-channels",
+      "title": "猫 · TG 频道",
+      "description": "提取 Telegram 频道影视资源，支持网盘播放。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.tg-channels.rex"
+    },
+    {
+      "id": "catpaw.wogg",
+      "title": "猫 · 玩偶",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.wogg.rex"
+    },
+    {
+      "id": "catpaw.labi",
+      "title": "猫 · 蜡笔",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.labi.rex"
+    },
+    {
+      "id": "catpaw.shandian",
+      "title": "猫 · 闪电",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.shandian.rex"
+    },
+    {
+      "id": "catpaw.duoduo",
+      "title": "猫 · 多多",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.duoduo.rex"
+    },
+    {
+      "id": "catpaw.ouge",
+      "title": "猫 · 欧哥",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.ouge.rex"
+    },
+    {
+      "id": "catpaw.huban",
+      "title": "猫 · 虎斑",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.huban.rex"
+    },
+    {
+      "id": "catpaw.xiaoban",
+      "title": "猫 · 小斑",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "VLE",
+      "url": "./repacked/catpaw.xiaoban.rex"
+    },
+    {
+      "id": "forward.quanpan.rex",
+      "title": "猫 · 全盘搜索",
+      "description": "全盘影视搜索，支持夸克、百度、UC、115、123、移动、天翼、迅雷网盘及外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "balge",
+      "url": "./repacked/forward.quanpan.rex.rex"
+    },
+    {
+      "id": "catpaw.miniyingshi",
+      "title": "猫 · 迷你影视",
+      "description": "影视搜索、分类与网盘资源。复用全盘的网盘目录、分集匹配、画质和字幕逻辑；分享地址需要网站免费账号。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "balge",
+      "url": "./repacked/catpaw.miniyingshi.rex"
+    },
+    {
+      "id": "catpaw.seedhub",
+      "title": "猫 · SeedHub",
+      "description": "影视搜索与网盘播放，支持多版本、媒体标签和外挂字幕。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "balge",
+      "url": "./repacked/catpaw.seedhub.rex"
+    },
+    {
+      "id": "catpaw.cyndog",
+      "title": "猫 · 次元狗",
+      "description": "涵盖新番连载、经典番剧、剧场版与 OVA，支持动漫网盘搜索和分集播放。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "balge",
+      "url": "./repacked/catpaw.cyndog.rex"
+    },
+    {
+      "id": "catpaw.zhinan4k",
+      "title": "猫 · 4K指南",
+      "description": "影视分类、搜索与夸克播放。",
+      "requiredVersion": "0.0.1",
+      "version": "2.2.8",
+      "author": "balge",
+      "url": "./repacked/catpaw.zhinan4k.rex"
+    }
+  ]
+}

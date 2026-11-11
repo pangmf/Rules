@@ -10,7 +10,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "balge",
-      "url": "./repacked/catpaw.drive.accounts.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.drive.accounts.js"
     },
     {
       "id": "catpaw.muou",
@@ -19,7 +19,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.muou.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.muou.js"
     },
     {
       "id": "catpaw.huajuan",
@@ -28,7 +28,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.huajuan.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.huajuan.js"
     },
     {
       "id": "catpaw.zhizhen",
@@ -37,7 +37,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.zhizhen.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.zhizhen.js"
     },
     {
       "id": "catpaw.woniu",
@@ -46,7 +46,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "Operit",
-      "url": "./repacked/catpaw.woniu.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.woniu.js"
     },
     {
       "id": "catpaw.tgsou",
@@ -55,7 +55,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.tgsou.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.tgsou.js"
     },
     {
       "id": "catpaw.tg-channels",
@@ -64,7 +64,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.tg-channels.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.tg-channels.js"
     },
     {
       "id": "catpaw.wogg",
@@ -73,7 +73,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.wogg.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.wogg.js"
     },
     {
       "id": "catpaw.labi",
@@ -82,7 +82,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.labi.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.labi.js"
     },
     {
       "id": "catpaw.shandian",
@@ -91,7 +91,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.shandian.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.shandian.js"
     },
     {
       "id": "catpaw.duoduo",
@@ -100,7 +100,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.duoduo.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.duoduo.js"
     },
     {
       "id": "catpaw.ouge",
@@ -109,7 +109,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.ouge.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.ouge.js"
     },
     {
       "id": "catpaw.huban",
@@ -118,7 +118,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.huban.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.huban.js"
     },
     {
       "id": "catpaw.xiaoban",
@@ -127,16 +127,16 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "VLE",
-      "url": "./repacked/catpaw.xiaoban.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.xiaoban.js"
     },
     {
-      "id": "forward.quanpan.rex",
+      "id": "forward.quanpan.js",
       "title": "猫 · 全盘搜索",
       "description": "全盘影视搜索，支持夸克、百度、UC、115、123、移动、天翼、迅雷网盘及外挂字幕。",
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "balge",
-      "url": "./repacked/forward.quanpan.rex.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/forward.quanpan.js.js"
     },
     {
       "id": "catpaw.miniyingshi",
@@ -145,7 +145,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "balge",
-      "url": "./repacked/catpaw.miniyingshi.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.miniyingshi.js"
     },
     {
       "id": "catpaw.seedhub",
@@ -154,7 +154,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "balge",
-      "url": "./repacked/catpaw.seedhub.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.seedhub.js"
     },
     {
       "id": "catpaw.cyndog",
@@ -163,7 +163,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "balge",
-      "url": "./repacked/catpaw.cyndog.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.cyndog.js"
     },
     {
       "id": "catpaw.zhinan4k",
@@ -172,7 +172,7 @@
       "requiredVersion": "0.0.1",
       "version": "2.2.8",
       "author": "balge",
-      "url": "./repacked/catpaw.zhinan4k.rex"
+      "url": "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Rex/CatPaw/catpaw.zhinan4k.js"
     }
   ]
 }

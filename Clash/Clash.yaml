@@ -542,6 +542,13 @@ rule-providers:
     url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/GitHub.yaml"
     path: ./ruleset/github.yaml
     interval: 2592000
+  telegram:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Telegram.yaml"
+    path: ./ruleset/telegram.yaml
+    interval: 2592000
   global:
     type: http
     behavior: classical
@@ -585,6 +592,7 @@ rules:
 
   # 原 GitHub → Global
   - RULE-SET,github,Global,no-resolve
+  - RULE-SET,telegram,Global,no-resolve
   - RULE-SET,global,Global,no-resolve
 
   # 国内

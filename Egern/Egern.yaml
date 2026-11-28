@@ -511,6 +511,10 @@ rules:
       policy: Global
       update_interval: 2592000
   - rule_set:
+      match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/Telegram.yaml
+      policy: Global
+      update_interval: 2592000
+  - rule_set:
       match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/Global.yaml
       policy: Global
       update_interval: 2592000

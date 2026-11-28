@@ -110,11 +110,6 @@ dns:
       update_interval: 2592000
       disabled: false
   - proxy_rule_set:
-      match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/Apple.yaml
-      value: DIRECT-DNS
-      update_interval: 2592000
-      disabled: false
-  - proxy_rule_set:
       match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/Telegram.yaml
       value: GLOBAL-DNS
       update_interval: 2592000
@@ -141,16 +136,6 @@ dns:
   - proxy_rule_set:
       match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/Global.yaml
       value: GLOBAL-DNS
-      update_interval: 2592000
-      disabled: false
-  - proxy_rule_set:
-      match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/Global.yaml
-      value: GLOBAL-DNS
-      update_interval: 2592000
-      disabled: false
-  - proxy_rule_set:
-      match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/China.yaml
-      value: DIRECT-DNS
       update_interval: 2592000
       disabled: false
   - proxy_rule_set:
@@ -481,10 +466,6 @@ rules:
       policy: Apple
       update_interval: 2592000
   - rule_set:
-      match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/Apple.yaml
-      policy: Apple
-      update_interval: 2592000
-  - rule_set:
       match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/WeChat.yaml
       policy: DIRECT
       update_interval: 2592000
@@ -532,14 +513,6 @@ rules:
   - rule_set:
       match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/Global.yaml
       policy: Global
-      update_interval: 2592000
-  - rule_set:
-      match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/Global.yaml
-      policy: Global
-      update_interval: 2592000
-  - rule_set:
-      match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/China.yaml
-      policy: DIRECT
       update_interval: 2592000
   - rule_set:
       match: https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Egern/China.yaml

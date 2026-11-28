@@ -421,125 +421,141 @@ proxy-groups:
     include-all: true
 
 # ==================== 规则集 ====================
-# 引用 blackmatrix7 的 Clash 版 .yaml
+# 引用 Valiumlove/MultiClientProxyCore 的 Mihomo(classical) 规则集
 rule-providers:
   lan:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Lan/Lan.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Lan.yaml"
     path: ./ruleset/lan.yaml
     interval: 2592000
   ads:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Advertising/Advertising.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Advertising.yaml"
     path: ./ruleset/ads.yaml
     interval: 2592000
   apple_intelligence:
     type: http
     behavior: classical
-    format: text
-    url: "https://raw.githubusercontent.com/ddgksf2013/Filter/refs/heads/master/AppleIntelligence.list"
-    path: ./ruleset/apple_intelligence.list
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/AppleIntelligence.yaml"
+    path: ./ruleset/apple_intelligence.yaml
     interval: 2592000
   apple:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Apple/Apple.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Apple.yaml"
     path: ./ruleset/apple.yaml
-    interval: 2592000
-  apple_domain:
-    type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Apple/Apple_Domain.yaml"
-    path: ./ruleset/apple_domain.yaml
     interval: 2592000
   wechat:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/WeChat/WeChat.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/WeChat.yaml"
     path: ./ruleset/wechat.yaml
     interval: 2592000
   ai:
     type: http
     behavior: classical
-    url: "https://ddgksf2013.top/filter/Ai.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/OpenAI.yaml"
     path: ./ruleset/ai.yaml
+    interval: 2592000
+  ai_gemini:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Gemini.yaml"
+    path: ./ruleset/ai_gemini.yaml
+    interval: 2592000
+  ai_anthropic:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Anthropic.yaml"
+    path: ./ruleset/ai_anthropic.yaml
     interval: 2592000
   tiktok:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/TikTok/TikTok.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/TikTok.yaml"
     path: ./ruleset/tiktok.yaml
     interval: 2592000
   netflix:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Netflix/Netflix.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Netflix.yaml"
     path: ./ruleset/netflix.yaml
     interval: 2592000
   google_voice:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/GoogleVoice/GoogleVoice.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/GoogleVoice.yaml"
     path: ./ruleset/google_voice.yaml
     interval: 2592000
   spotify:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Spotify/Spotify.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Spotify.yaml"
     path: ./ruleset/spotify.yaml
     interval: 2592000
   youtube:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/YouTube/YouTube.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/YouTube.yaml"
     path: ./ruleset/youtube.yaml
     interval: 2592000
   youtubemusic:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/YouTubeMusic/YouTubeMusic.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/YouTubeMusic.yaml"
     path: ./ruleset/youtubemusic.yaml
     interval: 2592000
   asian_media:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/AsianMedia/AsianMedia.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/AsianMedia.yaml"
     path: ./ruleset/asian_media.yaml
     interval: 2592000
   paypal:
     type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/PayPal/PayPal.yaml"
+    behavior: classical
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/PayPal.yaml"
     path: ./ruleset/paypal.yaml
     interval: 2592000
   github:
     type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/GitHub/GitHub.yaml"
+    behavior: classical
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/GitHub.yaml"
     path: ./ruleset/github.yaml
     interval: 2592000
   global:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Global.yaml"
     path: ./ruleset/global.yaml
     interval: 2592000
-  global_domain:
-    type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global_Domain.yaml"
-    path: ./ruleset/global_domain.yaml
-    interval: 2592000
-  # 原 ChinaMax.list + ChinaMax_Domain.list 合并为一个 classical 规则集（已同时包含域名与 IP）
   china_max:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/ChinaMax/ChinaMax_Classical.yaml"
+    format: yaml
+    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/China.yaml"
     path: ./ruleset/china_max.yaml
     interval: 2592000
-
 # ==================== 分流规则 ====================
 # 顺序忠实还原原配置：广告 → 微信 → Apple → 苹果智能 → AI → 媒体 → 支付 → 全球 → 国内
 # 唯一调整：局域网规则提到最前。原配置里 LAN 在 ChinaMax 之后，
@@ -554,9 +570,10 @@ rules:
   - RULE-SET,ads,ADs,no-resolve
   - RULE-SET,wechat,DIRECT,no-resolve
   - RULE-SET,apple,Apple,no-resolve
-  - RULE-SET,apple_domain,Apple,no-resolve
   - RULE-SET,apple_intelligence,AppleAI,no-resolve
   - RULE-SET,ai,AI,no-resolve
+  - RULE-SET,ai_gemini,AI,no-resolve
+  - RULE-SET,ai_anthropic,AI,no-resolve
   - RULE-SET,tiktok,TikTok,no-resolve
   - RULE-SET,netflix,Netflix,no-resolve
   - RULE-SET,google_voice,GoogleVoice,no-resolve
@@ -569,7 +586,6 @@ rules:
   # 原 GitHub → Global
   - RULE-SET,github,Global,no-resolve
   - RULE-SET,global,Global,no-resolve
-  - RULE-SET,global_domain,Global,no-resolve
 
   # 国内
   - RULE-SET,china_max,DIRECT,no-resolve

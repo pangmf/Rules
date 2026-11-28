@@ -461,23 +461,9 @@ rule-providers:
   ai:
     type: http
     behavior: classical
-    format: yaml
-    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/OpenAI.yaml"
-    path: ./ruleset/ai.yaml
-    interval: 2592000
-  ai_gemini:
-    type: http
-    behavior: classical
-    format: yaml
-    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Gemini.yaml"
-    path: ./ruleset/ai_gemini.yaml
-    interval: 2592000
-  ai_anthropic:
-    type: http
-    behavior: classical
-    format: yaml
-    url: "https://raw.githubusercontent.com/Valiumlove/MultiClientProxyCore/refs/heads/main/rules/Mihomo/Anthropic.yaml"
-    path: ./ruleset/ai_anthropic.yaml
+    format: text
+    url: "https://raw.githubusercontent.com/pangmf/Rules/refs/heads/master/Loon/rules/AI.list"
+    path: ./ruleset/ai.list
     interval: 2592000
   tiktok:
     type: http
@@ -579,8 +565,6 @@ rules:
   - RULE-SET,apple,Apple,no-resolve
   - RULE-SET,apple_intelligence,AppleAI,no-resolve
   - RULE-SET,ai,AI,no-resolve
-  - RULE-SET,ai_gemini,AI,no-resolve
-  - RULE-SET,ai_anthropic,AI,no-resolve
   - RULE-SET,tiktok,TikTok,no-resolve
   - RULE-SET,netflix,Netflix,no-resolve
   - RULE-SET,google_voice,GoogleVoice,no-resolve
